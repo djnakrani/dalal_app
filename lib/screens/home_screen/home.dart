@@ -65,7 +65,8 @@ Widget MyCard() {
                     height: 200,
                     image: AssetImage(Images.logoImage),
                     fit: BoxFit.fitWidth,
-                  )
+                  ),
+                  Positioned(top: 2 ,right: 5,child: IconButton(icon: Icon(Icons.favorite,color: Colors.red,), onPressed: () {  },))
                 ],
               ),
               Padding(
