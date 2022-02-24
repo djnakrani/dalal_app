@@ -1,3 +1,4 @@
+import 'package:dalal_app/screens/Input_screen/take_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -41,22 +42,28 @@ class _homeState extends State<home> {
               }),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: bottonbar(),);
+        floatingActionButton: bottonbar(context),);
   }
 }
 
-Widget bottonbar() {
+Widget bottonbar(BuildContext context) {
   return Padding(
     padding: const EdgeInsets.all(8.0),
     child: FloatingActionButton.extended(
       backgroundColor: myColors.colorPrimaryColor,
-      onPressed: () {},
+      onPressed: () {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) => TakeScreen(),
+        );
+      },
       isExtended: true,
       icon: Icon(Icons.add),
       label: Text("પોસ્ટ કરો"),
     ),
   );
 }
+
 
 Widget MyCard(String name, String mno, String loc, String cname, String photo) {
   return Card(
