@@ -1,6 +1,5 @@
 import 'package:dalal_app/constants/style.dart';
-import 'package:dalal_app/screens/home_screen/home.dart';
-import 'package:dalal_app/screens/login_signup/signup.dart';
+import 'package:dalal_app/screens/login_signup/otp.dart';
 import 'package:dalal_app/widget/custom_button.dart';
 import 'package:dalal_app/widget/custom_textfield.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +17,8 @@ class Login extends StatefulWidget {
 
 
 class _loginState extends State<Login> {
+  late String _mobileno;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,18 +37,11 @@ class _loginState extends State<Login> {
                   children: <Widget>[
                     Center(
                       child: Container(
-                        constraints: const BoxConstraints(maxHeight: 250),
+                        constraints: const BoxConstraints(maxHeight: 300),
                         margin: ot120,
                         child: Image.asset(Images.logoImage),
                       ),
                     ),
-                    // Container(
-                    //     margin: const EdgeInsets.only(top: 10),
-                    //     child: const Text('મહિલા કિસાન એપ',
-                    //         style: TextStyle(
-                    //             color: Colors.black,
-                    //             fontSize: 50,
-                    //             fontWeight: FontWeight.w800)))
                   ],
                 ),
               ),
@@ -56,44 +50,24 @@ class _loginState extends State<Login> {
                 child: Column(
                   children: <Widget>[
                     Container(
-                      height: 40,
+                      height: 50,
                       margin: syh20v5,
-                      child: const CustomTextfield(myIcon: Icons.email, inputType: TextInputType.emailAddress, inputTxt: 'તમારું ઈ-મેલ નાખો....',)
+                      child: CustomTextfield(
+                        myIcon: Icons.call,
+                        inputType: TextInputType.number,
+                        inputTxt: 'તમારો મોબાઈલ નંબર નાખો ....',
+                        maxsize: 10,
+                        voidReturn: (value){
+                          _mobileno =value;
+                        },
+                      )
                     ),
                     Container(
-                      height: 40,
-                      margin: syh20v5,
-                        child: const CustomTextfield(myIcon: Icons.password, inputType: TextInputType.text, inputTxt: 'તમારો પાસવર્ડ નાંખો...',obscureText: true,)
-                    ),
-                    Container(
-                        margin: syh20,
-                        alignment: Alignment.topRight,
-                        child: MaterialButton(
-                          child: const Text(
-                            "પાસવર્ડ ભુલાઈ ગયો?",
-                            textAlign: TextAlign.right,
-                            style: TextStyle(color: Colors.red),
-                          ),
-                          onPressed: () {},
-                        )),
-                    Container(
-                        margin: syh20,
+                        margin: syv10 + syh20,
                         child: CustomButton(btnTxt: 'આગળ વધો', callback: () {
-                          Get.off(home());
+                          Get.to(Otp(phone:  _mobileno));
                         }),
                     ),
-                    Container(
-                        margin: syh20v5,
-                        constraints: const BoxConstraints(maxWidth: 500),
-                        child: MaterialButton(
-                          child: const Text(
-                            "નવું એકાઉન્ટ બનાવો?",
-                            style: TextStyle(color: myColors.colorPrimaryColor),
-                          ),
-                          onPressed: () {
-                            Get.off(Signup());
-                          },
-                        )),
                   ],
                 ),
               )

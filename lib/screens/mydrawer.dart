@@ -1,4 +1,7 @@
+import 'package:dalal_app/screens/Input_screen/take_screen.dart';
+import 'package:dalal_app/screens/login_signup/logout.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class mydrawer extends StatefulWidget {
   @override
@@ -33,7 +36,9 @@ class _drawerState extends State<mydrawer> {
           ListTile(
             leading: Icon(Icons.add_box_outlined),
             title: const Text('Add My Items'),
-            onTap: () {},
+            onTap: () {
+              Get.to(TakeScreen());
+            },
           ),
           ListTile(
             leading: Icon(Icons.favorite),
@@ -43,7 +48,9 @@ class _drawerState extends State<mydrawer> {
           ListTile(
             leading: Icon(Icons.power_settings_new),
             title: const Text('Logout'),
-            onTap: () {},
+            onTap: () {
+              Get.to(LogOut());
+            },
           ),
         ],
       ),

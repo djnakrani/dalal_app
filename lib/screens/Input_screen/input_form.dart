@@ -8,18 +8,20 @@ import 'package:get/get.dart';
 
 import '../../constants/Images.dart';
 
-class Signup extends StatefulWidget {
+class InputForm extends StatefulWidget {
   @override
-  _signupState createState() => _signupState();
+  _InputFormState createState() => _InputFormState();
 }
 
-class _signupState extends State<Signup> {
-  late String _name;
-  late String _email;
+class _InputFormState extends State<InputForm> {
+  late String _title;
+  late String _discpt;
   late String _address;
   late String _city;
   late String _dist;
   late String _taluka;
+  late String _price;
+
 
   @override
   Widget build(BuildContext context) {
@@ -37,18 +39,19 @@ class _signupState extends State<Signup> {
                 child: Container(
                   constraints: const BoxConstraints(maxHeight: 120),
                   margin: ot80,
-                  child: Image.asset(Images.logoImage),
+                  child: Text("તમે શું વેચવા માંગો છો?",style: TextStyle(fontSize: 40),),
+                  // child: Image.asset(Images.logoImage),
                 ),
               ),
               Container(
                 height: 40,
                 margin: syh20v5 + syv10,
                 child: CustomTextfield(
-                  myIcon: Icons.person,
+                  myIcon: Icons.title,
                   inputType: TextInputType.text,
-                  inputTxt: 'તમારું પૂરું નામ નાખો...',
+                  inputTxt: 'શીર્ષક',
                   voidReturn: (value) {
-                    _name = value;
+                    _title = value;
                   },
                 ),
               ),
@@ -56,11 +59,23 @@ class _signupState extends State<Signup> {
                 height: 40,
                 margin: syh20v5 + syv10,
                 child: CustomTextfield(
-                  myIcon: Icons.email,
-                  inputType: TextInputType.emailAddress,
-                  inputTxt: 'તમારું ઈ-મેલ નાખો....',
+                  myIcon: Icons.title,
+                  inputType: TextInputType.text,
+                  inputTxt: 'કિંમત  ',
                   voidReturn: (value) {
-                    _email = value;
+                    _price = value;
+                  },
+                ),
+              ),
+              Container(
+                height: 40,
+                margin: syh20v5,
+                child: CustomTextfield(
+                  myIcon: Icons.title,
+                  inputType: TextInputType.text,
+                  inputTxt: 'વર્ણન ',
+                  voidReturn: (value) {
+                    _discpt = value;
                   },
                 ),
               ),
@@ -114,9 +129,20 @@ class _signupState extends State<Signup> {
                 ),
               ),
               Container(
+                margin: syh20v5 + syv10,
+                padding: a40,
+                decoration: BoxDecoration(
+                    border: Border.all(color: myColors.colorPrimaryColor)
+                ),
+                child: const Icon(
+                  Icons.add_a_photo,
+                  color: myColors.colorPrimaryColor,
+                ),
+              ),
+              Container(
                 margin: syv10 + syh20,
                 child: CustomButton(
-                  btnTxt: 'આગળ વધો...',
+                  btnTxt: 'તમારી પોસ્ટ ઉમેરો ...',
                   callback: () {
                     Get.offAll(home());
                   },

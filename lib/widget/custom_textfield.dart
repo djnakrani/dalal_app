@@ -6,19 +6,24 @@ import 'package:dalal_app/constants/style.dart';
 class CustomTextfield extends StatelessWidget{
   final String inputTxt;
   final TextInputType inputType;
+  final int maxsize;
   final IconData myIcon;
-  final Function(String)? data ;
+  final Function(String)? voidReturn ;
   final bool obscureText;
-  const CustomTextfield({Key? key, required this.inputTxt, required this.inputType, required this.myIcon, this.data, this.obscureText = false}) : super(key: key);
+
+  final int maxline;
+  const CustomTextfield({Key? key, required this.inputTxt, required this.inputType, required this.myIcon,this.obscureText = false, this.maxsize = 100,required this.voidReturn, this.maxline = 1, }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return TextField(
+    return TextFormField(
       keyboardType: inputType,
+      maxLength: maxsize,
+      maxLines: maxline,
       obscureText: obscureText,
       decoration: InputDecoration(
           contentPadding:syv10,
+          counterText: '',
           border: OutlineInputBorder(
             borderRadius: br20,
             ),
@@ -30,7 +35,7 @@ class CustomTextfield extends StatelessWidget{
         hintStyle: TextStyle(color: Colors.grey[800]),
       ),
       onChanged: (value) {
-        data;
+        voidReturn!(value);
       },
     );
   }

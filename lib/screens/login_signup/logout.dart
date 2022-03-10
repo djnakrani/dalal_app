@@ -1,6 +1,7 @@
 import 'package:dalal_app/constants/myColors.dart';
 import 'package:dalal_app/screens/home_screen/home.dart';
 import 'package:dalal_app/screens/login_signup/login.dart';
+import 'package:dalal_app/screens/login_signup/splash_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:dalal_app/constants/style.dart';
@@ -8,16 +9,25 @@ import 'package:get/get.dart';
 
 import '../../constants/Images.dart';
 
-class SplashScreen extends StatefulWidget {
+class LogOut extends StatefulWidget {
   @override
-  _SplashScreenState createState() => _SplashScreenState();
+  _LogOutState createState() => _LogOutState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _LogOutState extends State<LogOut> {
   @override
   void initState() {
     super.initState();
-    _navigatePage();
+    FirebaseAuth.instance.signOut();
+    if(FirebaseAuth.instance.currentUser == null)
+      {
+        Get.offAll(SplashScreen());
+      }
+    else
+      {
+          print("Error");
+      }
+
   }
 
   @override
