@@ -1,6 +1,5 @@
 import 'package:dalal_app/constants/myColors.dart';
-import 'package:dalal_app/screens/login_signup/splash_screen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:dalal_app/screens/login_signup_screens/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
