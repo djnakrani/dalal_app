@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dalal_app/constants/style.dart';
 import 'package:dalal_app/screens/home_screens/home.dart';
+import 'package:dalal_app/screens/login_signup_screens/adminornot.dart';
 import 'package:dalal_app/widget/custom_button.dart';
 import 'package:dalal_app/widget/custom_textfield.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -10,8 +11,7 @@ import 'package:get/get.dart';
 import '../../constants/Images.dart';
 
 class Signup extends StatefulWidget {
-  final String phone;
-  const Signup({Key? key, this.phone = ""}) : super(key: key);
+  const Signup({Key? key,}) : super(key: key);
 
   @override
   _signupState createState() => _signupState();
@@ -134,6 +134,7 @@ class _signupState extends State<Signup> {
                       "District": _dist,
                       "Taluka": _taluka,
                       "City": _city,
+                      "IsAdmin" : 1,
                     };
                     Add_User(data);
                   },

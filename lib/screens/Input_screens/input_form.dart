@@ -7,6 +7,10 @@ import 'package:dalal_app/constants/myColors.dart';
 import 'package:get/get.dart';
 
 class InputForm extends StatefulWidget {
+  String Category;
+
+  InputForm({Key? key,required this.Category}) : super(key: key);
+
   @override
   _InputFormState createState() => _InputFormState();
 }
@@ -37,7 +41,7 @@ class _InputFormState extends State<InputForm> {
                 child: Container(
                   constraints: const BoxConstraints(maxHeight: 120),
                   margin: ot80,
-                  child: Text("તમે શું વેચવા માંગો છો?",style: TextStyle(fontSize: 40),),
+                  child: Text(" તમારા ${widget.Category} ની વિગત નાખો ",style: TextStyle(fontSize: 38),),
                   // child: Image.asset(Images.logoImage),
                 ),
               ),

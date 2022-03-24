@@ -1,19 +1,15 @@
-import 'package:dalal_app/screens/Input_screens/take_screen.dart';
 import 'package:dalal_app/screens/login_signup_screens/logout.dart';
-import 'package:dalal_app/screens/login_signup_screens/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'login_signup_screens/adminornot.dart';
-
-class MyDrawer extends StatefulWidget {
-  const MyDrawer({Key? key}) : super(key: key);
+class AdminDrawer extends StatefulWidget {
+  const AdminDrawer({Key? key}) : super(key: key);
 
   @override
-  _DrawerState createState() => _DrawerState();
+  _AdminDrawerState createState() => _AdminDrawerState();
 }
 
-class _DrawerState extends State<MyDrawer> {
+class _AdminDrawerState extends State<AdminDrawer> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -22,8 +18,8 @@ class _DrawerState extends State<MyDrawer> {
         padding: EdgeInsets.zero,
         children: [
           const UserAccountsDrawerHeader(
-            accountName: Text("Dharmik Nakrani"),
-            accountEmail: Text("dharmik.nakrani@gmail.com"),
+            accountName: Text("Admin"),
+            accountEmail: Text("admin@gmail.com"),
             currentAccountPicture: CircleAvatar(
               backgroundColor: Colors.white,
               foregroundColor: Colors.black,
@@ -34,22 +30,20 @@ class _DrawerState extends State<MyDrawer> {
             leading: const Icon(Icons.person_pin),
             title: const Text('My Profile'),
             onTap: () {
-              Get.to(Signup());
+              // Get.to(Signup());
             },
           ),
           ListTile(
             leading: const Icon(Icons.add_box_outlined),
             title: const Text('Add My Items'),
             onTap: () {
-              Get.to(TakeScreen());
+              // Get.to(TakeScreen());
             },
           ),
           ListTile(
             leading: const Icon(Icons.favorite),
             title: const Text('My Favourite'),
-            onTap: () {
-              Get.to(CheckAdmin());
-            },
+            onTap: () {},
           ),
           ListTile(
             leading: const Icon(Icons.power_settings_new),

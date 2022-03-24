@@ -86,7 +86,7 @@ class _OtpState extends State<Otp> {
                       child: CustomButton(
                           btnTxt: 'Test',
                           callback: () {
-                            Get.to(Signup(phone: widget.phone));
+                            Get.to(Signup());
                           }),
                     ),
                   ],
@@ -146,7 +146,7 @@ class _OtpState extends State<Otp> {
         setState(() {
           uid = FirebaseAuth.instance.currentUser!.uid;
         });
-        Get.offAll(Signup(phone: widget.phone,));
+        Get.offAll(Signup());
       }
     } catch (e) {
       print
