@@ -4,8 +4,6 @@ import 'package:dalal_app/screens/login_signup_screens/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'login_signup_screens/adminornot.dart';
-
 class MyDrawer extends StatefulWidget {
   const MyDrawer({Key? key}) : super(key: key);
 
@@ -34,22 +32,20 @@ class _DrawerState extends State<MyDrawer> {
             leading: const Icon(Icons.person_pin),
             title: const Text('My Profile'),
             onTap: () {
-              Get.to(Signup());
+              Get.to(()=>Signup());
             },
           ),
           ListTile(
             leading: const Icon(Icons.add_box_outlined),
             title: const Text('Add My Items'),
             onTap: () {
-              Get.to(TakeScreen());
+              Get.to(()=>TakeScreen());
             },
           ),
           ListTile(
             leading: const Icon(Icons.favorite),
             title: const Text('My Favourite'),
-            onTap: () {
-              Get.to(CheckAdmin());
-            },
+            onTap: () {},
           ),
           ListTile(
             leading: const Icon(Icons.power_settings_new),

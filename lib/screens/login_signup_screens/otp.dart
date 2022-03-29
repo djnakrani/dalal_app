@@ -1,11 +1,12 @@
 import 'package:dalal_app/constants/style.dart';
+import 'package:dalal_app/screens/error.dart';
 import 'package:dalal_app/screens/login_signup_screens/signup.dart';
 import 'package:dalal_app/widget/custom_button.dart';
+import 'package:dalal_app/widget/custom_logo.dart';
 import 'package:dalal_app/widget/custom_textfield.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../constants/Images.dart';
 
 class Otp extends StatefulWidget {
@@ -34,22 +35,18 @@ class _OtpState extends State<Otp> {
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Container(
-          // decoration: new BoxDecoration(
-          //     image: DecorationImage(
-          //         image: AssetImage("Images/bg.jpg"), fit: BoxFit.fill)),
+          decoration: const BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage(Images.background), fit: BoxFit.fill)),
           height: MediaQuery.of(context).size.height,
           child: Column(
             children: <Widget>[
               Expanded(
                 flex: 2,
                 child: Column(
-                  children: <Widget>[
+                  children: const <Widget>[
                     Center(
-                      child: Container(
-                        constraints: const BoxConstraints(maxHeight: 300),
-                        margin: ot120,
-                        child: Image.asset(Images.logoImage),
-                      ),
+                      child: CustomLogo(logoSize: 300.0,),
                     ),
                   ],
                 ),
@@ -60,7 +57,7 @@ class _OtpState extends State<Otp> {
                   children: <Widget>[
                     Text(
                       "Otp Sent +91${widget.phone}",
-                      style: const TextStyle(color: Colors.red),
+                      style: const TextStyle(color: Colors.red,fontSize: 20),
                     ),
                     Container(
                         height: 50,
@@ -79,14 +76,6 @@ class _OtpState extends State<Otp> {
                           btnTxt: 'આગળ વધો',
                           callback: () async {
                             _verifyOtp();
-                          }),
-                    ),
-                    Container(
-                      margin: syv10 + syh20,
-                      child: CustomButton(
-                          btnTxt: 'Test',
-                          callback: () {
-                            Get.to(Signup());
                           }),
                     ),
                   ],
@@ -117,12 +106,12 @@ class _OtpState extends State<Otp> {
         uid = FirebaseAuth.instance.currentUser?.uid;
       });
     } else {
-      print("Error");
+      ErrorScreen(error: "Something Went Wrong",);
     }
   }
 
   void verificationFailed(FirebaseAuthException error) {
-    print(error.message);
+    ErrorScreen(error: error.message.toString(),);
   }
 
   void codeSent(String verificationId, [int? a]) {
@@ -146,13 +135,14 @@ class _OtpState extends State<Otp> {
         setState(() {
           uid = FirebaseAuth.instance.currentUser!.uid;
         });
-        Get.offAll(Signup());
+        Get.offAll(()=>Signup());
       }
     } catch (e) {
-      print
-        (e);
+      ErrorScreen(error: e.toString(),);
     }
 
 
   }
+
+
 }

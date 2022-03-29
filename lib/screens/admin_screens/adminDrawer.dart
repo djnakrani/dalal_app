@@ -1,3 +1,5 @@
+import 'package:dalal_app/screens/admin_screens/dashboard.dart';
+import 'package:dalal_app/screens/admin_screens/youtube_link.dart';
 import 'package:dalal_app/screens/login_signup_screens/logout.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,7 +16,6 @@ class _AdminDrawerState extends State<AdminDrawer> {
   Widget build(BuildContext context) {
     return Drawer(
       child: ListView(
-        // Important: Remove any padding from the ListView.
         padding: EdgeInsets.zero,
         children: [
           const UserAccountsDrawerHeader(
@@ -23,33 +24,33 @@ class _AdminDrawerState extends State<AdminDrawer> {
             currentAccountPicture: CircleAvatar(
               backgroundColor: Colors.white,
               foregroundColor: Colors.black,
-              child: Icon(Icons.person),
+              child: Icon(Icons.person,size: 50,),
             ),
           ),
           ListTile(
             leading: const Icon(Icons.person_pin),
-            title: const Text('My Profile'),
+            title: const Text('Dashboard'),
             onTap: () {
-              // Get.to(Signup());
+              Get.to(() => AdminDashboard());
             },
           ),
           ListTile(
             leading: const Icon(Icons.add_box_outlined),
-            title: const Text('Add My Items'),
+            title: const Text('Add Youtube Link'),
             onTap: () {
-              // Get.to(TakeScreen());
+              Get.to(() => const InputYTLink());
             },
           ),
           ListTile(
             leading: const Icon(Icons.favorite),
-            title: const Text('My Favourite'),
+            title: const Text('Add Helpline Number'),
             onTap: () {},
           ),
           ListTile(
             leading: const Icon(Icons.power_settings_new),
             title: const Text('Logout'),
             onTap: () {
-              Get.to(LogOut());
+              Get.to(() => LogOut());
             },
           ),
         ],

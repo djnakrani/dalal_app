@@ -87,7 +87,7 @@ class _InputFormState extends State<InputForm> {
                 child: CustomTextfield(
                   myIcon: Icons.location_city,
                   inputType: TextInputType.multiline,
-                  maxline: 4,
+                  maxLine: 4,
                   inputTxt: 'તમારું સરનામું / ગામ નાખો. ',
                   voidReturn: (value) {
                     _address = value;

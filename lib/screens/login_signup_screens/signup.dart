@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dalal_app/constants/style.dart';
+import 'package:dalal_app/screens/admin_screens/dashboard.dart';
 import 'package:dalal_app/screens/home_screens/home.dart';
-import 'package:dalal_app/screens/login_signup_screens/adminornot.dart';
 import 'package:dalal_app/widget/custom_button.dart';
+import 'package:dalal_app/widget/custom_logo.dart';
 import 'package:dalal_app/widget/custom_textfield.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -24,29 +26,37 @@ class _signupState extends State<Signup> {
   late String _city;
   late String _dist;
   late String _taluka;
+  late String uid = "1";
+  String? _mno;
+
 
   FirebaseFirestore firestore = FirebaseFirestore.instance;
-  String uid = FirebaseAuth.instance.currentUser!.uid;
-  final String? _mno = FirebaseAuth.instance.currentUser!.phoneNumber;
 
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    // if(FirebaseAuth.instance.currentUser?.uid != null){
+    //   uid = FirebaseAuth.instance.currentUser!.uid;
+    // _mno = FirebaseAuth.instance.currentUser!.phoneNumber;
+    // }
+    checkadmin();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Container(
-          // decoration: new BoxDecoration(
-          //     image: DecorationImage(
-          //         image: AssetImage("Images/bg.jpg"), fit: BoxFit.fill)),
+          decoration: const BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage(Images.background), fit: BoxFit.fill)),
           height: MediaQuery.of(context).size.height,
           child: Column(
             children: <Widget>[
-              Center(
-                child: Container(
-                  constraints: const BoxConstraints(maxHeight: 120),
-                  margin: ot80,
-                  child: Image.asset(Images.logoImage),
-                ),
+              const Center(
+                child: CustomLogo(logoSize: 120.0,)
               ),
               Container(
                 height: 40,
@@ -78,7 +88,7 @@ class _signupState extends State<Signup> {
                 child: CustomTextfield(
                   myIcon: Icons.location_city,
                   inputType: TextInputType.multiline,
-                  maxline: 4,
+                  maxLine: 4,
                   inputTxt: 'તમારું સરનામું / ગામ નાખો. ',
                   voidReturn: (value) {
                     _address = value;
@@ -134,7 +144,7 @@ class _signupState extends State<Signup> {
                       "District": _dist,
                       "Taluka": _taluka,
                       "City": _city,
-                      "IsAdmin" : 1,
+                      "IsAdmin" : 0,
                     };
                     Add_User(data);
                   },
@@ -153,10 +163,26 @@ class _signupState extends State<Signup> {
         .doc(uid)
         .set(data)
         .then((value) => () {
-              Get.offAll(Home());
+              Get.offAll(()=>Home());
             })
         .catchError((onError) {
       print(onError);
     });
+  }
+
+  void checkadmin() async {
+    var collection = FirebaseFirestore.instance.collection('User');
+    var docSnapshot = await collection.doc(uid).get();
+    if (docSnapshot.exists) {
+      Map<String, dynamic>? data1 = docSnapshot.data();
+      if(data1!['IsAdmin'].toString() == "1"){
+        Get.offAll(()=>AdminDashboard());
+      }
+      else if(data1['IsAdmin'].toString() == "0"){
+        Get.offAll(()=>Home());
+      }
+      else{
+      }
+    }
   }
 }

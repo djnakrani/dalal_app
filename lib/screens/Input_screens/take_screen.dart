@@ -22,16 +22,6 @@ class _TakeScreenState extends State<TakeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // List<String> list1 = [
-    //   "ગાય-ભેંશ",
-    //   "ખેતી-પાક",
-    //   "ખેતી-ઓજારો",
-    //   "ખેતી-વાહન",
-    //   "અન્ય-વાહન",
-    //   "એગ્રો-દવા",
-    //   "મકાન",
-    //   "જમીનa"
-    // ];
     return Dialog(
       insetPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 40),
       // title: const Text('What You Add....'),
@@ -83,60 +73,46 @@ class _TakeScreenState extends State<TakeScreen> {
                         shrinkWrap: true,
                         itemCount: Category.size,
                         padding: EdgeInsets.all(5),
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 4.0,
-                            mainAxisSpacing: 4.0),
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                crossAxisSpacing: 4.0,
+                                mainAxisSpacing: 4.0),
                         itemBuilder: (BuildContext context, int index) {
                           return Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                            ),
-                            margin: ah10,
-                            child: ElevatedButton(
+                              decoration: const BoxDecoration(
+                                color: Colors.white,
+                              ),
+                              margin: ah10,
+                              child: ElevatedButton(
                                 onPressed: () {
-                                  Get.to(InputForm(Category:Category.docs[index]['Type']));
+                                  Get.to(InputForm(
+                                      Category: Category.docs[index]['Type']));
                                 },
-                              style: ElevatedButton.styleFrom(onPrimary: Colors.green,
-                              primary: Colors.white30),
-                                // child: Text(
-                                //   Category.docs[index]['Type'],
-                                //   style: TextStyle(fontSize: 25),
-                                // )),
-                            child: Image.network(Category.docs[index]['url']),
-                          ));
+                                style: ElevatedButton.styleFrom(
+                                    onPrimary: Colors.green,
+                                    primary: Colors.white30),
+                                child:
+                                    Image.network(Category.docs[index]['url']),
+                              ));
                         },
                       );
                     }),
               ),
-              Container(
-                  child: Column(
+              Column(
                 children: [
                   ElevatedButton(
                     onPressed: () {
                       Get.back();
                     },
-                    child: Text(
+                    child: const Text(
                       " Close ",
                     ),
                   )
                 ],
-              )),
+              ),
             ],
           )),
     );
   }
-
-  // Future<void> _getCategories() async {
-  //   try{
-  //     await FirebaseFirestore.instance.collection("Category").get().then((value) {
-  //       for(var data in value.docs)
-  //       {
-  //         CategoryList.add(data.data());
-  //       }
-  //       return CategoryList;
-  //     });
-  //   }catch(e){
-  //   }
-  // }
 }

@@ -23,21 +23,17 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
         backgroundColor: Colors.white,
         body: Center(
-            child: Container(
-              // constraints: const BoxConstraints(maxHeight: 250),
-              // margin: ot120,
-              child: Image.asset(Images.logoImage),
-            )));
+            child: Image.asset(Images.logoImage)));
   }
 
   void _navigatePage() async{
     await Future.delayed(const Duration(milliseconds: 2000), () {});
     if(FirebaseAuth.instance.currentUser!=null)
     {
-      Get.offAll(Home());
+      Get.offAll(() => Home());
     }
     else{
-      Get.offAll(Login());
+      Get.offAll(() => const Login());
     }
   }
 }

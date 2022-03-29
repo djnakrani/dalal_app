@@ -1,6 +1,10 @@
 import 'package:dalal_app/constants/style.dart';
+import 'package:dalal_app/screens/admin_screens/dashboard.dart';
+import 'package:dalal_app/screens/error.dart';
 import 'package:dalal_app/screens/login_signup_screens/otp.dart';
+import 'package:dalal_app/screens/login_signup_screens/signup.dart';
 import 'package:dalal_app/widget/custom_button.dart';
+import 'package:dalal_app/widget/custom_logo.dart';
 import 'package:dalal_app/widget/custom_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,12 +15,13 @@ class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
 
   @override
-  _loginState createState() => _loginState();
+  _LoginState createState() => _LoginState();
 }
 
-
-class _loginState extends State<Login> {
+class _LoginState extends State<Login> {
   late String _mobileno;
+
+  late SnackBar snackBar;
 
   @override
   Widget build(BuildContext context) {
@@ -24,22 +29,18 @@ class _loginState extends State<Login> {
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Container(
-          // decoration: new BoxDecoration(
-          //     image: DecorationImage(
-          //         image: AssetImage("Images/bg.jpg"), fit: BoxFit.fill)),
+          decoration: const BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage(Images.background), fit: BoxFit.fill)),
           height: MediaQuery.of(context).size.height,
           child: Column(
             children: <Widget>[
               Expanded(
                 flex: 2,
                 child: Column(
-                  children: <Widget>[
+                  children: const <Widget>[
                     Center(
-                      child: Container(
-                        constraints: const BoxConstraints(maxHeight: 300),
-                        margin: ot120,
-                        child: Image.asset(Images.logoImage),
-                      ),
+                      child: CustomLogo(logoSize: 300.0,)
                     ),
                   ],
                 ),
@@ -49,23 +50,32 @@ class _loginState extends State<Login> {
                 child: Column(
                   children: <Widget>[
                     Container(
-                      height: 50,
-                      margin: syh20v5,
-                      child: CustomTextfield(
-                        myIcon: Icons.call,
-                        inputType: TextInputType.number,
-                        inputTxt: 'તમારો મોબાઈલ નંબર નાખો ....',
-                        maxsize: 10,
-                        voidReturn: (value){
-                          _mobileno =value;
-                        },
-                      )
+                        height: 50,
+                        margin: syh20v5,
+                        child: CustomTextfield(
+                          myIcon: Icons.call,
+                          inputType: TextInputType.number,
+                          inputTxt: 'તમારો મોબાઈલ નંબર નાખો ....',
+                          maxsize: 10,
+                          voidReturn: (value) {
+                            _mobileno = value;
+                          },
+                        )),
+                    Container(
+                      margin: syv10 + syh20,
+                      child: CustomButton(
+                          btnTxt: 'આગળ વધો',
+                          callback: () {
+                            Get.to(() =>Otp(phone: _mobileno));
+                          }),
                     ),
                     Container(
-                        margin: syv10 + syh20,
-                        child: CustomButton(btnTxt: 'આગળ વધો', callback: () {
-                          Get.to(Otp(phone:  _mobileno));
-                        }),
+                      margin: syv10 + syh20,
+                      child: CustomButton(
+                          btnTxt: 'Test',
+                          callback: () {
+                            Get.to(() =>AdminDashboard());
+                          }),
                     ),
                   ],
                 ),
