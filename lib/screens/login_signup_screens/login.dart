@@ -20,8 +20,8 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   late String _mobileno;
-
   late SnackBar snackBar;
+  final _LoginForm = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -40,44 +40,58 @@ class _LoginState extends State<Login> {
                 child: Column(
                   children: const <Widget>[
                     Center(
-                      child: CustomLogo(logoSize: 300.0,)
-                    ),
+                        child: CustomLogo(
+                      logoSize: 300.0,
+                    )),
                   ],
                 ),
               ),
               Expanded(
                 flex: 2,
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                        height: 50,
-                        margin: syh20v5,
-                        child: CustomTextfield(
-                          myIcon: Icons.call,
-                          inputType: TextInputType.number,
-                          inputTxt: 'તમારો મોબાઈલ નંબર નાખો ....',
-                          maxsize: 10,
-                          voidReturn: (value) {
-                            _mobileno = value;
-                          },
-                        )),
-                    Container(
-                      margin: syv10 + syh20,
-                      child: CustomButton(
-                          btnTxt: 'આગળ વધો',
-                          callback: () {
-                            Get.to(() =>Otp(phone: _mobileno));
-                          }),
-                    ),
-                    Container(
-                      margin: syv10 + syh20,
-                      child: CustomButton(
-                          btnTxt: 'Test',
-                          callback: () {
-                            Get.to(() =>AdminDashboard());
-                          }),
-                    ),
-                  ],
+                child: Form(
+                  key: _LoginForm,
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                          height: 50,
+                          margin: syh20v5,
+                          child: CustomTextfield(
+                            myIcon: Icons.call,
+                            inputType: TextInputType.number,
+                            inputTxt: 'તમારો મોબાઈલ નંબર નાખો....',
+                            maxsize: 10,
+                            voidReturn: (value) {
+                              _mobileno = value;
+                            },
+                            validationData: (data) {
+                              if (data.isEmpty) {
+                                return "Mobile Number Required";
+                              }
+                              if(data.length < 10){
+                                return "Not Valid Mobile Number";
+                              }
+                            },
+                          )),
+                      Container(
+                        margin: syv10 + syh20,
+                        child: CustomButton(
+                            btnTxt: 'આગળ વધો',
+                            callback: () {
+                              if (_LoginForm.currentState!.validate()) {
+                                Get.to(() => Otp(phone: _mobileno));
+                              }
+                            }),
+                      ),
+                      Container(
+                        margin: syv10 + syh20,
+                        child: CustomButton(
+                            btnTxt: 'Test',
+                            callback: () {
+                              Get.to(() => AdminDashboard());
+                            }),
+                      ),
+                    ],
+                  ),
                 ),
               )
             ],

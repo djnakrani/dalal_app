@@ -22,6 +22,8 @@ class _OtpState extends State<Otp> {
 
   String? uid;
 
+  final GlobalKey<FormState> _OtpForm = GlobalKey<FormState>();
+
   @override
   void initState() {
     // TODO: implement initState
@@ -46,39 +48,52 @@ class _OtpState extends State<Otp> {
                 child: Column(
                   children: const <Widget>[
                     Center(
-                      child: CustomLogo(logoSize: 300.0,),
+                      child: CustomLogo(
+                        logoSize: 300.0,
+                      ),
                     ),
                   ],
                 ),
               ),
               Expanded(
                 flex: 2,
-                child: Column(
-                  children: <Widget>[
-                    Text(
-                      "Otp Sent +91${widget.phone}",
-                      style: const TextStyle(color: Colors.red,fontSize: 20),
-                    ),
-                    Container(
-                        height: 50,
-                        margin: syh20v5,
-                        child: CustomTextfield(
+                child: Form(
+                  key: _OtpForm,
+                  child: Column(
+                    children: <Widget>[
+                      Text(
+                        "Otp Sent +91${widget.phone}",
+                        style: const TextStyle(color: Colors.red, fontSize: 20),
+                      ),
+                      Container(
+                          height: 50,
+                          margin: syh20v5,
+                          child: CustomTextfield(
                             myIcon: Icons.password,
                             inputType: TextInputType.number,
                             inputTxt: 'Otp દાખલ કરો ...',
                             maxsize: 6,
                             voidReturn: (value) {
                               _code = value;
-                            })),
-                    Container(
-                      margin: syv10 + syh20,
-                      child: CustomButton(
-                          btnTxt: 'આગળ વધો',
-                          callback: () async {
-                            _verifyOtp();
-                          }),
-                    ),
-                  ],
+                            },
+                            validationData: (data) {
+                              if (data.isEmpty) {
+                                return "Please Fill OTP";
+                              }
+                            },
+                          )),
+                      Container(
+                        margin: syv10 + syh20,
+                        child: CustomButton(
+                            btnTxt: 'આગળ વધો',
+                            callback: () async {
+                              if(_OtpForm.currentState!.validate()){
+                                _verifyOtp();
+                              }
+                            }),
+                      ),
+                    ],
+                  ),
                 ),
               )
             ],
@@ -90,12 +105,12 @@ class _OtpState extends State<Otp> {
 
   void _verifyphone() async {
     await FirebaseAuth.instance.verifyPhoneNumber(
-        phoneNumber: "+91"+widget.phone,
-        verificationCompleted: verificationCompleted,
-        verificationFailed: verificationFailed,
-        codeSent: codeSent,
-        codeAutoRetrievalTimeout: codeAuthRetrievalTimeout,
-        // timeout: Duration(seconds: 60)
+      phoneNumber: "+91" + widget.phone,
+      verificationCompleted: verificationCompleted,
+      verificationFailed: verificationFailed,
+      codeSent: codeSent,
+      codeAutoRetrievalTimeout: codeAuthRetrievalTimeout,
+      // timeout: Duration(seconds: 60)
     );
   }
 
@@ -106,12 +121,16 @@ class _OtpState extends State<Otp> {
         uid = FirebaseAuth.instance.currentUser?.uid;
       });
     } else {
-      ErrorScreen(error: "Something Went Wrong",);
+      ErrorScreen(
+        error: "Something Went Wrong",
+      );
     }
   }
 
   void verificationFailed(FirebaseAuthException error) {
-    ErrorScreen(error: error.message.toString(),);
+    ErrorScreen(
+      error: error.message.toString(),
+    );
   }
 
   void codeSent(String verificationId, [int? a]) {
@@ -135,14 +154,12 @@ class _OtpState extends State<Otp> {
         setState(() {
           uid = FirebaseAuth.instance.currentUser!.uid;
         });
-        Get.offAll(()=>Signup());
+        Get.offAll(() => Signup());
       }
     } catch (e) {
-      ErrorScreen(error: e.toString(),);
+      ErrorScreen(
+        error: e.toString(),
+      );
     }
-
-
   }
-
-
 }

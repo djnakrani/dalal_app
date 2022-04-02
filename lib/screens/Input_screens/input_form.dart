@@ -54,7 +54,7 @@ class _InputFormState extends State<InputForm> {
                   inputTxt: 'શીર્ષક',
                   voidReturn: (value) {
                     _title = value;
-                  },
+                  }, validationData: (String ) {  },
                 ),
               ),
               Container(
@@ -66,7 +66,7 @@ class _InputFormState extends State<InputForm> {
                   inputTxt: 'કિંમત  ',
                   voidReturn: (value) {
                     _price = value;
-                  },
+                  }, validationData: (String ) {  },
                 ),
               ),
               Container(
@@ -78,7 +78,7 @@ class _InputFormState extends State<InputForm> {
                   inputTxt: 'વર્ણન ',
                   voidReturn: (value) {
                     _discpt = value;
-                  },
+                  }, validationData: (String ) {  },
                 ),
               ),
               Container(
@@ -91,7 +91,7 @@ class _InputFormState extends State<InputForm> {
                   inputTxt: 'તમારું સરનામું / ગામ નાખો. ',
                   voidReturn: (value) {
                     _address = value;
-                  },
+                  }, validationData: (String ) {  },
                 ),
               ),
               Container(
@@ -103,7 +103,7 @@ class _InputFormState extends State<InputForm> {
                   inputTxt: 'રાજ્ય',
                   voidReturn: (value) {
                     _dist = value;
-                  },
+                  }, validationData: (String ) {  },
                 ),
               ),
               Container(
@@ -115,7 +115,7 @@ class _InputFormState extends State<InputForm> {
                   inputTxt: 'જિલ્લો',
                   voidReturn: (value) {
                     _city = value;
-                  },
+                  }, validationData: (String ) {  },
                 ),
               ),
               Container(
@@ -127,7 +127,7 @@ class _InputFormState extends State<InputForm> {
                   inputTxt: 'તાલુકો',
                   voidReturn: (value) {
                     _taluka = value;
-                  },
+                  }, validationData: (String ) {  },
                 ),
               ),
               Container(

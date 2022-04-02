@@ -18,22 +18,26 @@ class ErrorScreen extends StatefulWidget {
 class _ErrorScreenState extends State<ErrorScreen> {
   @override
   Widget build(BuildContext context) {
-    return Dialog(
-        insetPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
-        child: Container(
-            width: double.maxFinite,
-            child: Column(
-              children: [
-                Text(widget.error),
-                ElevatedButton(
-                  onPressed: () {
-                    Get.back();
-                  },
-                  child: const Text(
-                    " Close ",
-                  ),
-                )
-              ],
-            )));
+    return Container(
+        child:AlertDialog(title: Text("Sample Alert Dialog"),)
+
+
+      // insetPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+        // child: Container(
+        //     width: double.maxFinite,
+        //     // child: Column(
+        //     //   children: [
+        //     //     Text(widget.error),
+        //     //     ElevatedButton(
+        //     //       onPressed: () {
+        //     //         Get.back();
+        //     //       },
+        //     //       child: const Text(
+        //     //         " Close ",
+        //     //       ),
+        //     //     )
+        //     //   ],
+        //     )
+    );
   }
 }

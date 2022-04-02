@@ -1,4 +1,5 @@
 import 'package:dalal_app/screens/admin_screens/dashboard.dart';
+import 'package:dalal_app/screens/admin_screens/helpline_no.dart';
 import 'package:dalal_app/screens/admin_screens/youtube_link.dart';
 import 'package:dalal_app/screens/login_signup_screens/logout.dart';
 import 'package:flutter/material.dart';
@@ -44,7 +45,9 @@ class _AdminDrawerState extends State<AdminDrawer> {
           ListTile(
             leading: const Icon(Icons.favorite),
             title: const Text('Add Helpline Number'),
-            onTap: () {},
+            onTap: () {
+              Get.to(()=> const HelpLineno());
+            },
           ),
           ListTile(
             leading: const Icon(Icons.power_settings_new),

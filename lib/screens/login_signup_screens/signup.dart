@@ -13,7 +13,9 @@ import 'package:get/get.dart';
 import '../../constants/Images.dart';
 
 class Signup extends StatefulWidget {
-  const Signup({Key? key,}) : super(key: key);
+  const Signup({
+    Key? key,
+  }) : super(key: key);
 
   @override
   _signupState createState() => _signupState();
@@ -22,20 +24,18 @@ class Signup extends StatefulWidget {
 class _signupState extends State<Signup> {
   late String _name;
   late String _email;
-  late String _address;
+  late String _address = "";
   late String _city;
   late String _dist;
   late String _taluka;
   late String uid = "1";
   String? _mno;
-
+  final _SignupForm = GlobalKey<FormState>();
 
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     // if(FirebaseAuth.instance.currentUser?.uid != null){
     //   uid = FirebaseAuth.instance.currentUser!.uid;
@@ -43,6 +43,7 @@ class _signupState extends State<Signup> {
     // }
     checkadmin();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,104 +54,143 @@ class _signupState extends State<Signup> {
               image: DecorationImage(
                   image: AssetImage(Images.background), fit: BoxFit.fill)),
           height: MediaQuery.of(context).size.height,
-          child: Column(
-            children: <Widget>[
-              const Center(
-                child: CustomLogo(logoSize: 120.0,)
-              ),
-              Container(
-                height: 40,
-                margin: syh20v5 + syv10,
-                child: CustomTextfield(
-                  myIcon: Icons.person,
-                  inputType: TextInputType.text,
-                  inputTxt: 'તમારું પૂરું નામ નાખો...',
-                  voidReturn: (value) {
-                    _name = value;
-                  },
+          child: Form(
+            key: _SignupForm,
+            child: Column(
+              children: <Widget>[
+                const Center(
+                    child: CustomLogo(
+                  logoSize: 120.0,
+                )),
+                Container(
+                  height: 40,
+                  margin: syh20v5 + syv10,
+                  child: CustomTextfield(
+                    myIcon: Icons.person,
+                    inputType: TextInputType.text,
+                    inputTxt: 'તમારું પૂરું નામ નાખો...',
+                    voidReturn: (value) {
+                      _name = value;
+                    },
+                    validationData: (data) {
+                      if (data.isEmpty) {
+                        return "This Field is Required..";
+                      }
+                      if (RegExp(r'^[a-z A-Z]+$').hasMatch(data)) {
+                        return "Only Character Allowed...";
+                      }
+                    },
+                  ),
                 ),
-              ),
-              Container(
-                height: 40,
-                margin: syh20v5 + syv10,
-                child: CustomTextfield(
-                  myIcon: Icons.email,
-                  inputType: TextInputType.emailAddress,
-                  inputTxt: 'તમારું ઈ-મેલ નાખો....',
-                  voidReturn: (value) {
-                    _email = value;
-                  },
+                Container(
+                  height: 40,
+                  margin: syh20v5 + syv10,
+                  child: CustomTextfield(
+                    myIcon: Icons.email,
+                    inputType: TextInputType.emailAddress,
+                    inputTxt: 'તમારું ઈ-મેલ નાખો....',
+                    voidReturn: (value) {
+                      _email = value;
+                    },
+                    validationData: (data) {
+                      if (data.isEmpty) {
+                        return "This Field is Required..";
+                      }
+                      if (RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                          .hasMatch(data)) {
+                        return "Enter Valid Email...";
+                      }
+                    },
+                  ),
                 ),
-              ),
-              Container(
-                height: 40,
-                margin: syh20v5 + syv10,
-                child: CustomTextfield(
-                  myIcon: Icons.location_city,
-                  inputType: TextInputType.multiline,
-                  maxLine: 4,
-                  inputTxt: 'તમારું સરનામું / ગામ નાખો. ',
-                  voidReturn: (value) {
-                    _address = value;
-                  },
+                Container(
+                  height: 40,
+                  margin: syh20v5 + syv10,
+                  child: CustomTextfield(
+                    myIcon: Icons.location_city,
+                    inputType: TextInputType.multiline,
+                    maxLine: 4,
+                    inputTxt: 'તમારું સરનામું / ગામ નાખો. ',
+                    voidReturn: (value) {
+                      _address = value;
+                    },
+                    validationData: (data) {},
+                  ),
                 ),
-              ),
-              Container(
-                height: 40,
-                margin: syh20v5 + syv10,
-                child: CustomTextfield(
-                  myIcon: Icons.location_city,
-                  inputType: TextInputType.text,
-                  inputTxt: 'રાજ્ય',
-                  voidReturn: (value) {
-                    _dist = value;
-                  },
+                Container(
+                  height: 40,
+                  margin: syh20v5 + syv10,
+                  child: CustomTextfield(
+                    myIcon: Icons.location_city,
+                    inputType: TextInputType.text,
+                    inputTxt: 'રાજ્ય',
+                    voidReturn: (value) {
+                      _dist = value;
+                    },
+                    validationData: (data) {
+                      if (data.isEmpty) {
+                        return "This Field is Required..";
+                      }
+                    },
+                  ),
                 ),
-              ),
-              Container(
-                height: 40,
-                margin: syh20v5 + syv10,
-                child: CustomTextfield(
-                  myIcon: Icons.location_city,
-                  inputType: TextInputType.text,
-                  inputTxt: 'જિલ્લો',
-                  voidReturn: (value) {
-                    _city = value;
-                  },
+                Container(
+                  height: 40,
+                  margin: syh20v5 + syv10,
+                  child: CustomTextfield(
+                    myIcon: Icons.location_city,
+                    inputType: TextInputType.text,
+                    inputTxt: 'જિલ્લો',
+                    voidReturn: (value) {
+                      _city = value;
+                    },
+                    validationData: (data) {
+                      if (data.isEmpty) {
+                        return "This Field is Required..";
+                      }
+                    },
+                  ),
                 ),
-              ),
-              Container(
-                height: 40,
-                margin: syh20v5 + syv10,
-                child: CustomTextfield(
-                  myIcon: Icons.location_city,
-                  inputType: TextInputType.text,
-                  inputTxt: 'તાલુકો',
-                  voidReturn: (value) {
-                    _taluka = value;
-                  },
+                Container(
+                  height: 40,
+                  margin: syh20v5 + syv10,
+                  child: CustomTextfield(
+                    myIcon: Icons.location_city,
+                    inputType: TextInputType.text,
+                    inputTxt: 'તાલુકો',
+                    voidReturn: (value) {
+                      _taluka = value;
+                    },
+                    validationData: (data) {
+                      if (data.isEmpty) {
+                        return "This Field is Required..";
+                      }
+                    },
+                  ),
                 ),
-              ),
-              Container(
-                margin: syv10 + syh20,
-                child: CustomButton(
-                  btnTxt: 'આગળ વધો...',
-                  callback: () {
-                    Map<String, dynamic> data = {
-                      "Name": _name,
-                      "Address": _address,
-                      "Mobile_no": _mno,
-                      "Email": _email,
-                      "District": _dist,
-                      "Taluka": _taluka,
-                      "City": _city,
-                      "IsAdmin" : 0,
-                    };
-                    Add_User(data);
-                  },
+                Container(
+                  margin: syv10 + syh20,
+                  child: CustomButton(
+                    btnTxt: 'આગળ વધો...',
+                    callback: () {
+                      if (_SignupForm.currentState!.validate()) {
+                        Map<String, dynamic> data = {
+                          "Name": _name,
+                          "Address": _address,
+                          "Mobile_no": _mno,
+                          "Email": _email,
+                          "District": _dist,
+                          "Taluka": _taluka,
+                          "City": _city,
+                          "IsAdmin": 0,
+                        };
+                        Add_User(data);
+                      }
+                    },
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -163,7 +203,7 @@ class _signupState extends State<Signup> {
         .doc(uid)
         .set(data)
         .then((value) => () {
-              Get.offAll(()=>Home());
+              Get.offAll(() => Home());
             })
         .catchError((onError) {
       print(onError);
@@ -175,14 +215,11 @@ class _signupState extends State<Signup> {
     var docSnapshot = await collection.doc(uid).get();
     if (docSnapshot.exists) {
       Map<String, dynamic>? data1 = docSnapshot.data();
-      if(data1!['IsAdmin'].toString() == "1"){
-        Get.offAll(()=>AdminDashboard());
-      }
-      else if(data1['IsAdmin'].toString() == "0"){
-        Get.offAll(()=>Home());
-      }
-      else{
-      }
+      if (data1!['IsAdmin'].toString() == "1") {
+        Get.offAll(() => AdminDashboard());
+      } else if (data1['IsAdmin'].toString() == "0") {
+        Get.offAll(() => Home());
+      } else {}
     }
   }
 }

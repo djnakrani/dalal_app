@@ -8,6 +8,7 @@ class CustomTextfield extends StatelessWidget {
   final int maxsize;
   final IconData myIcon;
   final Function(String)? voidReturn;
+  final Function(String)? validationData;
   final bool obscureText;
 
   final int maxLine;
@@ -20,6 +21,7 @@ class CustomTextfield extends StatelessWidget {
     this.maxsize = 100,
     required this.voidReturn,
     this.maxLine = 1,
+    required this.validationData,
   }) : super(key: key);
 
   @override
@@ -42,8 +44,11 @@ class CustomTextfield extends StatelessWidget {
           myIcon,
           color: myColors.colorPrimaryColor,
         ),
-        hintStyle: TextStyle(color: Colors.grey[800]),
+        // hintStyle: TextStyle(color: Colors.grey[800]),
       ),
+      validator: (value){
+        return validationData!(value!);
+      },
       onChanged: (value) {
         voidReturn!(value);
       },

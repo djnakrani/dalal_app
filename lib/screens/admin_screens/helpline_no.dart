@@ -2,25 +2,23 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dalal_app/constants/Images.dart';
 import 'package:dalal_app/constants/style.dart';
 import 'package:dalal_app/screens/error.dart';
-import 'package:dalal_app/screens/home_screens/home.dart';
 import 'package:dalal_app/widget/custom_button.dart';
 import 'package:dalal_app/widget/custom_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:dalal_app/constants/myColors.dart';
 import 'package:get/get.dart';
-import 'package:url_launcher/url_launcher.dart';
 
-class InputYTLink extends StatefulWidget {
-  const InputYTLink({Key? key}) : super(key: key);
+class HelpLineno extends StatefulWidget {
+  const HelpLineno({Key? key}) : super(key: key);
 
   @override
-  _InputYTLinkState createState() => _InputYTLinkState();
+  _HelpLinenoState createState() => _HelpLinenoState();
 }
 
-class _InputYTLinkState extends State<InputYTLink> {
-  late String _link;
-  late String _title;
-  final _youtubeForm = GlobalKey<FormState>();
+class _HelpLinenoState extends State<HelpLineno> {
+  late String _taluko;
+  late String _number;
+  final _helplineno = GlobalKey<FormState>();
   String? finalDate;
 
   @override
@@ -34,7 +32,7 @@ class _InputYTLinkState extends State<InputYTLink> {
                   image: AssetImage(Images.background), fit: BoxFit.fill)),
           height: MediaQuery.of(context).size.height,
           child: Form(
-            key: _youtubeForm,
+            key: _helplineno,
             child: Column(
               children: <Widget>[
                 Center(
@@ -54,9 +52,9 @@ class _InputYTLinkState extends State<InputYTLink> {
                   child: CustomTextfield(
                     myIcon: Icons.location_city,
                     inputType: TextInputType.text,
-                    inputTxt: ' શીર્ષક  ',
+                    inputTxt: ' ',
                     voidReturn: (value) {
-                      _title = value;
+                      _taluko = value;
                     },
                     validationData: (data) {
                       if (data.isEmpty) {
@@ -71,9 +69,9 @@ class _InputYTLinkState extends State<InputYTLink> {
                   child: CustomTextfield(
                     myIcon: Icons.location_city,
                     inputType: TextInputType.text,
-                    inputTxt: 'લિંક નાખો  ',
+                    inputTxt: ' ',
                     voidReturn: (value) {
-                      _link = value;
+                      _number = value;
                     },
                     validationData: (data) {
                       if (data.isEmpty) {
@@ -85,22 +83,14 @@ class _InputYTLinkState extends State<InputYTLink> {
                 Container(
                   margin: syv10 + syh20,
                   child: CustomButton(
-                    btnTxt: 'તમારી Link ઉમેરો ...',
+                    btnTxt: 'Add...',
                     callback: () {
-                      if (_youtubeForm.currentState!.validate()) {
-                        var date = new DateTime.now().toString();
-                        var dateParse = DateTime.parse(date);
-                        var formattedDate =
-                            "${dateParse.day}-${dateParse.month}-${dateParse.year}";
-                        setState(() {
-                          finalDate = formattedDate.toString();
-                        });
+                      if (_helplineno.currentState!.validate()) {
                         Map<String, dynamic> data = {
-                          "Title": _title,
-                          "Link": _link,
-                          "Date": finalDate,
+                          "Taluko": _taluko,
+                          "Number": _number,
                         };
-                        Add_YT_Link(data);
+                        Add_HelpLine(data);
                       }
                     },
                   ),
@@ -109,9 +99,8 @@ class _InputYTLinkState extends State<InputYTLink> {
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
                     children: [
-                      DataTableTitle('Title', myColors.colorPrimaryColor),
-                      DataTableTitle('Link', myColors.colorPrimaryColor),
-                      DataTableTitle('Date', myColors.colorPrimaryColor),
+                      DataTableTitle('Taluko', myColors.colorPrimaryColor),
+                      DataTableTitle('Number', myColors.colorPrimaryColor),
                       DataTableTitle('Remove', myColors.btnRemove),
                     ],
                   ),
@@ -125,8 +114,7 @@ class _InputYTLinkState extends State<InputYTLink> {
                       children: [
                         StreamBuilder<QuerySnapshot>(
                           stream: FirebaseFirestore.instance
-                              .collection('YoutubeLink')
-                              .orderBy("Date", descending: true)
+                              .collection('HelpLineNo')
                               .snapshots(),
                           builder: (context, snapshot) {
                             if (!snapshot.hasData) {
@@ -148,20 +136,8 @@ class _InputYTLinkState extends State<InputYTLink> {
                                       padding: const EdgeInsets.all(8.0),
                                       child: Row(
                                         children: [
-                                          Expanded(child: Text(doc['Title'])),
-                                          Expanded(
-                                              child: InkWell(
-                                            child: Text(doc['Link']),
-                                            onTap: () async {
-                                              final wsurl = doc['Link'];
-                                              if (await canLaunch(wsurl)) {
-                                                await launch(wsurl);
-                                              } else {
-                                                throw "Not work";
-                                              }
-                                            },
-                                          )),
-                                          Expanded(child: Text(doc['Date'])),
+                                          Expanded(child: Text(doc['Taluko'])),
+                                          Expanded(child: Text(doc['Number'])),
                                           Expanded(
                                             child: InkWell(
                                               onTap: () => Remove(doc.id),
@@ -192,13 +168,13 @@ class _InputYTLinkState extends State<InputYTLink> {
     );
   }
 
-  Future<void> Add_YT_Link(Map<String, dynamic> data) async {
+  Future<void> Add_HelpLine(Map<String, dynamic> data) async {
     await FirebaseFirestore.instance
-        .collection('YoutubeLink')
+        .collection('HelpLineNo')
         .doc()
         .set(data)
         .then((value) => () {
-              Get.offAll(() => const InputYTLink());
+              Get.offAll(() => const HelpLineno());
             })
         .catchError((onError) {
       ErrorScreen(error: onError);
@@ -224,9 +200,9 @@ class _InputYTLinkState extends State<InputYTLink> {
 
   Future Remove(String Docid) async {
     await FirebaseFirestore.instance
-        .collection('YoutubeLink')
+        .collection('HelpLineNo')
         .doc(Docid)
         .delete()
-        .then((value) => {Get.off(() => const InputYTLink())});
+        .then((value) => {Get.off(() => const HelpLineno())});
   }
 }

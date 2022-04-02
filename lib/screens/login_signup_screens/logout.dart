@@ -1,4 +1,4 @@
-import 'package:dalal_app/screens/home_screens/home.dart';
+import 'package:dalal_app/screens/error.dart';
 import 'package:dalal_app/screens/login_signup_screens/login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +24,7 @@ class _LogOutState extends State<LogOut> {
       }
     else
       {
-          print("Something went Wrong....");
+          ErrorScreen(error: 'Sorry Please Try Again',);
       }
 
   }
@@ -36,16 +36,5 @@ class _LogOutState extends State<LogOut> {
         body: Center(
             child: Image.asset(Images.logoImage)));
   }
-
-  // void _navigatePage() async{
-  //   await Future.delayed(const Duration(milliseconds: 2000), () {});
-  //   if(FirebaseAuth.instance.currentUser!=null)
-  //   {
-  //     Get.offAll(() => Home());
-  //   }
-  //   else{
-  //     Get.offAll(() => const Login());
-  //   }
-  // }
 }
 
