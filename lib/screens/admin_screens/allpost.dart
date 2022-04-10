@@ -1,75 +1,57 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dalal_app/screens/Input_screens/take_screen.dart';
+import 'package:dalal_app/screens/admin_screens/adminDrawer.dart';
+import 'package:dalal_app/screens/admin_screens/dashboard.dart';
+import 'package:dalal_app/screens/error.dart';
 import 'package:dalal_app/screens/home_screens/DetailScreen.dart';
 import 'package:dalal_app/widget/custom_text.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:dalal_app/constants/myColors.dart';
 import 'package:dalal_app/constants/style.dart';
 import 'package:dalal_app/constants/string.dart';
-import 'package:dalal_app/constants/Images.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:get/get.dart';
 
 import '../mydrawer.dart';
 
-class Home extends StatefulWidget {
+class AllPost extends StatefulWidget {
   @override
-  _HomeState createState() => _HomeState();
+  _AllPostState createState() => _AllPostState();
 }
 
-class _HomeState extends State<Home> {
+class _AllPostState extends State<AllPost> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(string.appName),
+        title: const Text(string.appName + "- All Post "),
         backgroundColor: myColors.colorPrimaryColor,
-        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.search))],
+        actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.search))],
       ),
-      drawer: const MyDrawer(),
+      drawer: const AdminDrawer(),
       body: Padding(
-          padding: const EdgeInsets.all(10),
-          child: StreamBuilder(
-            stream: FirebaseFirestore.instance.collection('Items').snapshots(),
-            builder: (_, AsyncSnapshot<QuerySnapshot> snapshot) {
-              // Get.log(snapshot.data!.size.toString());
-              return ListView.builder(
+        padding: const EdgeInsets.all(10),
+        child:
+        StreamBuilder(
+          stream: FirebaseFirestore.instance.collection('Items').snapshots(),
+          builder: (_, AsyncSnapshot<QuerySnapshot> snapshot) {
+            return ListView.builder(
                   itemCount: snapshot.data!.size,
                   padding: ob50,
                   itemBuilder: (context, index) {
                     DocumentSnapshot ds = snapshot.data!.docs[index];
-                    return MyCard(ds, context);
-                  });
-            },
-          )),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: bottonbar(context),
+                    return MyCard(ds,context);
+                  }
+                  );
+          },
+        )
+      ),
     );
   }
 }
 
-Widget bottonbar(BuildContext context) {
-  return Padding(
-    padding: const EdgeInsets.all(8.0),
-    child: FloatingActionButton.extended(
-      backgroundColor: myColors.colorPrimaryColor,
-      onPressed: () {
-        showDialog(
-          context: context,
-          builder: (BuildContext context) => const TakeScreen(),
-        );
-      },
-      isExtended: true,
-      icon: const Icon(
-        Icons.add,
-        size: 40,
-      ),
-      label: BoldText("પોસ્ટ કરો"),
-    ),
-  );
-}
-
-Widget MyCard(DocumentSnapshot ds, BuildContext context) {
+Widget MyCard(DocumentSnapshot ds,BuildContext context) {
   return Card(
       clipBehavior: Clip.antiAlias,
       elevation: 10,
@@ -96,16 +78,6 @@ Widget MyCard(DocumentSnapshot ds, BuildContext context) {
                     width: 400,
                     fit: BoxFit.fitWidth,
                   ),
-                  Positioned(
-                      top: 2,
-                      right: 5,
-                      child: IconButton(
-                        icon: const Icon(
-                          Icons.favorite,
-                          color: Colors.red,
-                        ),
-                        onPressed: () {},
-                      ))
                 ],
               ),
               Padding(
@@ -156,25 +128,10 @@ Widget MyCard(DocumentSnapshot ds, BuildContext context) {
                                     primary: myColors.colorPrimaryColor,
                                   ),
                                   onPressed: () {
-                                    launch('tel: +91${ds["MobileNo"]}');
+                                      Remove(ds.id);
                                   },
-                                  child: const Icon(Icons.call)),
+                                  child: const Icon(Icons.delete,color: myColors.btnRemove,)),
                             ),
-                            Align(
-                              alignment: Alignment.centerRight,
-                              child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    primary: myColors.colorPrimaryColor,
-                                  ),
-                                  onPressed: () {
-                                    launch(
-                                        'https://wa.me/+91${ds["MobileNo"]}?text=${ds["Item"]}');
-                                  },
-                                  child: Ink.image(
-                                      height: 30,
-                                      width: 30,
-                                      image: const AssetImage(Images.wsLogo))),
-                            )
                           ],
                         ),
                       )
@@ -182,4 +139,13 @@ Widget MyCard(DocumentSnapshot ds, BuildContext context) {
                   ))
             ],
           )));
+
+}
+
+Future Remove(String Docid) async {
+  await FirebaseFirestore.instance
+      .collection('Items')
+      .doc(Docid)
+      .delete()
+      .then((value) => {Get.off(() => AllPost())});
 }
