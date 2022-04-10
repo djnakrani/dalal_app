@@ -128,7 +128,7 @@ Widget MyCard(DocumentSnapshot ds,BuildContext context) {
                                     primary: myColors.colorPrimaryColor,
                                   ),
                                   onPressed: () {
-
+                                      Remove(ds.id);
                                   },
                                   child: const Icon(Icons.delete,color: myColors.btnRemove,)),
                             ),
@@ -139,4 +139,13 @@ Widget MyCard(DocumentSnapshot ds,BuildContext context) {
                   ))
             ],
           )));
+
+}
+
+Future Remove(String Docid) async {
+  await FirebaseFirestore.instance
+      .collection('Items')
+      .doc(Docid)
+      .delete()
+      .then((value) => {Get.off(() => MyPost())});
 }

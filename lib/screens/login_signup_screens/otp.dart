@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dalal_app/constants/style.dart';
 import 'package:dalal_app/screens/error.dart';
 import 'package:dalal_app/screens/login_signup_screens/signup.dart';
@@ -8,6 +9,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../constants/Images.dart';
+import '../admin_screens/dashboard.dart';
+import '../home_screens/home.dart';
 
 class Otp extends StatefulWidget {
   final String phone;
@@ -154,7 +157,19 @@ class _OtpState extends State<Otp> {
         setState(() {
           uid = FirebaseAuth.instance.currentUser!.uid;
         });
-        Get.offAll(() => Signup());
+        FirebaseFirestore.instance.collection('User').doc(uid).get().then((value) {
+          if(value["IsAdmin"] == "1"){
+            Get.offAll(() => AdminDashboard());
+          }
+
+          else if(value["IsAdmin"] == "")
+          {
+            Get.offAll(() => const Signup());
+          }
+          else{
+            Get.offAll(() => Home());
+          }
+        });
       }
     } catch (e) {
       ErrorScreen(
