@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dalal_app/screens/Input_screens/take_screen.dart';
-import 'package:dalal_app/screens/home_screens/DetailScreen.dart';
-import 'package:dalal_app/widget/custom_text.dart';
+import 'package:dalal_app/screens/admin_screens/dashboard.dart';
+import 'package:dalal_app/screens/error.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:dalal_app/constants/myColors.dart';
@@ -13,33 +14,35 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../mydrawer.dart';
 
-class Home extends StatefulWidget {
+class MyPost extends StatefulWidget {
   @override
-  _HomeState createState() => _HomeState();
+  _MyPostState createState() => _MyPostState();
 }
 
-class _HomeState extends State<Home> {
+class _MyPostState extends State<MyPost> {
+  String uid = FirebaseAuth.instance.currentUser!.uid;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(string.appName),
+        title: const Text(string.appName + "- MY POST "),
         backgroundColor: myColors.colorPrimaryColor,
-        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.search))],
+        // actions: [IconButton(onPressed: () {}, icon: Icon(Icons.search))],
       ),
       drawer: const MyDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(10),
         child:
         StreamBuilder(
-          stream: FirebaseFirestore.instance.collection('Items').snapshots(),
+          stream: FirebaseFirestore.instance.collection('Items').where("Uid",isEqualTo: uid).snapshots(),
           builder: (_, AsyncSnapshot<QuerySnapshot> snapshot) {
-            // Get.log(snapshot.data!.size.toString());
+            Get.log(snapshot.data!.size.toString());
             return ListView.builder(
                   itemCount: snapshot.data!.size,
                   padding: ob50,
                   itemBuilder: (context, index) {
                     DocumentSnapshot ds = snapshot.data!.docs[index];
+                    Get.log(ds["Address"]);
                     return MyCard(ds,context);
                   }
                   );
@@ -60,12 +63,12 @@ Widget bottonbar(BuildContext context) {
       onPressed: () {
         showDialog(
           context: context,
-          builder: (BuildContext context) => const TakeScreen(),
+          builder: (BuildContext context) => TakeScreen(),
         );
       },
       isExtended: true,
-      icon: Icon(Icons.add,size: 40,),
-      label: BoldText("પોસ્ટ કરો"),
+      icon: Icon(Icons.add),
+      label: Text("પોસ્ટ કરો"),
     ),
   );
 }
@@ -79,10 +82,12 @@ Widget MyCard(DocumentSnapshot ds,BuildContext context) {
       ),
       child: InkWell(
           onTap: () async {
+                Get.log("Hello");
                 await showDialog(
-                  builder: (BuildContext context) => DetailScreen(ds) ,
+                  builder: (BuildContext context) => DetailScreen(),
                   context: context,
                 );
+                // TakeScreen();
               },
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -97,16 +102,6 @@ Widget MyCard(DocumentSnapshot ds,BuildContext context) {
                     width: 400,
                     fit: BoxFit.fitWidth,
                   ),
-                  Positioned(
-                      top: 2,
-                      right: 5,
-                      child: IconButton(
-                        icon: const Icon(
-                          Icons.favorite,
-                          color: Colors.red,
-                        ),
-                        onPressed: () {},
-                      ))
                 ],
               ),
               Padding(
@@ -119,10 +114,16 @@ Widget MyCard(DocumentSnapshot ds,BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Row(children: [BoldText("વેચનાર નું નામ: "),SimpleText(ds["Seller_Name"])],),
-                            Row(children: [BoldText("નામ: "),SimpleText(ds["Item"])],),
-                            Row(children: [BoldText("ગામ: "),SimpleText(ds["Address"])],),
-                            Row(children: [BoldText("મોબાઈલ નંબર: "),SimpleText(ds["MobileNo"])],),
+                            Text("વેચનાર નું નામ : ${ds["Seller_Name"]}"),
+                            Text(
+                              "પ્રાણી : ${ds["Item"]}",
+                            ),
+                            Text(
+                              "ગામ : ${ds["Address"]}",
+                            ),
+                            Text(
+                              "મોબાઈલ નંબર  : ${ds["MobileNo"]}",
+                            )
                           ],
                         ),
                       ),
@@ -131,29 +132,14 @@ Widget MyCard(DocumentSnapshot ds,BuildContext context) {
                         child: Column(
                           children: [
                             Align(
-                              alignment: Alignment.topRight,
-                              child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    primary: myColors.colorPrimaryColor,
-                                  ),
-                                  onPressed: () {
-                                    launch('tel: +91${ds["MobileNo"]}');
-                                  },
-                                  child: const Icon(Icons.call)),
-                            ),
-                            Align(
                               alignment: Alignment.centerRight,
                               child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                    primary: myColors.colorPrimaryColor,
+                                    primary: myColors.btnRemove,
                                   ),
                                   onPressed: () {
-                                    launch('https://wa.me/+91${ds["MobileNo"]}?text=${ds["Item"]}');
                                   },
-                                  child: Ink.image(
-                                      height: 30,
-                                      width: 30,
-                                      image: const AssetImage(Images.wsLogo))),
+                                  child: const Icon(Icons.delete)),
                             )
                           ],
                         ),
@@ -162,4 +148,10 @@ Widget MyCard(DocumentSnapshot ds,BuildContext context) {
                   ))
             ],
           )));
+}
+
+ Widget DetailScreen()  {
+  return AlertDialog(
+    title: Text("Hello"),
+  );
 }

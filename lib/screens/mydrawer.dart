@@ -1,4 +1,5 @@
 import 'package:dalal_app/screens/Input_screens/take_screen.dart';
+import 'package:dalal_app/screens/home_screens/mypost.dart';
 import 'package:dalal_app/screens/home_screens/userhelplineno.dart';
 import 'package:dalal_app/screens/login_signup_screens/logout.dart';
 import 'package:dalal_app/screens/login_signup_screens/signup.dart';
@@ -38,13 +39,20 @@ class _DrawerState extends State<MyDrawer> {
           ),
           ListTile(
             leading: const Icon(Icons.add_box_outlined),
-            title: const Text('Add My Items'),
+            title: const Text('Add Items'),
             onTap: () {
               Get.to(()=>const TakeScreen());
             },
           ),
           ListTile(
-            leading: const Icon(Icons.add_box_outlined),
+            leading: const Icon(Icons.list_alt_outlined),
+            title: const Text('My Post'),
+            onTap: () {
+              Get.to(()=>MyPost());
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.add_ic_call_outlined),
             title: const Text('Help Line Numbers'),
             onTap: () {
               Get.to(()=>const UserHelpLine());
