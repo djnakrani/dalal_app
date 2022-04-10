@@ -1,10 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dalal_app/screens/Input_screens/take_screen.dart';
+import 'package:dalal_app/screens/admin_screens/dashboard.dart';
+import 'package:dalal_app/screens/error.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:dalal_app/constants/myColors.dart';
 import 'package:dalal_app/constants/style.dart';
 import 'package:dalal_app/constants/string.dart';
 import 'package:dalal_app/constants/Images.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../mydrawer.dart';
@@ -16,32 +20,44 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int pageIndex = 0;
-  List<String> pname = ["ગાય ","ભેંસ"];
-  List<String> mno = ["9067127486","7096750532"];
-  List<String> loc = ["Surat","Bhanvnahar"];
-  List<String> cname = ["Dharmik","Manhar"];
-  List<String> photo = ["assets/images/photo1.png",
-                        "assets/images/photo2.png"];
+  List<String> pname = ["ગાય ", "ભેંસ"];
+  List<String> mno = ["9067127486", "7096750532"];
+  List<String> loc = ["Surat", "Bhanvnahar"];
+  List<String> cname = ["Dharmik", "Manhar"];
+  List<String> photo = ["assets/images/photo1.png", "assets/images/photo2.png"];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text(string.appName),
-          backgroundColor: myColors.colorPrimaryColor,
-          actions: [IconButton(onPressed: () {}, icon: Icon(Icons.search))],
-        ),
-        drawer: MyDrawer(),
-        body: Padding(
-          padding: EdgeInsets.all(10),
-          child: ListView.builder(
-              itemCount: pname.length,
-              padding: ob50,
-              itemBuilder: (context, index) {
-                return MyCard(pname[index],mno[index],loc[index],cname[index],photo[index]);
-              }),
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: bottonbar(context),);
+      appBar: AppBar(
+        title: const Text(string.appName),
+        backgroundColor: myColors.colorPrimaryColor,
+        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.search))],
+      ),
+      drawer: const MyDrawer(),
+      body: Padding(
+        padding: const EdgeInsets.all(10),
+        child:
+        StreamBuilder(
+          stream: FirebaseFirestore.instance.collection('Items').snapshots(),
+          builder: (_, AsyncSnapshot<QuerySnapshot> snapshot) {
+            Get.log(snapshot.data!.size.toString());
+            return ListView.builder(
+                  itemCount: snapshot.data!.size,
+                  padding: ob50,
+                  itemBuilder: (context, index) {
+                    DocumentSnapshot ds = snapshot.data!.docs[index];
+                    Get.log(ds["Address"]);
+                    return MyCard(ds,context);
+                  }
+                  //     photo[index],context);
+
+                  );
+          },
+        )
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: bottonbar(context),
+    );
   }
 }
 
@@ -63,8 +79,7 @@ Widget bottonbar(BuildContext context) {
   );
 }
 
-
-Widget MyCard(String name, String mno, String loc, String cname, String photo) {
+Widget MyCard(DocumentSnapshot ds,BuildContext context) {
   return Card(
       clipBehavior: Clip.antiAlias,
       elevation: 10,
@@ -72,7 +87,14 @@ Widget MyCard(String name, String mno, String loc, String cname, String photo) {
         borderRadius: BorderRadius.circular(15.0),
       ),
       child: InkWell(
-          onTap: () {},
+          onTap: () async {
+                Get.log("Hello");
+                await showDialog(
+                  builder: (BuildContext context) => DetailScreen(),
+                  context: context,
+                );
+                // TakeScreen();
+              },
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -82,15 +104,15 @@ Widget MyCard(String name, String mno, String loc, String cname, String photo) {
                 children: [
                   Ink.image(
                     height: 200,
-                    image: AssetImage(photo),
-                    width:400,
+                    image: AssetImage(Images.logoImage),
+                    width: 400,
                     fit: BoxFit.fitWidth,
                   ),
                   Positioned(
                       top: 2,
                       right: 5,
                       child: IconButton(
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.favorite,
                           color: Colors.red,
                         ),
@@ -107,11 +129,17 @@ Widget MyCard(String name, String mno, String loc, String cname, String photo) {
                         padding: ah10,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children:  [
-                            Text("વેચનાર નું નામ : $cname"),
-                            Text("પ્રાણી : $name",),
-                            Text("ગામ : $loc",),
-                            Text("મોબાઈલ નંબર  : $mno",)
+                          children: [
+                            Text("વેચનાર નું નામ : ${ds["Seller_Name"]}"),
+                            Text(
+                              "પ્રાણી : ${ds["Item"]}",
+                            ),
+                            Text(
+                              "ગામ : ${ds["Address"]}",
+                            ),
+                            Text(
+                              "મોબાઈલ નંબર  : ${ds["MobileNo"]}",
+                            )
                           ],
                         ),
                       ),
@@ -125,14 +153,8 @@ Widget MyCard(String name, String mno, String loc, String cname, String photo) {
                                   style: ElevatedButton.styleFrom(
                                     primary: myColors.colorPrimaryColor,
                                   ),
-                                  onPressed: () async {
-                                    final phoneurl='tel:+91$mno';
-                                    if (await canLaunch(phoneurl))
-                                    {
-                                      await launch(phoneurl);
-                                    }else {
-                                      throw 'Could not launch $phoneurl';
-                                    }
+                                  onPressed: () {
+                                    launch('tel: +91${ds["MobileNo"]}');
                                   },
                                   child: Icon(Icons.call)),
                             ),
@@ -142,19 +164,13 @@ Widget MyCard(String name, String mno, String loc, String cname, String photo) {
                                   style: ElevatedButton.styleFrom(
                                     primary: myColors.colorPrimaryColor,
                                   ),
-                                  onPressed: () async {
-                                    final wsurl='https://wa.me/+91$mno?text=$name';
-                                    if (await canLaunch(wsurl))
-                                    {
-                                      await launch(wsurl);
-                                    }else{
-                                      throw "Not work";
-                                    }
+                                  onPressed: () {
+                                    launch('https://wa.me/+91${ds["MobileNo"]}?text=${ds["Item"]}');
                                   },
                                   child: Ink.image(
                                       height: 30,
                                       width: 30,
-                                      image: AssetImage(Images.wsLogo))),
+                                      image: const AssetImage(Images.wsLogo))),
                             )
                           ],
                         ),
@@ -163,4 +179,10 @@ Widget MyCard(String name, String mno, String loc, String cname, String photo) {
                   ))
             ],
           )));
+}
+
+ Widget DetailScreen()  {
+  return AlertDialog(
+    title: Text("Hello"),
+  );
 }

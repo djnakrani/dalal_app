@@ -1,11 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dalal_app/constants/style.dart';
-import 'package:dalal_app/screens/admin_screens/dashboard.dart';
+import 'package:dalal_app/screens/error.dart';
 import 'package:dalal_app/screens/home_screens/home.dart';
 import 'package:dalal_app/widget/custom_button.dart';
 import 'package:dalal_app/widget/custom_logo.dart';
 import 'package:dalal_app/widget/custom_textfield.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -22,26 +21,19 @@ class Signup extends StatefulWidget {
 }
 
 class _signupState extends State<Signup> {
-  late String _name;
-  late String _email;
-  late String _address = "";
-  late String _city;
-  late String _dist;
-  late String _taluka;
-  late String uid = "1";
+  String? _name,_email,_address,_city,_dist,_taluka;
+  String? uid;
   String? _mno;
   final _SignupForm = GlobalKey<FormState>();
-
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   @override
   void initState() {
     super.initState();
-    // if(FirebaseAuth.instance.currentUser?.uid != null){
-    //   uid = FirebaseAuth.instance.currentUser!.uid;
-    // _mno = FirebaseAuth.instance.currentUser!.phoneNumber;
-    // }
-    checkadmin();
+    if(FirebaseAuth.instance.currentUser?.uid != null){
+      uid = FirebaseAuth.instance.currentUser!.uid;
+     _mno = FirebaseAuth.instance.currentUser!.phoneNumber;
+    }
   }
 
   @override
@@ -182,7 +174,7 @@ class _signupState extends State<Signup> {
                           "District": _dist,
                           "Taluka": _taluka,
                           "City": _city,
-                          "IsAdmin": 0,
+                          "IsAdmin": "0",
                         };
                         Add_User(data);
                       }
@@ -206,20 +198,7 @@ class _signupState extends State<Signup> {
               Get.offAll(() => Home());
             })
         .catchError((onError) {
-      print(onError);
+      ErrorScreen(error: onError.toString(),);
     });
-  }
-
-  void checkadmin() async {
-    var collection = FirebaseFirestore.instance.collection('User');
-    var docSnapshot = await collection.doc(uid).get();
-    if (docSnapshot.exists) {
-      Map<String, dynamic>? data1 = docSnapshot.data();
-      if (data1!['IsAdmin'].toString() == "1") {
-        Get.offAll(() => AdminDashboard());
-      } else if (data1['IsAdmin'].toString() == "0") {
-        Get.offAll(() => Home());
-      } else {}
-    }
   }
 }

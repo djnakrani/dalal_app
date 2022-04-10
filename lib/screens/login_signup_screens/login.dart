@@ -1,6 +1,7 @@
 import 'package:dalal_app/constants/style.dart';
 import 'package:dalal_app/screens/admin_screens/dashboard.dart';
 import 'package:dalal_app/screens/error.dart';
+import 'package:dalal_app/screens/home_screens/home.dart';
 import 'package:dalal_app/screens/login_signup_screens/otp.dart';
 import 'package:dalal_app/screens/login_signup_screens/signup.dart';
 import 'package:dalal_app/widget/custom_button.dart';
@@ -87,7 +88,7 @@ class _LoginState extends State<Login> {
                         child: CustomButton(
                             btnTxt: 'Test',
                             callback: () {
-                              Get.to(() => AdminDashboard());
+                              Get.to(() => Home());
                             }),
                       ),
                     ],

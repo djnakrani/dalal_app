@@ -16,6 +16,7 @@ EdgeInsets a40 = EdgeInsets.all(40.h);
 
 EdgeInsets ot120 = EdgeInsets.only(top:120.h);
 EdgeInsets ot80 = EdgeInsets.only(top:80.h);
+EdgeInsets ot50 = EdgeInsets.only(top:50.h);
 EdgeInsets ob50 = EdgeInsets.only(bottom:50.h);
 
 

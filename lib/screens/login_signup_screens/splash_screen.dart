@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dalal_app/screens/admin_screens/dashboard.dart';
 import 'package:dalal_app/screens/home_screens/home.dart';
 import 'package:dalal_app/screens/login_signup_screens/login.dart';
+import 'package:dalal_app/screens/login_signup_screens/signup.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -27,14 +30,33 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void _navigatePage() async{
-    await Future.delayed(const Duration(milliseconds: 2000), () {});
+    await Future.delayed(const Duration(milliseconds: 1000), () {});
     if(FirebaseAuth.instance.currentUser!=null)
     {
-      Get.offAll(() => Home());
+      var uid = FirebaseAuth.instance.currentUser!.uid;
+      await FirebaseFirestore.instance.collection('User').doc(uid).get().then((value) {
+        if(value["IsAdmin"] == "1"){
+          Get.offAll(() => AdminDashboard());
+        }
+
+        else if(value["IsAdmin"] == "")
+        {
+          Get.offAll(() => const Signup());
+        }
+        else{
+          Get.offAll(() => Home());
+        }
+      });
     }
     else{
       Get.offAll(() => const Login());
     }
+  }
+
+  getAdmin() async {
+
+    return "hello";
+    // Get.log(_type);
   }
 }
 

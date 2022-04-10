@@ -40,10 +40,9 @@ class _HelpLinenoState extends State<HelpLineno> {
                     constraints: const BoxConstraints(maxHeight: 120),
                     margin: ot80,
                     child: const Text(
-                      " તમારા ની વિગત નાખો ",
-                      style: TextStyle(fontSize: 38),
+                      "હેલ્પલાઈન નંબર ઉમેરો",
+                      style: TextStyle(fontSize: 32),
                     ),
-                    // child: Image.asset(Images.logoImage),
                   ),
                 ),
                 Container(
@@ -52,13 +51,13 @@ class _HelpLinenoState extends State<HelpLineno> {
                   child: CustomTextfield(
                     myIcon: Icons.location_city,
                     inputType: TextInputType.text,
-                    inputTxt: ' ',
+                    inputTxt: 'તાલુકો',
                     voidReturn: (value) {
                       _taluko = value;
                     },
                     validationData: (data) {
                       if (data.isEmpty) {
-                        return "Title is Required";
+                        return "This is Required";
                       }
                     },
                   ),
@@ -67,15 +66,15 @@ class _HelpLinenoState extends State<HelpLineno> {
                   height: 40,
                   margin: syh20v5 + syv10,
                   child: CustomTextfield(
-                    myIcon: Icons.location_city,
+                    myIcon: Icons.numbers,
                     inputType: TextInputType.text,
-                    inputTxt: ' ',
+                    inputTxt: 'નંબર',
                     voidReturn: (value) {
                       _number = value;
                     },
                     validationData: (data) {
                       if (data.isEmpty) {
-                        return "Link is Required";
+                        return "This is Required";
                       }
                     },
                   ),
@@ -83,7 +82,7 @@ class _HelpLinenoState extends State<HelpLineno> {
                 Container(
                   margin: syv10 + syh20,
                   child: CustomButton(
-                    btnTxt: 'Add...',
+                    btnTxt: 'ઉમેરો...',
                     callback: () {
                       if (_helplineno.currentState!.validate()) {
                         Map<String, dynamic> data = {
@@ -99,9 +98,9 @@ class _HelpLinenoState extends State<HelpLineno> {
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
                     children: [
-                      DataTableTitle('Taluko', myColors.colorPrimaryColor),
-                      DataTableTitle('Number', myColors.colorPrimaryColor),
-                      DataTableTitle('Remove', myColors.btnRemove),
+                      DataTableTitle('તાલુકો', myColors.colorPrimaryColor),
+                      DataTableTitle('નંબર', myColors.colorPrimaryColor),
+                      DataTableTitle('કાઢો', myColors.btnRemove),
                     ],
                   ),
                 ),
