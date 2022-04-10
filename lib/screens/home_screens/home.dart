@@ -29,23 +29,20 @@ class _HomeState extends State<Home> {
       ),
       drawer: const MyDrawer(),
       body: Padding(
-        padding: const EdgeInsets.all(10),
-        child:
-        StreamBuilder(
-          stream: FirebaseFirestore.instance.collection('Items').snapshots(),
-          builder: (_, AsyncSnapshot<QuerySnapshot> snapshot) {
-            // Get.log(snapshot.data!.size.toString());
-            return ListView.builder(
+          padding: const EdgeInsets.all(10),
+          child: StreamBuilder(
+            stream: FirebaseFirestore.instance.collection('Items').snapshots(),
+            builder: (_, AsyncSnapshot<QuerySnapshot> snapshot) {
+              // Get.log(snapshot.data!.size.toString());
+              return ListView.builder(
                   itemCount: snapshot.data!.size,
                   padding: ob50,
                   itemBuilder: (context, index) {
                     DocumentSnapshot ds = snapshot.data!.docs[index];
-                    return MyCard(ds,context);
-                  }
-                  );
-          },
-        )
-      ),
+                    return MyCard(ds, context);
+                  });
+            },
+          )),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: bottonbar(context),
     );
@@ -64,13 +61,16 @@ Widget bottonbar(BuildContext context) {
         );
       },
       isExtended: true,
-      icon: Icon(Icons.add,size: 40,),
+      icon: const Icon(
+        Icons.add,
+        size: 40,
+      ),
       label: BoldText("પોસ્ટ કરો"),
     ),
   );
 }
 
-Widget MyCard(DocumentSnapshot ds,BuildContext context) {
+Widget MyCard(DocumentSnapshot ds, BuildContext context) {
   return Card(
       clipBehavior: Clip.antiAlias,
       elevation: 10,
@@ -79,11 +79,11 @@ Widget MyCard(DocumentSnapshot ds,BuildContext context) {
       ),
       child: InkWell(
           onTap: () async {
-                await showDialog(
-                  builder: (BuildContext context) => DetailScreen(ds) ,
-                  context: context,
-                );
-              },
+            await showDialog(
+              builder: (BuildContext context) => DetailScreen(ds),
+              context: context,
+            );
+          },
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -119,10 +119,30 @@ Widget MyCard(DocumentSnapshot ds,BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Row(children: [BoldText("વેચનાર નું નામ: "),SimpleText(ds["Seller_Name"])],),
-                            Row(children: [BoldText("નામ: "),SimpleText(ds["Item"])],),
-                            Row(children: [BoldText("ગામ: "),SimpleText(ds["Address"])],),
-                            Row(children: [BoldText("મોબાઈલ નંબર: "),SimpleText(ds["MobileNo"])],),
+                            Row(
+                              children: [
+                                BoldText("વેચનાર નું નામ: "),
+                                SimpleText(ds["Seller_Name"])
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                BoldText("નામ: "),
+                                SimpleText(ds["Item"])
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                BoldText("ગામ: "),
+                                SimpleText(ds["Address"])
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                BoldText("મોબાઈલ નંબર: "),
+                                SimpleText(ds["MobileNo"])
+                              ],
+                            ),
                           ],
                         ),
                       ),
@@ -148,7 +168,8 @@ Widget MyCard(DocumentSnapshot ds,BuildContext context) {
                                     primary: myColors.colorPrimaryColor,
                                   ),
                                   onPressed: () {
-                                    launch('https://wa.me/+91${ds["MobileNo"]}?text=${ds["Item"]}');
+                                    launch(
+                                        'https://wa.me/+91${ds["MobileNo"]}?text=${ds["Item"]}');
                                   },
                                   child: Ink.image(
                                       height: 30,

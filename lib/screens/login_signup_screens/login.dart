@@ -83,14 +83,6 @@ class _LoginState extends State<Login> {
                               }
                             }),
                       ),
-                      Container(
-                        margin: syv10 + syh20,
-                        child: CustomButton(
-                            btnTxt: 'Test',
-                            callback: () {
-                              Get.to(() => Home());
-                            }),
-                      ),
                     ],
                   ),
                 ),
