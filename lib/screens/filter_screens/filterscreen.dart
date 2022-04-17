@@ -1,10 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dalal_app/screens/Input_screens/take_screen.dart';
 import 'package:dalal_app/screens/filter_screens/searchscreen.dart';
 import 'package:dalal_app/screens/home_screens/DetailScreen.dart';
 import 'package:dalal_app/widget/custom_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:dalal_app/constants/myColors.dart';
 import 'package:dalal_app/constants/style.dart';
 import 'package:dalal_app/constants/string.dart';
@@ -14,67 +12,66 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../mydrawer.dart';
 
-class Home extends StatefulWidget {
+class FilterScreen extends StatefulWidget {
+  var items;
+  var area;
+  FilterScreen({Key? key, required this.items, this.area}) : super(key: key);
   @override
-  _HomeState createState() => _HomeState();
+  _FilterScreenState createState() => _FilterScreenState();
 }
 
-class _HomeState extends State<Home> {
+class _FilterScreenState extends State<FilterScreen> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(string.appName),
         backgroundColor: myColors.colorPrimaryColor,
-        actions: [IconButton(onPressed: () => Get.to(()=>SearchScreen()) , icon: Icon(Icons.search))],
+        actions: [
+          IconButton(
+              onPressed: () => Get.off(() => SearchScreen()),
+              icon: Icon(Icons.search))
+        ],
       ),
       drawer: const MyDrawer(),
       body: Padding(
           padding: const EdgeInsets.all(10),
           child: StreamBuilder(
-            stream: FirebaseFirestore.instance.collection('Items').snapshots(),
+            stream: FirebaseFirestore.instance
+                .collection('Items')
+                .where("Categoty", isEqualTo: widget.items)
+                .snapshots(),
             builder: (_, AsyncSnapshot<QuerySnapshot> snapshot) {
-              if(snapshot.data == null){
+              // Get.log(widget.area);
+              if (snapshot.data == null) {
                 return const Center(child: CircularProgressIndicator());
+              } else {
+                if (snapshot.data?.size == 0) {
+                  return const Center(child: Text("No More Data Available"));
+                } else {
+                  return ListView.builder(
+                      itemCount: snapshot.data?.size,
+                      padding: ob50,
+                      itemBuilder: (context, index) {
+                        DocumentSnapshot ds = snapshot.data!.docs[index];
+                        if (ds["City"].toString().contains(widget.area) || widget.area == "" || ds["Address"].toString().contains(widget.area) || ds["State"].toString().contains(widget.area)) {
+                          return MyCard(ds, context);
+                        }
+                        else{
+                          return SizedBox();
+                        }
+                      });
+                }
               }
-              else{
-                return ListView.builder(
-                    itemCount: snapshot.data?.size,
-                    padding: ob50,
-                    itemBuilder: (context, index) {
-
-                      DocumentSnapshot ds = snapshot.data!.docs[index];
-                      return MyCard(ds, context);
-                    });
-              }
-
             },
           )),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: bottonbar(context),
     );
   }
-}
-
-Widget bottonbar(BuildContext context) {
-  return Padding(
-    padding: const EdgeInsets.all(8.0),
-    child: FloatingActionButton.extended(
-      backgroundColor: myColors.colorPrimaryColor,
-      onPressed: () {
-        showDialog(
-          context: context,
-          builder: (BuildContext context) => const TakeScreen(),
-        );
-      },
-      isExtended: true,
-      icon: const Icon(
-        Icons.add,
-        size: 40,
-      ),
-      label: BoldText("પોસ્ટ કરો"),
-    ),
-  );
 }
 
 Widget MyCard(DocumentSnapshot ds, BuildContext context) {

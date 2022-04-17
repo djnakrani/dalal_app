@@ -1,11 +1,7 @@
-import 'package:dalal_app/screens/Input_screens/take_screen.dart';
 import 'package:dalal_app/screens/admin_screens/adminDrawer.dart';
 import 'package:flutter/material.dart';
 import 'package:dalal_app/constants/myColors.dart';
-import 'package:dalal_app/constants/style.dart';
 import 'package:dalal_app/constants/string.dart';
-import 'package:dalal_app/constants/Images.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class AdminDashboard extends StatefulWidget {
   @override
@@ -13,8 +9,6 @@ class AdminDashboard extends StatefulWidget {
 }
 
 class _AdminDashboardState extends State<AdminDashboard> {
-  int pageIndex = 0;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

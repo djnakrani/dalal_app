@@ -1,7 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dalal_app/screens/Input_screens/take_screen.dart';
-import 'package:dalal_app/screens/admin_screens/dashboard.dart';
-import 'package:dalal_app/screens/error.dart';
 import 'package:dalal_app/screens/home_screens/DetailScreen.dart';
 import 'package:dalal_app/widget/custom_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';

@@ -19,7 +19,7 @@ class MyDrawer extends StatefulWidget {
 }
 
 class _DrawerState extends State<MyDrawer> {
-  String? _name,_mail;
+  String? _name ="1",_mail="1";
   var uid = FirebaseAuth.instance.currentUser!.uid;
 
   @override
@@ -32,6 +32,7 @@ class _DrawerState extends State<MyDrawer> {
         Get.log(value["Email"]);
         _name = value["Name"];
         _mail = value["Email"];
+        build(context);
       });
     });
   }

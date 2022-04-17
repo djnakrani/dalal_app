@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "18631614658-g3fl0fbj8m9jeck6pdrfdldrbe49dsf3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.dalal_app",
+            "certificate_hash": "4846b305bc5ce98e10e0ed2cdbb27e9bf7555576"
+          }
+        },
+        {
           "client_id": "18631614658-p3r9rpe681iku5in89ufh99oum0tcv3b.apps.googleusercontent.com",
           "client_type": 3
         }
