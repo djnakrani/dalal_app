@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-double regularSize = 14;
+double regularSize = 18;
 Widget SimpleText(text){
   return Text(
     text,

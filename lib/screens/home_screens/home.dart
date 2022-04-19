@@ -164,7 +164,7 @@ Widget MyCard(DocumentSnapshot ds, BuildContext context) {
                                     primary: myColors.colorPrimaryColor,
                                   ),
                                   onPressed: () {
-                                    launch('tel: +91${ds["MobileNo"]}');
+                                    launch('tel: ${ds["MobileNo"]}');
                                   },
                                   child: const Icon(Icons.call)),
                             ),
@@ -176,7 +176,7 @@ Widget MyCard(DocumentSnapshot ds, BuildContext context) {
                                   ),
                                   onPressed: () {
                                     launch(
-                                        'https://wa.me/+91${ds["MobileNo"]}?text=${ds["Item"]}');
+                                        'https://wa.me/${ds["MobileNo"]}?text=${ds["Item"]}');
                                   },
                                   child: Ink.image(
                                       height: 30,

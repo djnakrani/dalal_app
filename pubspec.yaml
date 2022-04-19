@@ -44,6 +44,7 @@ dependencies:
   image_picker: ^0.8.4+11
   permission_handler: ^9.2.0
   youtube_player_flutter: ^8.0.0
+  carousel_slider: ^4.0.0
 
 dev_dependencies:
   flutter_test:
