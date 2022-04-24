@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dalal_app/screens/Input_screens/take_screen.dart';
+import 'package:dalal_app/screens/home_screens/favorite_screen.dart';
 import 'package:dalal_app/screens/home_screens/home.dart';
 import 'package:dalal_app/screens/home_screens/mypost.dart';
 import 'package:dalal_app/screens/home_screens/userhelplineno.dart';
@@ -19,7 +20,7 @@ class MyDrawer extends StatefulWidget {
 }
 
 class _DrawerState extends State<MyDrawer> {
-  String? _name ="1",_mail="1";
+  String? _name ="User",_mail="User@mail.com";
   var uid = FirebaseAuth.instance.currentUser!.uid;
 
   @override
@@ -32,7 +33,6 @@ class _DrawerState extends State<MyDrawer> {
         Get.log(value["Email"]);
         _name = value["Name"];
         _mail = value["Email"];
-        build(context);
       });
     });
   }
@@ -96,7 +96,10 @@ class _DrawerState extends State<MyDrawer> {
           ListTile(
             leading: const Icon(Icons.favorite),
             title:  SimpleText("My Favroite"),
-            onTap: () {},
+            onTap: () {
+              Get.to(() => const FavoriteScreen());
+
+            },
           ),
           ListTile(
             leading: const Icon(Icons.power_settings_new),
