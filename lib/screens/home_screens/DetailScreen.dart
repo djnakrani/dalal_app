@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dalal_app/constants/myColors.dart';
 import 'package:dalal_app/constants/Images.dart';
-
-import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 Widget DetailScreen(ds) {
@@ -31,19 +29,17 @@ Widget DetailScreen(ds) {
                   autoPlay: true,
                 ),
                 itemBuilder: (ctx, index, realIdx) {
-                  return Container(
-                    child: Image.network(ds["Urls"][index]),
-                  );
+                  return Image.network(ds["Urls"][index]);
                 },
               ),
-              CustomDetails("પશુ / વસ્તુ: ", ds["Item"]),
-              CustomDetails("વેચનાર નું નામ: ", ds["Seller_Name"]),
-              CustomDetails("કિંમત: ", ds["Price"]),
-              CustomDetails("મોબાઇલ નંબર: ", ds["MobileNo"]),
-              CustomDetails("વર્ણન: ", ds["Details"]),
-              CustomDetails("સરનામું: ", ds["Address"]),
-              CustomDetails("જિલ્લો: ", ds["City"]),
-              CustomDetails("રાજ્ય: ", ds["State"]),
+              customDetails("પશુ / વસ્તુ: ", ds["Item"]),
+              customDetails("વેચનાર નું નામ: ", ds["Seller_Name"]),
+              customDetails("કિંમત: ", ds["Price"]),
+              customDetails("મોબાઇલ નંબર: ", ds["MobileNo"]),
+              customDetails("વર્ણન: ", ds["Details"]),
+              customDetails("સરનામું: ", ds["Address"]),
+              customDetails("જિલ્લો: ", ds["City"]),
+              customDetails("રાજ્ય: ", ds["State"]),
               Row(
                 children: [
                   Expanded(
@@ -56,7 +52,7 @@ Widget DetailScreen(ds) {
                         },
                         child: const Icon(Icons.call)),
                   ),
-                  SizedBox(width: 5.0,),
+                  const SizedBox(width: 5.0,),
                   Expanded(
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
@@ -79,7 +75,7 @@ Widget DetailScreen(ds) {
       ));
 }
 
-CustomDetails(title,value){
+customDetails(title,value){
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 8.0),
     child: Row(

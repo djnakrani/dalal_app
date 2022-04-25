@@ -1,8 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dalal_app/constants/Images.dart';
 import 'package:dalal_app/constants/style.dart';
-import 'package:dalal_app/screens/error.dart';
-import 'package:dalal_app/screens/home_screens/home.dart';
+import 'package:dalal_app/screens/messageBox.dart';
 import 'package:dalal_app/widget/custom_button.dart';
 import 'package:dalal_app/widget/custom_textfield.dart';
 import 'package:flutter/material.dart';
@@ -88,7 +87,7 @@ class _InputYTLinkState extends State<InputYTLink> {
                     btnTxt: 'તમારી Link ઉમેરો ...',
                     callback: () {
                       if (_youtubeForm.currentState!.validate()) {
-                        var date = new DateTime.now().toString();
+                        var date = DateTime.now().toString();
                         var dateParse = DateTime.parse(date);
                         var formattedDate =
                             "${dateParse.day}-${dateParse.month}-${dateParse.year}";
@@ -100,7 +99,7 @@ class _InputYTLinkState extends State<InputYTLink> {
                           "Link": _link,
                           "Date": finalDate,
                         };
-                        Add_YT_Link(data);
+                        addYtLink(data);
                       }
                     },
                   ),
@@ -109,10 +108,10 @@ class _InputYTLinkState extends State<InputYTLink> {
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
                     children: [
-                      DataTableTitle('Title', myColors.colorPrimaryColor),
-                      DataTableTitle('Link', myColors.colorPrimaryColor),
-                      DataTableTitle('Date', myColors.colorPrimaryColor),
-                      DataTableTitle('Remove', myColors.btnRemove),
+                      dataTableTitle('Title', myColors.colorPrimaryColor),
+                      dataTableTitle('Link', myColors.colorPrimaryColor),
+                      dataTableTitle('Date', myColors.colorPrimaryColor),
+                      dataTableTitle('Remove', myColors.btnRemove),
                     ],
                   ),
                 ),
@@ -164,7 +163,7 @@ class _InputYTLinkState extends State<InputYTLink> {
                                           Expanded(child: Text(doc['Date'])),
                                           Expanded(
                                             child: InkWell(
-                                              onTap: () => Remove(doc.id),
+                                              onTap: () => removeData(doc.id),
                                               child: const Icon(
                                                 Icons.highlight_remove,
                                                 color: myColors.btnRemove,
@@ -192,20 +191,21 @@ class _InputYTLinkState extends State<InputYTLink> {
     );
   }
 
-  Future<void> Add_YT_Link(Map<String, dynamic> data) async {
+  Future<void> addYtLink(Map<String, dynamic> data) async {
     await FirebaseFirestore.instance
         .collection('YoutubeLink')
         .doc()
         .set(data)
         .then((value) => () {
-              Get.offAll(() => const InputYTLink());
+      MessageBox(msg: 'Number Added Successfully',icon: Icons.check,);
+      Get.offAll(() => const InputYTLink());
             })
         .catchError((onError) {
-      ErrorScreen(error: onError);
+      MessageBox(msg: onError,icon: Icons.error,);
     });
   }
 
-  DataTableTitle(String s, Color color) {
+  dataTableTitle(String s, Color color) {
     return Expanded(
         child: Container(
       decoration: BoxDecoration(
@@ -222,11 +222,13 @@ class _InputYTLinkState extends State<InputYTLink> {
     ));
   }
 
-  Future Remove(String Docid) async {
+  Future removeData(String docId) async {
     await FirebaseFirestore.instance
         .collection('YoutubeLink')
-        .doc(Docid)
+        .doc(docId)
         .delete()
-        .then((value) => {Get.off(() => const InputYTLink())});
+        .then((value) => {
+      MessageBox(msg: 'Number Removed Successfully',icon: Icons.check,),
+      Get.off(() => const InputYTLink())});
   }
 }

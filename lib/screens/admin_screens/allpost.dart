@@ -3,15 +3,14 @@ import 'package:dalal_app/screens/admin_screens/adminDrawer.dart';
 import 'package:dalal_app/screens/home_screens/DetailScreen.dart';
 import 'package:dalal_app/widget/custom_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:dalal_app/constants/myColors.dart';
 import 'package:dalal_app/constants/style.dart';
 import 'package:dalal_app/constants/string.dart';
 import 'package:get/get.dart';
 
-import '../mydrawer.dart';
-
 class AllPost extends StatefulWidget {
+  const AllPost({Key? key}) : super(key: key);
+
   @override
   _AllPostState createState() => _AllPostState();
 }
@@ -23,34 +22,32 @@ class _AllPostState extends State<AllPost> {
       appBar: AppBar(
         title: const Text(string.appName + "- All Post "),
         backgroundColor: myColors.colorPrimaryColor,
-        actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.search))],
+        // actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.search))],
       ),
       drawer: const AdminDrawer(),
       body: Padding(
-        padding: const EdgeInsets.all(10),
-        child:
-        StreamBuilder(
-          stream: FirebaseFirestore.instance.collection('Items').snapshots(),
-          builder: (_, AsyncSnapshot<QuerySnapshot> snapshot) {
-            if (snapshot.data == null) {
-              return const Center(child: CircularProgressIndicator());
-            } else {
-              return ListView.builder(
-                  itemCount: snapshot.data?.size,
-                  padding: ob50,
-                  itemBuilder: (context, index) {
-                    DocumentSnapshot ds = snapshot.data!.docs[index];
-                    return MyCard(ds, context);
-                  });
-            }
-          },
-        )
-      ),
+          padding: const EdgeInsets.all(10),
+          child: StreamBuilder(
+            stream: FirebaseFirestore.instance.collection('Items').snapshots(),
+            builder: (_, AsyncSnapshot<QuerySnapshot> snapshot) {
+              if (snapshot.data == null) {
+                return const Center(child: CircularProgressIndicator());
+              } else {
+                return ListView.builder(
+                    itemCount: snapshot.data?.size,
+                    padding: ob50,
+                    itemBuilder: (context, index) {
+                      DocumentSnapshot ds = snapshot.data!.docs[index];
+                      return myCard(ds, context);
+                    });
+              }
+            },
+          )),
     );
   }
 }
 
-Widget MyCard(DocumentSnapshot ds,BuildContext context) {
+Widget myCard(DocumentSnapshot ds, BuildContext context) {
   return Card(
       clipBehavior: Clip.antiAlias,
       elevation: 10,
@@ -117,7 +114,7 @@ Widget MyCard(DocumentSnapshot ds,BuildContext context) {
                         ),
                       ),
                       Container(
-                        padding: EdgeInsets.only(right: 10),
+                        padding: const EdgeInsets.only(right: 10),
                         child: Column(
                           children: [
                             Align(
@@ -127,9 +124,12 @@ Widget MyCard(DocumentSnapshot ds,BuildContext context) {
                                     primary: myColors.colorPrimaryColor,
                                   ),
                                   onPressed: () {
-                                      Remove(ds.id);
+                                    removeData(ds.id);
                                   },
-                                  child: const Icon(Icons.delete,color: myColors.btnRemove,)),
+                                  child: const Icon(
+                                    Icons.delete,
+                                    color: myColors.btnRemove,
+                                  )),
                             ),
                           ],
                         ),
@@ -138,13 +138,12 @@ Widget MyCard(DocumentSnapshot ds,BuildContext context) {
                   ))
             ],
           )));
-
 }
 
-Future Remove(String Docid) async {
+Future removeData(String docId) async {
   await FirebaseFirestore.instance
       .collection('Items')
-      .doc(Docid)
+      .doc(docId)
       .delete()
-      .then((value) => {Get.off(() => AllPost())});
+      .then((value) => {Get.off(() => const AllPost())});
 }

@@ -21,17 +21,26 @@ class _AdminDrawerState extends State<AdminDrawer> {
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          UserAccountsDrawerHeader(
-            accountName: BoldText("Admin"),
-            accountEmail: const Text(""),
-            currentAccountPicture: const CircleAvatar(
-              backgroundColor: Colors.white,
-              foregroundColor: Colors.black,
-              child: Icon(Icons.person,size: 50,),
+          Center(
+            child: UserAccountsDrawerHeader(
+              accountName: BoldText("Admin"),
+              accountEmail: const Text(""),
+              currentAccountPicture: const CircleAvatar(
+                backgroundColor: Colors.white,
+                foregroundColor: Colors.black,
+                child: Icon(Icons.person,size: 50,),
+              ),
             ),
           ),
           ListTile(
             leading: const Icon(Icons.person_pin),
+            title: SimpleText('Dashboard'),
+            onTap: () {
+              Get.to(() => AdminDashboard());
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.list_alt),
             title: SimpleText('All Post'),
             onTap: () {
               Get.to(() => AllPost());

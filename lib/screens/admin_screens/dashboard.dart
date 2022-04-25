@@ -1,20 +1,23 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dalal_app/constants/style.dart';
 import 'package:dalal_app/screens/admin_screens/adminDrawer.dart';
-import 'package:dalal_app/widget/custom_text.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:dalal_app/constants/myColors.dart';
 import 'package:dalal_app/constants/string.dart';
 import 'package:get/get.dart';
 
 class AdminDashboard extends StatefulWidget {
+  const AdminDashboard({Key? key}) : super(key: key);
+
   @override
   _AdminDashboardState createState() => _AdminDashboardState();
 }
 
 class _AdminDashboardState extends State<AdminDashboard> {
   String totalUser= "";
+  String totalItems= "";
+  String totalYouLink= "";
+  String totalHelpLineNo= "";
 
   @override
   void initState() {
@@ -23,6 +26,21 @@ class _AdminDashboardState extends State<AdminDashboard> {
     getUser().then((value) {
       setState(() {
         totalUser = value;
+      });
+    });
+    getItems().then((value){
+      setState(() {
+        totalItems = value;
+      });
+    });
+    getYoutubeLinks().then((value){
+      setState(() {
+        totalYouLink = value;
+      });
+    });
+    getHelpLineNo().then((value){
+      setState(() {
+        totalHelpLineNo = value;
       });
     });
   }
@@ -40,10 +58,10 @@ class _AdminDashboardState extends State<AdminDashboard> {
             padding: const EdgeInsets.all(10),
             child: Column(
               children: [
-                MyCard(Colors.amberAccent, "User","https://firebasestorage.googleapis.com/v0/b/dalal-163d2.appspot.com/o/icon-g04b495cfe_1920.png?alt=media&token=44074bbb-08ec-401d-85ad-541b71553c4e", totalUser),
-                MyCard(Colors.green, "Pasu", "https://firebasestorage.googleapis.com/v0/b/dalal-163d2.appspot.com/o/Category%2F1.png?alt=media&token=eb453c7a-c0df-4971-9532-d1ae71c8df79", totalUser),
-                MyCard(Colors.white54, "Categoty Name", "Icon", totalUser),
-                MyCard(Colors.white54, "Categoty Name", "Icon", totalUser),
+                viewCard(Colors.amberAccent, "User",Icons.supervised_user_circle, totalUser),
+                viewCard(Colors.green, "Items", Icons.view_list, totalItems),
+                viewCard(Colors.redAccent, "Youtube Links", Icons.play_circle_fill, totalYouLink),
+                viewCard(Colors.lightGreen, "HelpLine Numbers", Icons.view_list, totalHelpLineNo),
               ],
             )
             ),
@@ -51,24 +69,25 @@ class _AdminDashboardState extends State<AdminDashboard> {
     );
   }
 
-  Widget MyCard(
-    Color cardcolor,
+  Widget viewCard(
+    Color cardColor,
     String category,
-    String image,
+    IconData icon,
     String number,
   ) {
     return Card(
+      margin: syv10,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(40), // if you need this
         side: BorderSide(
-          color: cardcolor,
+          color: cardColor,
           width: 1,
         ),
       ),
       child: Container(
         decoration: BoxDecoration(
           borderRadius: br20,
-          color: cardcolor,
+          color: cardColor,
         ),
         width: MediaQuery.of(context).size.width,
         height: 200,
@@ -80,13 +99,9 @@ class _AdminDashboardState extends State<AdminDashboard> {
                 CircleAvatar(
                   backgroundColor: Colors.white,
                   radius: 50,
-                  child: CircleAvatar(
-                    backgroundColor: Colors.white70,
-                    backgroundImage: NetworkImage(image), //NetworkImage
-                    radius: 50,
-                  ), //CircleAvatar
+                  child: Icon(icon,size: 50,),
                 ),
-                SizedBox(width: 20,),
+                const SizedBox(width: 20,),
                 CircleAvatar(
                   backgroundColor: Colors.white,
                   radius: 70,
@@ -105,6 +120,30 @@ class _AdminDashboardState extends State<AdminDashboard> {
   Future<String> getUser() async {
     QuerySnapshot _myDoc =
         await FirebaseFirestore.instance.collection('User').get();
+    List<DocumentSnapshot> _myDocCount = _myDoc.docs;
+    Get.log(_myDocCount.length.toString());
+    return _myDocCount.length.toString();
+  }
+
+  Future<String> getItems() async {
+    QuerySnapshot _myDoc =
+    await FirebaseFirestore.instance.collection('Items').get();
+    List<DocumentSnapshot> _myDocCount = _myDoc.docs;
+    Get.log(_myDocCount.length.toString());
+    return _myDocCount.length.toString();
+  }
+
+  Future<String> getYoutubeLinks() async {
+    QuerySnapshot _myDoc =
+    await FirebaseFirestore.instance.collection('YoutubeLink').get();
+    List<DocumentSnapshot> _myDocCount = _myDoc.docs;
+    Get.log(_myDocCount.length.toString());
+    return _myDocCount.length.toString();
+  }
+
+  Future<String> getHelpLineNo() async {
+    QuerySnapshot _myDoc =
+    await FirebaseFirestore.instance.collection('HelpLineNo').get();
     List<DocumentSnapshot> _myDocCount = _myDoc.docs;
     Get.log(_myDocCount.length.toString());
     return _myDocCount.length.toString();

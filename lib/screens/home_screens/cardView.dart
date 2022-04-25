@@ -2,18 +2,16 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dalal_app/constants/style.dart';
-import 'package:dalal_app/screens/error.dart';
 import 'package:dalal_app/screens/home_screens/DetailScreen.dart';
+import 'package:dalal_app/screens/messageBox.dart';
 import 'package:dalal_app/widget/custom_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:dalal_app/constants/myColors.dart';
 
 
 import '../../constants/Images.dart';
-import 'favorite_screen.dart';
 String uid = FirebaseAuth.instance.currentUser!.uid;
 Widget cardView(DocumentSnapshot ds, BuildContext context) {
 
@@ -54,8 +52,9 @@ Widget cardView(DocumentSnapshot ds, BuildContext context) {
                         onPressed: () {
                           showDialog(
                             context: context,
-                            builder: (_) => ErrorScreen(
-                              error: 'Removed',
+                            builder: (_) => MessageBox(
+                              msg: 'Removed',
+                              icon: Icons.check,
                             ),
                           );
                           remove(ds);

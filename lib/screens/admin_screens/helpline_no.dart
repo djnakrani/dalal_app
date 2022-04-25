@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dalal_app/constants/Images.dart';
 import 'package:dalal_app/constants/style.dart';
-import 'package:dalal_app/screens/error.dart';
+import 'package:dalal_app/screens/messageBox.dart';
 import 'package:dalal_app/widget/custom_button.dart';
 import 'package:dalal_app/widget/custom_textfield.dart';
 import 'package:flutter/material.dart';
@@ -89,7 +89,7 @@ class _HelpLinenoState extends State<HelpLineno> {
                           "Taluko": _taluko,
                           "Number": _number,
                         };
-                        Add_HelpLine(data);
+                        addHelpLineno(data);
                       }
                     },
                   ),
@@ -98,9 +98,9 @@ class _HelpLinenoState extends State<HelpLineno> {
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
                     children: [
-                      DataTableTitle('તાલુકો', myColors.colorPrimaryColor),
-                      DataTableTitle('નંબર', myColors.colorPrimaryColor),
-                      DataTableTitle('કાઢો', myColors.btnRemove),
+                      dataTableTitle('તાલુકો', myColors.colorPrimaryColor),
+                      dataTableTitle('નંબર', myColors.colorPrimaryColor),
+                      dataTableTitle('કાઢો', myColors.btnRemove),
                     ],
                   ),
                 ),
@@ -139,7 +139,7 @@ class _HelpLinenoState extends State<HelpLineno> {
                                           Expanded(child: Text(doc['Number'])),
                                           Expanded(
                                             child: InkWell(
-                                              onTap: () => Remove(doc.id),
+                                              onTap: () => removeData(doc.id),
                                               child: const Icon(
                                                 Icons.highlight_remove,
                                                 color: myColors.btnRemove,
@@ -167,20 +167,27 @@ class _HelpLinenoState extends State<HelpLineno> {
     );
   }
 
-  Future<void> Add_HelpLine(Map<String, dynamic> data) async {
+  Future<void> addHelpLineno(Map<String, dynamic> data) async {
     await FirebaseFirestore.instance
         .collection('HelpLineNo')
         .doc()
         .set(data)
         .then((value) => () {
+              MessageBox(
+                msg: 'Number Added Successfully',
+                icon: Icons.check,
+              );
               Get.offAll(() => const HelpLineno());
             })
         .catchError((onError) {
-      ErrorScreen(error: onError);
+      MessageBox(
+        msg: onError,
+        icon: Icons.error,
+      );
     });
   }
 
-  DataTableTitle(String s, Color color) {
+  dataTableTitle(String s, Color color) {
     return Expanded(
         child: Container(
       decoration: BoxDecoration(
@@ -197,11 +204,17 @@ class _HelpLinenoState extends State<HelpLineno> {
     ));
   }
 
-  Future Remove(String Docid) async {
+  Future removeData(String docId) async {
     await FirebaseFirestore.instance
         .collection('HelpLineNo')
-        .doc(Docid)
+        .doc(docId)
         .delete()
-        .then((value) => {Get.off(() => const HelpLineno())});
+        .then((value) => {
+              MessageBox(
+                msg: 'Number Removed Successfully',
+                icon: Icons.check,
+              ),
+              Get.off(() => const HelpLineno())
+            });
   }
 }
