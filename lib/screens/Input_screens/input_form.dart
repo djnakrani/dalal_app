@@ -271,6 +271,11 @@ class _InputFormState extends State<InputForm> {
       _mobile = value["Mobile_no"];
     });
 
+    var date = new DateTime.now().toString();
+    var dateParse = DateTime.parse(date);
+    var formattedDate =
+        "${dateParse.day}-${dateParse.month}-${dateParse.year}";
+    var finalDate = formattedDate.toString();
     Map<String, dynamic> data = {
       "Uid": uid,
       "Seller_Name": _name,
@@ -282,6 +287,7 @@ class _InputFormState extends State<InputForm> {
       "Address": _address,
       "City": _city,
       "State": _state,
+      "Date": finalDate,
       "Urls": _imagesUrlsList,
     };
     Add_Items(data);

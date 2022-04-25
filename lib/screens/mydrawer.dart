@@ -97,7 +97,7 @@ class _DrawerState extends State<MyDrawer> {
             leading: const Icon(Icons.favorite),
             title:  SimpleText("My Favroite"),
             onTap: () {
-              Get.to(() => const FavoriteScreen());
+              Get.offAll(() => const FavoriteScreen());
 
             },
           ),

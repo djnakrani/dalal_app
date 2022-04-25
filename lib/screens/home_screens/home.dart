@@ -58,7 +58,7 @@ class _HomeState extends State<Home> {
                     padding: ob50,
                     itemBuilder: (context, index) {
                       DocumentSnapshot ds = snapshot.data!.docs[index];
-                      return myCard(ds, context, index);
+                      return myCard(ds, context);
                     });
               }
             },
@@ -89,7 +89,7 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Widget myCard(DocumentSnapshot ds, BuildContext context, int index) {
+  Widget myCard(DocumentSnapshot ds, BuildContext context) {
     return Card(
         clipBehavior: Clip.antiAlias,
         elevation: 10,

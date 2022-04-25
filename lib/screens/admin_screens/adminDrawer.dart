@@ -1,3 +1,4 @@
+import 'package:dalal_app/screens/admin_screens/allpost.dart';
 import 'package:dalal_app/screens/admin_screens/dashboard.dart';
 import 'package:dalal_app/screens/admin_screens/helpline_no.dart';
 import 'package:dalal_app/screens/admin_screens/youtube_link.dart';
@@ -22,7 +23,7 @@ class _AdminDrawerState extends State<AdminDrawer> {
         children: [
           UserAccountsDrawerHeader(
             accountName: BoldText("Admin"),
-            accountEmail: Text(""),
+            accountEmail: const Text(""),
             currentAccountPicture: const CircleAvatar(
               backgroundColor: Colors.white,
               foregroundColor: Colors.black,
@@ -31,9 +32,9 @@ class _AdminDrawerState extends State<AdminDrawer> {
           ),
           ListTile(
             leading: const Icon(Icons.person_pin),
-            title: SimpleText('Dashboard'),
+            title: SimpleText('All Post'),
             onTap: () {
-              Get.to(() => AdminDashboard());
+              Get.to(() => AllPost());
             },
           ),
           ListTile(

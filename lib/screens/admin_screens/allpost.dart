@@ -1,11 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dalal_app/screens/Input_screens/take_screen.dart';
 import 'package:dalal_app/screens/admin_screens/adminDrawer.dart';
-import 'package:dalal_app/screens/admin_screens/dashboard.dart';
-import 'package:dalal_app/screens/error.dart';
 import 'package:dalal_app/screens/home_screens/DetailScreen.dart';
 import 'package:dalal_app/widget/custom_text.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:dalal_app/constants/myColors.dart';
@@ -36,14 +32,17 @@ class _AllPostState extends State<AllPost> {
         StreamBuilder(
           stream: FirebaseFirestore.instance.collection('Items').snapshots(),
           builder: (_, AsyncSnapshot<QuerySnapshot> snapshot) {
-            return ListView.builder(
-                  itemCount: snapshot.data!.size,
+            if (snapshot.data == null) {
+              return const Center(child: CircularProgressIndicator());
+            } else {
+              return ListView.builder(
+                  itemCount: snapshot.data?.size,
                   padding: ob50,
                   itemBuilder: (context, index) {
                     DocumentSnapshot ds = snapshot.data!.docs[index];
-                    return MyCard(ds,context);
-                  }
-                  );
+                    return MyCard(ds, context);
+                  });
+            }
           },
         )
       ),
