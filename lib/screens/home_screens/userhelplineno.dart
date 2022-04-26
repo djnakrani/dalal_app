@@ -1,13 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dalal_app/constants/Images.dart';
 import 'package:dalal_app/constants/style.dart';
-import 'package:dalal_app/screens/error.dart';
-import 'package:dalal_app/widget/custom_button.dart';
-import 'package:dalal_app/widget/custom_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:dalal_app/constants/myColors.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:get/get.dart';
 
 class UserHelpLine extends StatefulWidget {
   const UserHelpLine({Key? key}) : super(key: key);
@@ -43,8 +39,8 @@ class _UserHelpLineState extends State<UserHelpLine> {
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
                   children: [
-                    DataTableTitle('તાલુકો', myColors.colorPrimaryColor),
-                    DataTableTitle('નંબર', myColors.colorPrimaryColor),
+                    dataTitleTable('તાલુકો', myColors.colorPrimaryColor),
+                    dataTitleTable('નંબર', myColors.colorPrimaryColor),
                   ],
                 ),
               ),
@@ -85,7 +81,7 @@ class _UserHelpLineState extends State<UserHelpLine> {
                                             onTap: () => {
                                             launch('tel: +91${doc['Number']}')
                                             },
-                                            child: Icon(Icons.phone,color: myColors.colorPrimaryColor,))),
+                                            child: const Icon(Icons.phone,color: myColors.colorPrimaryColor,))),
                                       ],
                                     ),
                                   ),
@@ -106,7 +102,7 @@ class _UserHelpLineState extends State<UserHelpLine> {
     );
   }
 
-  DataTableTitle(String s, Color color) {
+  dataTitleTable(String s, Color color) {
     return Expanded(
         child: Container(
       decoration: BoxDecoration(

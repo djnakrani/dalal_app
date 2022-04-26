@@ -2,22 +2,21 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dalal_app/constants/Images.dart';
 import 'package:dalal_app/constants/style.dart';
-import 'package:dalal_app/screens/error.dart';
 import 'package:dalal_app/screens/home_screens/home.dart';
+import 'package:dalal_app/screens/messageBox.dart';
 import 'package:dalal_app/widget/custom_button.dart';
 import 'package:dalal_app/widget/custom_textfield.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:dalal_app/constants/myColors.dart';
 import 'package:image_picker/image_picker.dart';
 
 class InputForm extends StatefulWidget {
-  String Category;
+  String category;
 
-  InputForm({Key? key, required this.Category}) : super(key: key);
+  InputForm({Key? key, required this.category}) : super(key: key);
 
   @override
   _InputFormState createState() => _InputFormState();
@@ -26,9 +25,9 @@ class InputForm extends StatefulWidget {
 class _InputFormState extends State<InputForm> {
   String? _name, _mobile, _title, _price, _details, _address, _city, _state;
   final ImagePicker _picker = ImagePicker();
-  List<XFile> _selectedImage = [];
+  final List<XFile> _selectedImage = [];
   var length;
-  final _InputForm = GlobalKey<FormState>();
+  final _inputForm = GlobalKey<FormState>();
   FirebaseStorage _storageRef = FirebaseStorage.instance;
   List<String> _imagesUrlsList = [];
 
@@ -52,7 +51,7 @@ class _InputFormState extends State<InputForm> {
                 image: AssetImage(Images.background), fit: BoxFit.fitHeight)),
         height: MediaQuery.of(context).size.height,
         child: Form(
-          key: _InputForm,
+          key: _inputForm,
           child: ListView(
             children: <Widget>[
               Center(
@@ -60,7 +59,7 @@ class _InputFormState extends State<InputForm> {
                   constraints: const BoxConstraints(maxHeight: 60),
                   margin: ot50,
                   child: Text(
-                    " તમારા ${widget.Category} ની વિગત નાખો ",
+                    " તમારા ${widget.category} ની વિગત નાખો ",
                     style: const TextStyle(fontSize: 32),
                   ),
                 ),
@@ -174,7 +173,7 @@ class _InputFormState extends State<InputForm> {
                       child: const Icon(Icons.close),
                       onTap: () => resetPicker(),
                     )
-                  : SizedBox(),
+                  : const SizedBox(),
               (length == 0)
                   ? InkWell(
                       onTap: () => chooseImage(),
@@ -198,9 +197,9 @@ class _InputFormState extends State<InputForm> {
                 child: CustomButton(
                   btnTxt: 'તમારી પોસ્ટ ઉમેરો ...',
                   callback: () {
-                    if (_InputForm.currentState!.validate()) {
+                    if (_inputForm.currentState!.validate()) {
                       if (_selectedImage.isNotEmpty) {
-                        uploadonebyone(_selectedImage);
+                        uploadOneByOne(_selectedImage);
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
@@ -214,7 +213,7 @@ class _InputFormState extends State<InputForm> {
                   ? Container(
                       margin: syh20 * 8,
                       child: const CircularProgressIndicator())
-                  : SizedBox()
+                  : const SizedBox()
             ],
           ),
         ),
@@ -223,13 +222,11 @@ class _InputFormState extends State<InputForm> {
   }
 
   Future<void> chooseImage() async {
-    if (_selectedImage != null) {
-      _selectedImage.clear();
-    }
+    _selectedImage.clear();
     try {
-      final List<XFile>? imgs = await _picker.pickMultiImage();
-      if (imgs!.isNotEmpty) {
-        _selectedImage.addAll(imgs);
+      final List<XFile>? images = await _picker.pickMultiImage();
+      if (images!.isNotEmpty) {
+        _selectedImage.addAll(images);
       }
     } catch (e) {
       Get.log(e.toString());
@@ -259,7 +256,7 @@ class _InputFormState extends State<InputForm> {
     );
   }
 
-  add_data() async {
+  addData() async {
     var uid = FirebaseAuth.instance.currentUser?.uid;
     Get.log(uid.toString());
     await FirebaseFirestore.instance
@@ -271,7 +268,7 @@ class _InputFormState extends State<InputForm> {
       _mobile = value["Mobile_no"];
     });
 
-    var date = new DateTime.now().toString();
+    var date = DateTime.now().toString();
     var dateParse = DateTime.parse(date);
     var formattedDate =
         "${dateParse.day}-${dateParse.month}-${dateParse.year}";
@@ -280,7 +277,7 @@ class _InputFormState extends State<InputForm> {
       "Uid": uid,
       "Seller_Name": _name,
       "MobileNo": _mobile,
-      "Categoty": widget.Category,
+      "Categoty": widget.category,
       "Details" : _details,
       "Item": _title,
       "Price": _price,
@@ -290,10 +287,10 @@ class _InputFormState extends State<InputForm> {
       "Date": finalDate,
       "Urls": _imagesUrlsList,
     };
-    Add_Items(data);
+    addItems(data);
   }
 
-  void uploadonebyone(List<XFile> _images) async {
+  void uploadOneByOne(List<XFile> _images) async {
     setState(() {
       isUploading = true;
     });
@@ -302,7 +299,7 @@ class _InputFormState extends State<InputForm> {
       await uploadFile(_images[i]).then((value) => _imagesUrlsList.add(value));
       // _imagesUrlsList.add(uploadFile(_images[i]).toString());
     }
-    add_data();
+    addData();
     setState(() {
       isUploading = false;
     });
@@ -315,14 +312,14 @@ class _InputFormState extends State<InputForm> {
     return await reference.getDownloadURL();
   }
 
-  Future<void> Add_Items(Map<String, dynamic> data) async {
+  Future<void> addItems(Map<String, dynamic> data) async {
     Get.log(data.toString());
     await FirebaseFirestore.instance
         .collection('Items')
         .doc()
         .set(data)
-        .whenComplete(() => Get.offAll(() => Home()))
-        .onError((error, stackTrace) => ErrorScreen(error: error.toString()));
+        .whenComplete(() => Get.offAll(() => const Home()))
+        .onError((error, stackTrace) => MessageBox(msg: error.toString(),icon: Icons.error,));
     _imagesUrlsList.clear();
   }
 

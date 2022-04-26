@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dalal_app/constants/style.dart';
-import 'package:dalal_app/screens/error.dart';
 import 'package:dalal_app/screens/home_screens/home.dart';
+import 'package:dalal_app/screens/messageBox.dart';
 import 'package:dalal_app/widget/custom_button.dart';
 import 'package:dalal_app/widget/custom_logo.dart';
 import 'package:dalal_app/widget/custom_textfield.dart';
@@ -17,14 +17,14 @@ class Signup extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _signupState createState() => _signupState();
+  _SignupState createState() => _SignupState();
 }
 
-class _signupState extends State<Signup> {
+class _SignupState extends State<Signup> {
   String? _name,_email,_address,_city,_dist,_taluka;
   String? uid;
   String? _mno;
-  final _SignupForm = GlobalKey<FormState>();
+  final _signUpForm = GlobalKey<FormState>();
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   @override
@@ -47,7 +47,7 @@ class _signupState extends State<Signup> {
                   image: AssetImage(Images.background), fit: BoxFit.fill)),
           height: MediaQuery.of(context).size.height,
           child: Form(
-            key: _SignupForm,
+            key: _signUpForm,
             child: Column(
               children: <Widget>[
                 const Center(
@@ -165,7 +165,7 @@ class _signupState extends State<Signup> {
                   child: CustomButton(
                     btnTxt: 'આગળ વધો...',
                     callback: () {
-                      if (_SignupForm.currentState!.validate()) {
+                      if (_signUpForm.currentState!.validate()) {
                         Map<String, dynamic> data = {
                           "Name": _name,
                           "Address": _address,
@@ -176,7 +176,7 @@ class _signupState extends State<Signup> {
                           "City": _city,
                           "IsAdmin": "0",
                         };
-                        Add_User(data);
+                        addUsers(data);
                       }
                     },
                   ),
@@ -189,16 +189,16 @@ class _signupState extends State<Signup> {
     );
   }
 
-  Future<void> Add_User(Map<String, dynamic> data) async {
+  Future<void> addUsers(Map<String, dynamic> data) async {
     await FirebaseFirestore.instance
         .collection('User')
         .doc(uid)
         .set(data)
         .then((value) => () {
-              Get.offAll(() => Home());
+              Get.offAll(() => const Home());
             })
         .catchError((onError) {
-      ErrorScreen(error: onError.toString(),);
+          MessageBox(msg: onError.toString(),icon: Icons.error,);
     });
   }
 }

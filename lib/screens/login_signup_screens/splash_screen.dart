@@ -10,6 +10,8 @@ import 'package:get/get.dart';
 import '../../constants/Images.dart';
 
 class SplashScreen extends StatefulWidget {
+  const SplashScreen({Key? key}) : super(key: key);
+
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
@@ -36,15 +38,15 @@ class _SplashScreenState extends State<SplashScreen> {
       var uid = FirebaseAuth.instance.currentUser!.uid;
       await FirebaseFirestore.instance.collection('User').doc(uid).get().then((value) {
         if(value["IsAdmin"] == "1"){
-          Get.offAll(() => AdminDashboard());
+          Get.offAll(() => const AdminDashboard());
         }
-
         else if(value["IsAdmin"] == "")
         {
           Get.offAll(() => const Signup());
         }
         else{
-          Get.offAll(() => Home());
+          
+          Get.offAll(() => const Home());
         }
       });
     }

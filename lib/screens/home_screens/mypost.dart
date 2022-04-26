@@ -1,10 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dalal_app/screens/Input_screens/take_screen.dart';
 import 'package:dalal_app/screens/home_screens/DetailScreen.dart';
-import 'package:dalal_app/widget/custom_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:dalal_app/constants/myColors.dart';
 import 'package:dalal_app/constants/style.dart';
 import 'package:dalal_app/constants/string.dart';
@@ -13,6 +11,8 @@ import 'package:get/get.dart';
 import '../mydrawer.dart';
 
 class MyPost extends StatefulWidget {
+  const MyPost({Key? key}) : super(key: key);
+
   @override
   _MyPostState createState() => _MyPostState();
 }
@@ -39,7 +39,7 @@ class _MyPostState extends State<MyPost> {
                   padding: ob50,
                   itemBuilder: (context, index) {
                     DocumentSnapshot ds = snapshot.data!.docs[index];
-                    return MyCard(ds,context);
+                    return myCard(ds,context);
                   }
                   );
           },
@@ -49,7 +49,7 @@ class _MyPostState extends State<MyPost> {
   }
 }
 
-Widget MyCard(DocumentSnapshot ds,BuildContext context) {
+Widget myCard(DocumentSnapshot ds,BuildContext context) {
   return Card(
       clipBehavior: Clip.antiAlias,
       elevation: 10,
@@ -88,35 +88,15 @@ Widget MyCard(DocumentSnapshot ds,BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Row(
-                              children: [
-                                BoldText("વેચનાર નું નામ: "),
-                                SimpleText(ds["Seller_Name"])
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                BoldText("નામ: "),
-                                SimpleText(ds["Item"])
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                BoldText("ગામ: "),
-                                SimpleText(ds["Address"])
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                BoldText("મોબાઈલ નંબર: "),
-                                SimpleText(ds["MobileNo"])
-                              ],
-                            ),
+                            customDetails("પશુ / વસ્તુ: ", ds["Item"]),
+                            customDetails("વેચનાર નું નામ: ", ds["Seller_Name"]),
+                            customDetails("કિંમત: ", ds["Price"]),
+                            customDetails("મોબાઇલ નંબર: ", ds["MobileNo"]),
                           ],
                         ),
                       ),
                       Container(
-                        padding: EdgeInsets.only(right: 10),
+                        padding: const EdgeInsets.only(right: 10),
                         child: Column(
                           children: [
                             Align(
@@ -126,7 +106,7 @@ Widget MyCard(DocumentSnapshot ds,BuildContext context) {
                                     primary: myColors.colorPrimaryColor,
                                   ),
                                   onPressed: () {
-                                      Remove(ds.id);
+                                      removeData(ds.id);
                                   },
                                   child: const Icon(Icons.delete,color: myColors.btnRemove,)),
                             ),
@@ -140,10 +120,10 @@ Widget MyCard(DocumentSnapshot ds,BuildContext context) {
 
 }
 
-Future Remove(String Docid) async {
+Future removeData(String docId) async {
   await FirebaseFirestore.instance
       .collection('Items')
-      .doc(Docid)
+      .doc(docId)
       .delete()
       .then((value) => {Get.off(() => MyPost())});
 }

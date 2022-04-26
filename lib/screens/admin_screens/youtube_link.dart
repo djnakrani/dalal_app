@@ -197,11 +197,17 @@ class _InputYTLinkState extends State<InputYTLink> {
         .doc()
         .set(data)
         .then((value) => () {
-      MessageBox(msg: 'Number Added Successfully',icon: Icons.check,);
-      Get.offAll(() => const InputYTLink());
+              MessageBox(
+                msg: 'Number Added Successfully',
+                icon: Icons.check,
+              );
+              Get.offAll(() => const InputYTLink());
             })
         .catchError((onError) {
-      MessageBox(msg: onError,icon: Icons.error,);
+      MessageBox(
+        msg: onError,
+        icon: Icons.error,
+      );
     });
   }
 
@@ -228,7 +234,14 @@ class _InputYTLinkState extends State<InputYTLink> {
         .doc(docId)
         .delete()
         .then((value) => {
-      MessageBox(msg: 'Number Removed Successfully',icon: Icons.check,),
-      Get.off(() => const InputYTLink())});
+              showDialog(
+                context: context,
+                builder: (_) => MessageBox(
+                  msg: 'Link Removed Successfully',
+                  icon: Icons.check,
+                ),
+              ),
+              Get.off(() => const InputYTLink())
+            });
   }
 }

@@ -9,6 +9,8 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class YoutubeView extends StatefulWidget {
+  const YoutubeView({Key? key}) : super(key: key);
+
   @override
   _YoutubeViewState createState() => _YoutubeViewState();
 }

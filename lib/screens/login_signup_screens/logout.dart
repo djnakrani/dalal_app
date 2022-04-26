@@ -1,5 +1,5 @@
-import 'package:dalal_app/screens/error.dart';
 import 'package:dalal_app/screens/login_signup_screens/login.dart';
+import 'package:dalal_app/screens/messageBox.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +10,6 @@ Widget LogOut() {
 
   }
   else {
-    return ErrorScreen(error: 'Sorry Please Try Again',);
+    return MessageBox(msg: 'Sorry Please Try Again', icon: Icons.error,);
   }
 }

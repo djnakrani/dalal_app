@@ -21,7 +21,7 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  var selectedItem = null;
+  var selectedItem = "";
   var selectedArea = "";
 
   @override
@@ -32,7 +32,7 @@ class _SearchScreenState extends State<SearchScreen> {
         backgroundColor: myColors.colorPrimaryColor,
         actions: [
           IconButton(
-              onPressed: () => Get.off(() => Home()),
+              onPressed: () => Get.off(() => const Home()),
               icon: const Icon(Icons.home))
         ],
       ),
@@ -53,7 +53,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   borderRadius: br20,
 
                 ),
-                child:GetItems(),
+                child:getItems(),
               ),
               CustomTextfield(
                   inputTxt: "Search In Your City",
@@ -81,7 +81,7 @@ class _SearchScreenState extends State<SearchScreen> {
     );
   }
 
-  GetItems() {
+  getItems() {
     return StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance.collection('Category').snapshots(),
         builder: (context, snapshot) {
@@ -90,36 +90,34 @@ class _SearchScreenState extends State<SearchScreen> {
               child: CupertinoActivityIndicator(),
             );
           }
-          return Container(
-            child: Row(
-              children: <Widget>[
-                 Expanded(
-                  flex: 1,
-                  child: Padding(
-                    padding: syh20 / 2,
-                    child: DropdownButton(
-                      style: const TextStyle(color: myColors.colorPrimaryColor),
-                      isExpanded: true,
-                      borderRadius: br20,
-                      onChanged: (valueSelectedByUser) {
-                        setState(() {
-                          selectedItem = valueSelectedByUser.toString();
-                        });
-                        Get.log(selectedItem);
-                      },
-                      value: selectedItem,
-                      hint: SimpleText("Select Items"),
-                      items: snapshot.data!.docs.map((document) {
-                        return DropdownMenuItem(
-                          value: document['Type'].toString(),
-                          child: SimpleText(document['Type']),
-                        );
-                      }).toList(),
-                    ),
+          return Row(
+            children: <Widget>[
+               Expanded(
+                flex: 1,
+                child: Padding(
+                  padding: syh20 / 2,
+                  child: DropdownButton(
+                    style: const TextStyle(color: myColors.colorPrimaryColor),
+                    isExpanded: true,
+                    borderRadius: br20,
+                    onChanged: (valueSelectedByUser) {
+                      setState(() {
+                        selectedItem = valueSelectedByUser.toString();
+                      });
+                      Get.log(selectedItem);
+                    },
+                    value: selectedItem,
+                    hint: SimpleText("Select Items"),
+                    items: snapshot.data!.docs.map((document) {
+                      return DropdownMenuItem(
+                        value: document['Type'].toString(),
+                        child: SimpleText(document['Type']),
+                      );
+                    }).toList(),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           );
         });
   }

@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dalal_app/screens/Input_screens/take_screen.dart';
-import 'package:dalal_app/screens/error.dart';
 import 'package:dalal_app/screens/filter_screens/searchscreen.dart';
 import 'package:dalal_app/screens/home_screens/DetailScreen.dart';
+import 'package:dalal_app/screens/messageBox.dart';
 import 'package:dalal_app/widget/custom_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -127,8 +127,9 @@ class _HomeState extends State<Home> {
                           onPressed: () {
                             showDialog(
                                 context: context,
-                                builder: (_) => ErrorScreen(
-                                  error: 'Added',
+                                builder: (_) => MessageBox(
+                                  msg: 'Added in Favorite',
+                                  icon: Icons.favorite,
                                 ),
                             );
                             add(ds);

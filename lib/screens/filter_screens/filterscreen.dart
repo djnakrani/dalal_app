@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dalal_app/screens/filter_screens/searchscreen.dart';
 import 'package:dalal_app/screens/home_screens/DetailScreen.dart';
-import 'package:dalal_app/widget/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:dalal_app/constants/myColors.dart';
 import 'package:dalal_app/constants/style.dart';
@@ -34,8 +33,8 @@ class _FilterScreenState extends State<FilterScreen> {
         backgroundColor: myColors.colorPrimaryColor,
         actions: [
           IconButton(
-              onPressed: () => Get.off(() => SearchScreen()),
-              icon: Icon(Icons.search))
+              onPressed: () => Get.off(() => const SearchScreen()),
+              icon: const Icon(Icons.search))
         ],
       ),
       drawer: const MyDrawer(),
@@ -44,7 +43,7 @@ class _FilterScreenState extends State<FilterScreen> {
           child: StreamBuilder(
             stream: FirebaseFirestore.instance
                 .collection('Items')
-                .where("Categoty", isEqualTo: widget.items)
+                .where("Category", isEqualTo: widget.items)
                 .snapshots(),
             builder: (_, AsyncSnapshot<QuerySnapshot> snapshot) {
               // Get.log(widget.area);
@@ -60,10 +59,10 @@ class _FilterScreenState extends State<FilterScreen> {
                       itemBuilder: (context, index) {
                         DocumentSnapshot ds = snapshot.data!.docs[index];
                         if (ds["City"].toString().contains(widget.area) || widget.area == "" || ds["Address"].toString().contains(widget.area) || ds["State"].toString().contains(widget.area)) {
-                          return MyCard(ds, context);
+                          return myCard(ds, context);
                         }
                         else{
-                          return SizedBox();
+                          return const SizedBox();
                         }
                       });
                 }
@@ -74,7 +73,7 @@ class _FilterScreenState extends State<FilterScreen> {
   }
 }
 
-Widget MyCard(DocumentSnapshot ds, BuildContext context) {
+Widget myCard(DocumentSnapshot ds, BuildContext context) {
   return Card(
       clipBehavior: Clip.antiAlias,
       elevation: 10,
@@ -123,35 +122,15 @@ Widget MyCard(DocumentSnapshot ds, BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Row(
-                              children: [
-                                BoldText("વેચનાર નું નામ: "),
-                                SimpleText(ds["Seller_Name"])
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                BoldText("નામ: "),
-                                SimpleText(ds["Item"])
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                BoldText("ગામ: "),
-                                SimpleText(ds["Address"])
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                BoldText("મોબાઈલ નંબર: "),
-                                SimpleText(ds["MobileNo"])
-                              ],
-                            ),
+                            customDetails("પશુ / વસ્તુ: ", ds["Item"]),
+                            customDetails("વેચનાર નું નામ: ", ds["Seller_Name"]),
+                            customDetails("કિંમત: ", ds["Price"]),
+                            customDetails("મોબાઇલ નંબર: ", ds["MobileNo"]),
                           ],
                         ),
                       ),
                       Container(
-                        padding: EdgeInsets.only(right: 10),
+                        padding: const EdgeInsets.only(right: 10),
                         child: Column(
                           children: [
                             Align(
@@ -188,3 +167,4 @@ Widget MyCard(DocumentSnapshot ds, BuildContext context) {
             ],
           )));
 }
+

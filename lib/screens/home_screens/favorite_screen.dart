@@ -66,7 +66,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                       if (favItems.contains(ds.id)) {
                         return cardView(ds, context);
                       } else {
-                        return SizedBox();
+                        return const SizedBox();
                       }
                     });
               }

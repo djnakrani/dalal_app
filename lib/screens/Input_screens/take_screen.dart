@@ -17,8 +17,6 @@ class TakeScreen extends StatefulWidget {
 }
 
 class _TakeScreenState extends State<TakeScreen> {
-  List CategoryList = [];
-
   final Stream<QuerySnapshot> data =
       FirebaseFirestore.instance.collection("Category").snapshots();
 
@@ -69,10 +67,10 @@ class _TakeScreenState extends State<TakeScreen> {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Text("Loading....");
                       }
-                      final Category = snapshot.requireData;
+                      final category = snapshot.requireData;
                       return GridView.builder(
                         shrinkWrap: true,
-                        itemCount: Category.size,
+                        itemCount: category.size,
                         padding: const EdgeInsets.all(5),
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
@@ -88,13 +86,13 @@ class _TakeScreenState extends State<TakeScreen> {
                               child: ElevatedButton(
                                 onPressed: () {
                                   Get.to(() => InputForm(
-                                      Category: Category.docs[index]['Type']));
+                                      category: category.docs[index]['Type'],));
                                 },
                                 style: ElevatedButton.styleFrom(
                                     onPrimary: Colors.green,
                                     primary: Colors.white60),
                                 child:
-                                    Image.network(Category.docs[index]['url']),
+                                    Image.network(category.docs[index]['url']),
                               ));
                         },
                       );

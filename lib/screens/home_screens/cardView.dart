@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dalal_app/constants/style.dart';
 import 'package:dalal_app/screens/home_screens/DetailScreen.dart';
@@ -72,30 +70,10 @@ Widget cardView(DocumentSnapshot ds, BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Row(
-                              children: [
-                                BoldText("વેચનાર નું નામ: "),
-                                SimpleText(ds["Seller_Name"])
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                BoldText("નામ: "),
-                                SimpleText(ds["Item"])
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                BoldText("ગામ: "),
-                                SimpleText(ds["Address"])
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                BoldText("મોબાઈલ નંબર: "),
-                                SimpleText(ds["MobileNo"])
-                              ],
-                            ),
+                            customDetails("પશુ / વસ્તુ: ", ds["Item"]),
+                            customDetails("વેચનાર નું નામ: ", ds["Seller_Name"]),
+                            customDetails("કિંમત: ", ds["Price"]),
+                            customDetails("મોબાઇલ નંબર: ", ds["MobileNo"]),
                           ],
                         ),
                       ),

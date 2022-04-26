@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dalal_app/constants/style.dart';
-import 'package:dalal_app/screens/error.dart';
 import 'package:dalal_app/screens/login_signup_screens/signup.dart';
+import 'package:dalal_app/screens/messageBox.dart';
 import 'package:dalal_app/widget/custom_button.dart';
 import 'package:dalal_app/widget/custom_logo.dart';
 import 'package:dalal_app/widget/custom_textfield.dart';
@@ -25,11 +25,10 @@ class _OtpState extends State<Otp> {
 
   String? uid;
 
-  final GlobalKey<FormState> _OtpForm = GlobalKey<FormState>();
+  final GlobalKey<FormState> _otpForm = GlobalKey<FormState>();
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _verifyphone();
   }
@@ -61,7 +60,7 @@ class _OtpState extends State<Otp> {
               Expanded(
                 flex: 2,
                 child: Form(
-                  key: _OtpForm,
+                  key: _otpForm,
                   child: Column(
                     children: <Widget>[
                       Text(
@@ -90,7 +89,7 @@ class _OtpState extends State<Otp> {
                         child: CustomButton(
                             btnTxt: 'આગળ વધો',
                             callback: () async {
-                              if(_OtpForm.currentState!.validate()){
+                              if(_otpForm.currentState!.validate()){
                                 _verifyOtp();
                               }
                             }),
@@ -124,15 +123,15 @@ class _OtpState extends State<Otp> {
         uid = FirebaseAuth.instance.currentUser?.uid;
       });
     } else {
-      ErrorScreen(
-        error: "Something Went Wrong",
+      MessageBox(
+        msg: "Something Went Wrong", icon: Icons.error,
       );
     }
   }
 
   void verificationFailed(FirebaseAuthException error) {
-    ErrorScreen(
-      error: error.message.toString(),
+    MessageBox(
+      msg: error.message.toString(), icon: Icons.error,
     );
   }
 
@@ -159,7 +158,7 @@ class _OtpState extends State<Otp> {
         });
         FirebaseFirestore.instance.collection('User').doc(uid).get().then((value) {
           if(value["IsAdmin"] == "1"){
-            Get.offAll(() => AdminDashboard());
+            Get.offAll(() => const AdminDashboard());
           }
 
           else if(value["IsAdmin"] == "")
@@ -167,13 +166,13 @@ class _OtpState extends State<Otp> {
             Get.offAll(() => const Signup());
           }
           else{
-            Get.offAll(() => Home());
+            Get.offAll(() => const Home());
           }
         });
       }
     } catch (e) {
-      ErrorScreen(
-        error: e.toString(),
+      MessageBox(
+        msg: e.toString(), icon: Icons.error,
       );
     }
   }

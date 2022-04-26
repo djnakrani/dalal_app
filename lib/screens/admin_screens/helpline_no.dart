@@ -210,9 +210,12 @@ class _HelpLinenoState extends State<HelpLineno> {
         .doc(docId)
         .delete()
         .then((value) => {
-              MessageBox(
-                msg: 'Number Removed Successfully',
-                icon: Icons.check,
+              showDialog(
+                context: context,
+                builder: (_) => MessageBox(
+                  msg: 'Number Removed Successfully',
+                  icon: Icons.check,
+                ),
               ),
               Get.off(() => const HelpLineno())
             });
