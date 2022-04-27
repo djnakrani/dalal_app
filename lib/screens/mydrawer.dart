@@ -1,12 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dalal_app/screens/Input_screens/take_screen.dart';
+import 'package:dalal_app/screens/home_screens/UserDetails.dart';
 import 'package:dalal_app/screens/home_screens/favorite_screen.dart';
 import 'package:dalal_app/screens/home_screens/home.dart';
 import 'package:dalal_app/screens/home_screens/mypost.dart';
 import 'package:dalal_app/screens/home_screens/userhelplineno.dart';
 import 'package:dalal_app/screens/home_screens/youtubeview.dart';
 import 'package:dalal_app/screens/login_signup_screens/logout.dart';
-import 'package:dalal_app/screens/login_signup_screens/signup.dart';
 import 'package:dalal_app/widget/custom_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -55,14 +55,14 @@ class _DrawerState extends State<MyDrawer> {
             leading: const Icon(Icons.home),
             title: SimpleText("Home"),
             onTap: () {
-              Get.to(()=> Home());
+              Get.to(()=> const Home());
             },
           ),
           ListTile(
             leading: const Icon(Icons.person_pin),
             title:  SimpleText("My Profile"),
             onTap: () {
-              Get.to(()=> const Signup());
+              Get.to(()=> const UserDetails());
             },
           ),
           ListTile(
@@ -76,14 +76,14 @@ class _DrawerState extends State<MyDrawer> {
             leading: const Icon(Icons.list_alt_outlined),
             title:  SimpleText("My Post"),
             onTap: () {
-              Get.to(()=>MyPost());
+              Get.to(()=>const MyPost());
             },
           ),
           ListTile(
             leading: const Icon(Icons.play_circle_fill),
             title:  SimpleText("My Youtube"),
             onTap: () {
-              Get.to(()=> YoutubeView());
+              Get.to(()=> const YoutubeView());
             },
           ),
           ListTile(
@@ -95,7 +95,7 @@ class _DrawerState extends State<MyDrawer> {
           ),
           ListTile(
             leading: const Icon(Icons.favorite),
-            title:  SimpleText("My Favroite"),
+            title:  SimpleText("My Favorite"),
             onTap: () {
               Get.offAll(() => const FavoriteScreen());
 

@@ -34,14 +34,17 @@ class _MyPostState extends State<MyPost> {
         StreamBuilder(
           stream: FirebaseFirestore.instance.collection('Items').where("Uid",isEqualTo: uid).snapshots(),
           builder: (_, AsyncSnapshot<QuerySnapshot> snapshot) {
-            return ListView.builder(
-                  itemCount: snapshot.data!.size,
+            if (snapshot.data == null) {
+              return const Center(child: CircularProgressIndicator());
+            } else {
+              return ListView.builder(
+                  itemCount: snapshot.data?.size,
                   padding: ob50,
                   itemBuilder: (context, index) {
                     DocumentSnapshot ds = snapshot.data!.docs[index];
-                    return myCard(ds,context);
-                  }
-                  );
+                    return myCard(ds, context);
+                  });
+            }
           },
         )
       ),

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dalal_app/screens/admin_screens/adminDrawer.dart';
+import 'package:dalal_app/screens/mydrawer.dart';
 import 'package:dalal_app/widget/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:dalal_app/constants/myColors.dart';
@@ -23,7 +24,7 @@ class _YoutubeViewState extends State<YoutubeView> {
         title: const Text(string.appName),
         backgroundColor: myColors.colorPrimaryColor,
       ),
-      drawer: const AdminDrawer(),
+      drawer: const MyDrawer(),
       body: StreamBuilder(
           stream:
           FirebaseFirestore.instance.collection('YoutubeLink').orderBy("Date",descending: true).snapshots(),
