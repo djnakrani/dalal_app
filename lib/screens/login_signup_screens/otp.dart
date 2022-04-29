@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dalal_app/constants/myColors.dart';
 import 'package:dalal_app/constants/style.dart';
 import 'package:dalal_app/screens/login_signup_screens/signup.dart';
 import 'package:dalal_app/screens/messageBox.dart';
@@ -85,11 +86,25 @@ class _OtpState extends State<Otp> {
                             },
                           )),
                       Container(
+                        alignment: Alignment.centerRight,
+                        child: MaterialButton(
+                          onPressed: () {
+                            _verifyphone();
+                          },
+                          child: const Text(
+                            "Resend Otp?",
+                            style: TextStyle(
+                              color: myColors.btnRemove,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Container(
                         margin: syv10 + syh20,
                         child: CustomButton(
                             btnTxt: 'આગળ વધો',
                             callback: () async {
-                              if(_otpForm.currentState!.validate()){
+                              if (_otpForm.currentState!.validate()) {
                                 _verifyOtp();
                               }
                             }),
@@ -123,15 +138,23 @@ class _OtpState extends State<Otp> {
         uid = FirebaseAuth.instance.currentUser?.uid;
       });
     } else {
-      MessageBox(
-        msg: "Something Went Wrong", icon: Icons.error,
+      showDialog(
+        context: context,
+        builder: (_) => MessageBox(
+          msg: 'Something Went Wrong',
+          icon: Icons.error,
+        ),
       );
     }
   }
 
   void verificationFailed(FirebaseAuthException error) {
-    MessageBox(
-      msg: error.message.toString(), icon: Icons.error,
+    showDialog(
+      context: context,
+      builder: (_) => MessageBox(
+        msg: error.message.toString(),
+        icon: Icons.error,
+      ),
     );
   }
 
@@ -148,31 +171,45 @@ class _OtpState extends State<Otp> {
   }
 
   void _verifyOtp() async {
-    final credential = PhoneAuthProvider.credential(
-        verificationId: _verificationCode, smsCode: _code);
-    try {
-      await FirebaseAuth.instance.signInWithCredential(credential);
-      if (FirebaseAuth.instance.currentUser != null) {
-        setState(() {
-          uid = FirebaseAuth.instance.currentUser!.uid;
-        });
-        FirebaseFirestore.instance.collection('User').doc(uid).get().then((value) {
-          if(value["IsAdmin"] == "1"){
-            Get.offAll(() => const AdminDashboard());
-          }
+    final AuthCredential credential = PhoneAuthProvider.credential(
+      verificationId: _verificationCode,
+      smsCode: _code,
+    );
 
-          else if(value["IsAdmin"] == "")
-          {
-            Get.offAll(() => const Signup());
-          }
-          else{
-            Get.offAll(() => const Home());
-          }
-        });
-      }
+    try {
+      await FirebaseAuth.instance.signInWithCredential(credential).whenComplete((){
+        if (FirebaseAuth.instance.currentUser != null) {
+          Get.log("hello");
+          uid = FirebaseAuth.instance.currentUser!.uid;
+          FirebaseFirestore.instance
+              .collection('User')
+              .doc(uid)
+              .get()
+              .then((value) {
+            if (value["IsAdmin"] == "1") {
+              Get.log("hello2");
+
+              Get.offAll(() => const AdminDashboard());
+            } else if (value["IsAdmin"] == "") {
+              Get.log("hello3");
+
+              Get.offAll(() => const Signup());
+            } else {
+              Get.log("hello4");
+
+              Get.offAll(() => const Home());
+            }
+          });
+        }
+      });
+      // FirebaseAuth.instance.signInWithPhoneNumber(widget.phone);
     } catch (e) {
-      MessageBox(
-        msg: e.toString(), icon: Icons.error,
+      showDialog(
+        context: context,
+        builder: (_) => MessageBox(
+          msg: e.toString(),
+          icon: Icons.error,
+        ),
       );
     }
   }

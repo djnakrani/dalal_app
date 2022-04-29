@@ -1,4 +1,5 @@
 import 'package:dalal_app/constants/myColors.dart';
+import 'package:dalal_app/screens/login_signup_screens/login.dart';
 import 'package:dalal_app/screens/login_signup_screens/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +28,8 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primaryColor: myColors.colorPrimaryColor,
           ),
-          home: SplashScreen(),
+          // home: SplashScreen(),
+          home: Login(),
         ),
       designSize: const Size(392,850),
     );
