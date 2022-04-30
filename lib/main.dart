@@ -28,8 +28,8 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primaryColor: myColors.colorPrimaryColor,
           ),
-          // home: SplashScreen(),
-          home: Login(),
+          home: SplashScreen(),
+          // home: Login(),
         ),
       designSize: const Size(392,850),
     );

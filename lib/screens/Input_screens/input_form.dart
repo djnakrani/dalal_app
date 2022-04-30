@@ -23,7 +23,7 @@ class InputForm extends StatefulWidget {
 }
 
 class _InputFormState extends State<InputForm> {
-  String? _name, _mobile, _title, _price, _details, _address, _city, _state;
+  String? _name, _mobile, _title, _price, _details, _address, _city, _state,_taluko;
   final ImagePicker _picker = ImagePicker();
   final List<XFile> _selectedImage = [];
   var length;
@@ -140,9 +140,9 @@ class _InputFormState extends State<InputForm> {
                 child: CustomTextfield(
                   myIcon: Icons.location_city,
                   inputType: TextInputType.text,
-                  inputTxt: 'રાજ્ય',
+                  inputTxt: 'જિલ્લો',
                   voidReturn: (value) {
-                    _state = value;
+                    _city = value;
                   },
                   validationData: (data) {
                     if (data.isEmpty) {
@@ -157,9 +157,9 @@ class _InputFormState extends State<InputForm> {
                 child: CustomTextfield(
                   myIcon: Icons.location_city,
                   inputType: TextInputType.text,
-                  inputTxt: 'જિલ્લો',
+                  inputTxt: 'તાલુકો',
                   voidReturn: (value) {
-                    _city = value;
+                    _taluko = value;
                   },
                   validationData: (data) {
                     if (data.isEmpty) {
@@ -168,6 +168,24 @@ class _InputFormState extends State<InputForm> {
                   },
                 ),
               ),
+              Container(
+                height: 40,
+                margin: syh20v5,
+                child: CustomTextfield(
+                  myIcon: Icons.location_city,
+                  inputType: TextInputType.text,
+                  inputTxt: 'રાજ્ય',
+                  voidReturn: (value) {
+                    _state = value;
+                  },
+                  validationData: (data) {
+                    if (data.isEmpty) {
+                      return "Data Required";
+                    }
+                  },
+                ),
+              ),
+
               (length != 0)
                   ? InkWell(
                       child: const Icon(Icons.close),
@@ -283,6 +301,7 @@ class _InputFormState extends State<InputForm> {
       "Price": _price,
       "Address": _address,
       "City": _city,
+      "Taluko":_taluko,
       "State": _state,
       "Date": finalDate,
       "Urls": _imagesUrlsList,

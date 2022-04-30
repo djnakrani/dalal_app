@@ -14,6 +14,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "246905320665-r9e92r1mjsleo1mh24fd3ubcmhm1lktn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.dalal_app",
+            "certificate_hash": "4846b305bc5ce98e10e0ed2cdbb27e9bf7555576"
+          }
+        },
+        {
+          "client_id": "246905320665-vf718vids6l4349nuvbfe6rn4dgqql9q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.dalal_app",
+            "certificate_hash": "8282ae48e7192127d82d751e5e3ccda8154af93f"
+          }
+        },
+        {
           "client_id": "246905320665-03d9vft2crsrc7cansvs9p6q95lmgqsb.apps.googleusercontent.com",
           "client_type": 3
         }

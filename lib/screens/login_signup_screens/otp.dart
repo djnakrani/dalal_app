@@ -23,7 +23,7 @@ class Otp extends StatefulWidget {
 class _OtpState extends State<Otp> {
   late String _verificationCode;
   late String _code;
-
+  FirebaseAuth _auth =FirebaseAuth.instance;
   String? uid;
 
   final GlobalKey<FormState> _otpForm = GlobalKey<FormState>();
@@ -119,23 +119,22 @@ class _OtpState extends State<Otp> {
       ),
     );
   }
-
   void _verifyphone() async {
-    await FirebaseAuth.instance.verifyPhoneNumber(
+    await _auth.verifyPhoneNumber(
       phoneNumber: "+91" + widget.phone,
       verificationCompleted: verificationCompleted,
       verificationFailed: verificationFailed,
       codeSent: codeSent,
       codeAutoRetrievalTimeout: codeAuthRetrievalTimeout,
-      // timeout: Duration(seconds: 60)
+      timeout: const Duration(seconds: 60)
     );
   }
 
   void verificationCompleted(PhoneAuthCredential phoneAuthCredential) async {
-    await FirebaseAuth.instance.signInWithCredential(phoneAuthCredential);
-    if (FirebaseAuth.instance.currentUser != null) {
+    await _auth.signInWithCredential(phoneAuthCredential);
+    if (_auth.currentUser != null) {
       setState(() {
-        uid = FirebaseAuth.instance.currentUser?.uid;
+        uid = _auth.currentUser?.uid;
       });
     } else {
       showDialog(
@@ -158,10 +157,11 @@ class _OtpState extends State<Otp> {
     );
   }
 
-  void codeSent(String verificationId, [int? a]) {
+  void codeSent(String verificationId, [int? a]) async  {
     setState(() {
       _verificationCode = verificationId;
     });
+
   }
 
   void codeAuthRetrievalTimeout(String verificationId) {
@@ -177,10 +177,10 @@ class _OtpState extends State<Otp> {
     );
 
     try {
-      await FirebaseAuth.instance.signInWithCredential(credential).whenComplete((){
-        if (FirebaseAuth.instance.currentUser != null) {
+      await _auth.signInWithCredential(credential).then((value) => Get.log("User" + value.user.toString()));
+        if (_auth.currentUser != null) {
           Get.log("hello");
-          uid = FirebaseAuth.instance.currentUser!.uid;
+          uid = _auth.currentUser!.uid;
           FirebaseFirestore.instance
               .collection('User')
               .doc(uid)
@@ -190,19 +190,13 @@ class _OtpState extends State<Otp> {
               Get.log("hello2");
 
               Get.offAll(() => const AdminDashboard());
-            } else if (value["IsAdmin"] == "") {
+            } else if (value["IsAdmin"] == "0") {
               Get.log("hello3");
-
-              Get.offAll(() => const Signup());
-            } else {
-              Get.log("hello4");
 
               Get.offAll(() => const Home());
             }
-          });
+          }).onError((error, stackTrace) => Get.offAll(() => const Signup()));
         }
-      });
-      // FirebaseAuth.instance.signInWithPhoneNumber(widget.phone);
     } catch (e) {
       showDialog(
         context: context,
@@ -214,3 +208,4 @@ class _OtpState extends State<Otp> {
     }
   }
 }
+

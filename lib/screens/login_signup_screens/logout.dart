@@ -5,11 +5,10 @@ import 'package:flutter/material.dart';
 
 Widget LogOut() {
   FirebaseAuth.instance.signOut();
-  if (FirebaseAuth.instance.currentUser == null) {
+  // if (FirebaseAuth.instance.currentUser == null) {
     return const Login();
-
-  }
-  else {
-    return MessageBox(msg: 'Sorry Please Try Again', icon: Icons.error,);
-  }
+  // }
+  // else {
+  //   return MessageBox(msg: 'Sorry Please Try Again', icon: Icons.error,);
+  // }
 }

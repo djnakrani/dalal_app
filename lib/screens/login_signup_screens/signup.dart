@@ -68,9 +68,7 @@ class _SignupState extends State<Signup> {
                       if (data.isEmpty) {
                         return "This Field is Required..";
                       }
-                      if (RegExp(r'^[a-z A-Z]+$').hasMatch(data)) {
-                        return "Only Character Allowed...";
-                      }
+
                     },
                   ),
                 ),
@@ -88,10 +86,10 @@ class _SignupState extends State<Signup> {
                       if (data.isEmpty) {
                         return "This Field is Required..";
                       }
-                      if (RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
-                          .hasMatch(data)) {
-                        return "Enter Valid Email...";
-                      }
+                      // if (RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                      //     .hasMatch(data)) {
+                      //   return "Enter Valid Email...";
+                      // }
                     },
                   ),
                 ),
@@ -177,6 +175,14 @@ class _SignupState extends State<Signup> {
                           "IsAdmin": "0",
                         };
                         addUsers(data);
+                        showDialog(
+                          context: context,
+                          builder: (_) => MessageBox(
+                            msg: "Register",
+                            icon: Icons.check,
+                          ),
+                        );
+                        Get.offAll(() => const Home());
                       }
                     },
                   ),
@@ -195,10 +201,17 @@ class _SignupState extends State<Signup> {
         .doc(uid)
         .set(data)
         .then((value) => () {
-              Get.offAll(() => const Home());
+
             })
         .catchError((onError) {
-          MessageBox(msg: onError.toString(),icon: Icons.error,);
+      showDialog(
+        context: context,
+        builder: (_) => MessageBox(
+          msg: onError.toString(),
+          icon: Icons.error,
+        ),
+      );
+
     });
   }
 }
