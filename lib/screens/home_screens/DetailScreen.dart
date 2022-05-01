@@ -1,9 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dalal_app/constants/style.dart';
 import 'package:dalal_app/widget/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dalal_app/constants/myColors.dart';
 import 'package:dalal_app/constants/Images.dart';
+import 'package:flutter_share/flutter_share.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 Widget DetailScreen(ds) {
@@ -17,7 +19,7 @@ Widget DetailScreen(ds) {
       child: Container(
         color: Colors.white,
         padding: syv10 + syh20,
-        margin: syv40*4 + syh20,
+        margin: syv40 * 4 + syh20,
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -32,6 +34,7 @@ Widget DetailScreen(ds) {
                   return Image.network(ds["Urls"][index]);
                 },
               ),
+              customDetails("તારીખ: ", ds["Date"]),
               customDetails("પશુ / વસ્તુ: ", ds["Item"]),
               customDetails("વેચનાર નું નામ: ", ds["Seller_Name"]),
               customDetails("કિંમત: ", ds["Price"]),
@@ -52,7 +55,9 @@ Widget DetailScreen(ds) {
                         },
                         child: const Icon(Icons.call)),
                   ),
-                  const SizedBox(width: 5.0,),
+                  const SizedBox(
+                    width: 5.0,
+                  ),
                   Expanded(
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
@@ -66,6 +71,20 @@ Widget DetailScreen(ds) {
                             height: 30,
                             width: 30,
                             image: const AssetImage(Images.wsLogo))),
+                  ),
+                  const SizedBox(
+                    width: 5.0,
+                  ),
+                  Expanded(
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: myColors.colorPrimaryColor,
+                        ),
+                        onPressed: () {
+                          share(ds);
+                        },
+                        child: const Icon(Icons.share)),
+
                   )
                 ],
               )
@@ -73,9 +92,19 @@ Widget DetailScreen(ds) {
           ),
         ),
       ));
+
+
 }
 
-customDetails(title,value){
+void share(DocumentSnapshot<Object?> ds) async {
+  await FlutterShare.share(
+      title: ds["MobileNo"],
+      text: 'વર્ણન : ' + ds["Details"],
+      linkUrl: 'અહીંયા દબાવો : ' + ds["Urls"][0],
+      chooserTitle: ds["Item"]);
+}
+
+customDetails(title, value) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 8.0),
     child: Row(

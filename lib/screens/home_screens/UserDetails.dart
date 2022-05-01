@@ -89,7 +89,7 @@ class _UserDetailsState extends State<UserDetails> {
                     Container(
                       margin: syv10 + syh20*5,
                       child: CustomButton(
-                        btnTxt: 'Edit',
+                        btnTxt: 'સુધારો',
                         callback: () {
                           Get.to(() => const Signup());
                         },

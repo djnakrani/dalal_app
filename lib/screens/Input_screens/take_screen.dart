@@ -48,7 +48,7 @@ class _TakeScreenState extends State<TakeScreen> {
                               child: Text(
                                 "ખેડૂત હેલ્પલાઈન નંબર ",
                                 style: TextStyle(
-                                    fontSize: 30.w, color: Colors.white),
+                                    fontSize: 18.w, color: Colors.white),
                               ),
                             )
                           ],
@@ -62,10 +62,10 @@ class _TakeScreenState extends State<TakeScreen> {
                     builder: (BuildContext context,
                         AsyncSnapshot<QuerySnapshot> snapshot) {
                       if (snapshot.hasError) {
-                        return const Text("Please Try Again...");
+                        return const Text("ફરીથી પ્રયાસ કરો...");
                       }
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Text("Loading....");
+                        return const Text("રાહ જોવો....");
                       }
                       final category = snapshot.requireData;
                       return GridView.builder(
@@ -105,7 +105,7 @@ class _TakeScreenState extends State<TakeScreen> {
                       Get.back();
                     },
                     child: const Text(
-                      " Close ",
+                      " બંધ કરો ",
                     ),
                   )
                 ],

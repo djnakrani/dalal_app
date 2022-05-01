@@ -12,6 +12,7 @@ import 'package:dalal_app/constants/myColors.dart';
 import 'package:dalal_app/constants/style.dart';
 import 'package:dalal_app/constants/string.dart';
 import 'package:dalal_app/constants/Images.dart';
+import 'package:flutter_share/flutter_share.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -126,11 +127,11 @@ class _HomeState extends State<Home> {
                           ),
                           onPressed: () {
                             showDialog(
-                                context: context,
-                                builder: (_) => MessageBox(
-                                  msg: 'Added in Favorite',
-                                  icon: Icons.favorite,
-                                ),
+                              context: context,
+                              builder: (_) => MessageBox(
+                                msg: 'Added in Favorite',
+                                icon: Icons.favorite,
+                              ),
                             );
                             add(ds);
                           },
@@ -170,6 +171,11 @@ class _HomeState extends State<Home> {
                                   BoldText("મોબાઈલ નંબર: "),
                                   SimpleText(ds["MobileNo"])
                                 ],
+                              ),Row(
+                                children: [
+                                  BoldText("તારીખ: "),
+                                  SimpleText(ds["Date"])
+                                ],
                               ),
                             ],
                           ),
@@ -204,7 +210,18 @@ class _HomeState extends State<Home> {
                                         width: 30,
                                         image:
                                             const AssetImage(Images.wsLogo))),
-                              )
+                              ),
+                              Align(
+                                alignment: Alignment.bottomRight,
+                                child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      primary: myColors.colorPrimaryColor,
+                                    ),
+                                    onPressed: () {
+                                      share(ds);
+                                    },
+                                    child: const Icon(Icons.share)),
+                              ),
                             ],
                           ),
                         )
@@ -222,5 +239,13 @@ class _HomeState extends State<Home> {
         "Items": [ds.id.toString()]
       });
     });
+  }
+
+  void share(DocumentSnapshot<Object?> ds) async {
+    await FlutterShare.share(
+        title: ds["Item"],
+        text: ds["Details"],
+        linkUrl: ds["Urls"][0],
+        chooserTitle: ds["MobileNo"]);
   }
 }

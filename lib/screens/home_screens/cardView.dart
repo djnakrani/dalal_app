@@ -51,7 +51,7 @@ Widget cardView(DocumentSnapshot ds, BuildContext context) {
                           showDialog(
                             context: context,
                             builder: (_) => MessageBox(
-                              msg: 'Removed',
+                              msg: 'કાઢી નાખી...',
                               icon: Icons.check,
                             ),
                           );
@@ -74,6 +74,7 @@ Widget cardView(DocumentSnapshot ds, BuildContext context) {
                             customDetails("વેચનાર નું નામ: ", ds["Seller_Name"]),
                             customDetails("કિંમત: ", ds["Price"]),
                             customDetails("મોબાઇલ નંબર: ", ds["MobileNo"]),
+                            customDetails("તારીખ: ", ds["Date"]),
                           ],
                         ),
                       ),

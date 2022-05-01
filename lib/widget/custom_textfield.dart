@@ -34,6 +34,7 @@ class CustomTextfield extends StatelessWidget {
       decoration: InputDecoration(
         filled: true,
         fillColor: Colors.white,
+        // errorStyle: TextStyle(pa),
         contentPadding: syv10,
         counterText: '',
         border: OutlineInputBorder(

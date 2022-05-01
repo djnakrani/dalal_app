@@ -62,10 +62,10 @@ class _LoginState extends State<Login> {
                             },
                             validationData: (data) {
                               if (data.isEmpty) {
-                                return "Mobile Number Required";
+                                return "મોબાઈલ નંબર જરૂરી છે";
                               }
                               if(data.length < 10){
-                                return "Not Valid Mobile Number";
+                                return "સાચો મોબાઈલ નંબર નાખો.";
                               }
                             },
                           )),

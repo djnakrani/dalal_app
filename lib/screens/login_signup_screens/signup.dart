@@ -66,7 +66,7 @@ class _SignupState extends State<Signup> {
                     },
                     validationData: (data) {
                       if (data.isEmpty) {
-                        return "This Field is Required..";
+                        return " પૂરું નામ નાખો..";
                       }
 
                     },
@@ -84,12 +84,9 @@ class _SignupState extends State<Signup> {
                     },
                     validationData: (data) {
                       if (data.isEmpty) {
-                        return "This Field is Required..";
+                        return "ઈ-મેલ નાખો..";
                       }
-                      // if (RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
-                      //     .hasMatch(data)) {
-                      //   return "Enter Valid Email...";
-                      // }
+
                     },
                   ),
                 ),
@@ -119,7 +116,7 @@ class _SignupState extends State<Signup> {
                     },
                     validationData: (data) {
                       if (data.isEmpty) {
-                        return "This Field is Required..";
+                        return "રાજ્ય નાખો..";
                       }
                     },
                   ),
@@ -136,7 +133,7 @@ class _SignupState extends State<Signup> {
                     },
                     validationData: (data) {
                       if (data.isEmpty) {
-                        return "This Field is Required..";
+                        return "જિલ્લો નાખો..";
                       }
                     },
                   ),
@@ -153,7 +150,7 @@ class _SignupState extends State<Signup> {
                     },
                     validationData: (data) {
                       if (data.isEmpty) {
-                        return "This Field is Required..";
+                        return "તાલુકો નાખો.";
                       }
                     },
                   ),
@@ -178,7 +175,7 @@ class _SignupState extends State<Signup> {
                         showDialog(
                           context: context,
                           builder: (_) => MessageBox(
-                            msg: "Register",
+                            msg: "તમારી વિગતો સેવ કરવામા આવી",
                             icon: Icons.check,
                           ),
                         );

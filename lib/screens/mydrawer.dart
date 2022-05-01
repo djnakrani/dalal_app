@@ -53,49 +53,49 @@ class _DrawerState extends State<MyDrawer> {
           ),
           ListTile(
             leading: const Icon(Icons.home),
-            title: SimpleText("Home"),
+            title: SimpleText("હોમ"),
             onTap: () {
               Get.to(()=> const Home());
             },
           ),
           ListTile(
             leading: const Icon(Icons.person_pin),
-            title:  SimpleText("My Profile"),
+            title:  SimpleText("મારી વિગતો"),
             onTap: () {
               Get.to(()=> const UserDetails());
             },
           ),
           ListTile(
             leading: const Icon(Icons.add_box_outlined),
-            title:  SimpleText("Add Items"),
+            title:  SimpleText("પોસ્ટ ઉમેરો"),
             onTap: () {
               Get.to(()=> const TakeScreen());
             },
           ),
           ListTile(
             leading: const Icon(Icons.list_alt_outlined),
-            title:  SimpleText("My Post"),
+            title:  SimpleText("મારી પોસ્ટ"),
             onTap: () {
               Get.to(()=>const MyPost());
             },
           ),
           ListTile(
             leading: const Icon(Icons.play_circle_fill),
-            title:  SimpleText("My Youtube"),
+            title:  SimpleText("યૂટ્યૂબ વિડિઓ"),
             onTap: () {
               Get.to(()=> const YoutubeView());
             },
           ),
           ListTile(
             leading: const Icon(Icons.add_ic_call_outlined),
-            title:  SimpleText("Help Line No"),
+            title:  SimpleText("હેલ્પલાઈન નંબર"),
             onTap: () {
               Get.to(()=>const UserHelpLine());
             },
           ),
           ListTile(
             leading: const Icon(Icons.favorite),
-            title:  SimpleText("My Favorite"),
+            title:  SimpleText("મને ગમતું"),
             onTap: () {
               Get.offAll(() => const FavoriteScreen());
 
@@ -103,7 +103,7 @@ class _DrawerState extends State<MyDrawer> {
           ),
           ListTile(
             leading: const Icon(Icons.power_settings_new),
-            title:  SimpleText("Logout"),
+            title:  SimpleText("લોગ આઉટ"),
             onTap: () {
               Get.to(() => LogOut());
             },

@@ -40,25 +40,15 @@ class _SplashScreenState extends State<SplashScreen> {
         if(value["IsAdmin"] == "1"){
           Get.offAll(() => const AdminDashboard());
         }
-        else if(value["IsAdmin"] == "")
+        else if(value["IsAdmin"] == "0")
         {
-          Get.offAll(() => const Signup());
-        }
-        else{
-          
           Get.offAll(() => const Home());
         }
-      });
+      }).onError((error, stackTrace) => Get.offAll(() => const Signup()) );
     }
     else{
       Get.offAll(() => const Login());
     }
-  }
-
-  getAdmin() async {
-
-    return "hello";
-    // Get.log(_type);
   }
 }
 

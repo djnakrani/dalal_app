@@ -23,7 +23,7 @@ class Otp extends StatefulWidget {
 class _OtpState extends State<Otp> {
   late String _verificationCode;
   late String _code;
-  FirebaseAuth _auth =FirebaseAuth.instance;
+  FirebaseAuth _auth = FirebaseAuth.instance;
   String? uid;
 
   final GlobalKey<FormState> _otpForm = GlobalKey<FormState>();
@@ -65,7 +65,7 @@ class _OtpState extends State<Otp> {
                   child: Column(
                     children: <Widget>[
                       Text(
-                        "Otp Sent +91${widget.phone}",
+                        "+91${widget.phone} નંબર પર Otp મોકલેલ છે",
                         style: const TextStyle(color: Colors.red, fontSize: 20),
                       ),
                       Container(
@@ -81,7 +81,7 @@ class _OtpState extends State<Otp> {
                             },
                             validationData: (data) {
                               if (data.isEmpty) {
-                                return "Please Fill OTP";
+                                return "OTP નાખો";
                               }
                             },
                           )),
@@ -92,7 +92,7 @@ class _OtpState extends State<Otp> {
                             _verifyphone();
                           },
                           child: const Text(
-                            "Resend Otp?",
+                            "Otp ફરીથી મોકલો?",
                             style: TextStyle(
                               color: myColors.btnRemove,
                             ),
@@ -119,15 +119,15 @@ class _OtpState extends State<Otp> {
       ),
     );
   }
+
   void _verifyphone() async {
     await _auth.verifyPhoneNumber(
-      phoneNumber: "+91" + widget.phone,
-      verificationCompleted: verificationCompleted,
-      verificationFailed: verificationFailed,
-      codeSent: codeSent,
-      codeAutoRetrievalTimeout: codeAuthRetrievalTimeout,
-      timeout: const Duration(seconds: 60)
-    );
+        phoneNumber: "+91" + widget.phone,
+        verificationCompleted: verificationCompleted,
+        verificationFailed: verificationFailed,
+        codeSent: codeSent,
+        codeAutoRetrievalTimeout: codeAuthRetrievalTimeout,
+        timeout: const Duration(milliseconds: 60000));
   }
 
   void verificationCompleted(PhoneAuthCredential phoneAuthCredential) async {
@@ -140,7 +140,7 @@ class _OtpState extends State<Otp> {
       showDialog(
         context: context,
         builder: (_) => MessageBox(
-          msg: 'Something Went Wrong',
+          msg: 'ફરીથી પ્રયાસ કરો...',
           icon: Icons.error,
         ),
       );
@@ -157,11 +157,10 @@ class _OtpState extends State<Otp> {
     );
   }
 
-  void codeSent(String verificationId, [int? a]) async  {
+  void codeSent(String verificationId, [int? a]) async {
     setState(() {
       _verificationCode = verificationId;
     });
-
   }
 
   void codeAuthRetrievalTimeout(String verificationId) {
@@ -176,36 +175,18 @@ class _OtpState extends State<Otp> {
       smsCode: _code,
     );
 
-    try {
-      await _auth.signInWithCredential(credential).then((value) => Get.log("User" + value.user.toString()));
-        if (_auth.currentUser != null) {
-          Get.log("hello");
-          uid = _auth.currentUser!.uid;
-          FirebaseFirestore.instance
-              .collection('User')
-              .doc(uid)
-              .get()
-              .then((value) {
-            if (value["IsAdmin"] == "1") {
-              Get.log("hello2");
-
-              Get.offAll(() => const AdminDashboard());
-            } else if (value["IsAdmin"] == "0") {
-              Get.log("hello3");
-
-              Get.offAll(() => const Home());
-            }
-          }).onError((error, stackTrace) => Get.offAll(() => const Signup()));
-        }
-    } catch (e) {
-      showDialog(
-        context: context,
-        builder: (_) => MessageBox(
-          msg: e.toString(),
-          icon: Icons.error,
-        ),
-      );
-    }
+    await _auth.signInWithCredential(credential);
+    FirebaseFirestore.instance
+        .collection('User')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get()
+        .then((value) {
+      Get.log(value.toString());
+      if (value["IsAdmin"] == "1") {
+        Get.offAll(() => const AdminDashboard());
+      } else if (value["IsAdmin"] == "0") {
+        Get.offAll(() => const Home());
+      }
+    }).onError((error, stackTrace) => Get.offAll(() => const Signup()));
   }
 }
-
