@@ -169,13 +169,22 @@ class _OtpState extends State<Otp> {
     });
   }
 
-  void _verifyOtp() async {
+  void _verifyOtp() {
     final AuthCredential credential = PhoneAuthProvider.credential(
       verificationId: _verificationCode,
       smsCode: _code,
     );
 
-    await _auth.signInWithCredential(credential);
+    var user;
+    user = _auth.signInWithCredential(credential).toString();
+    // showDialog(
+    //   context: context,
+    //   builder: (_) => MessageBox(
+    //     msg:user.toString(),
+    //     icon: Icons.favorite,
+    //   ),
+    // );
+    Get.log(FirebaseAuth.instance.currentUser!.uid);
     FirebaseFirestore.instance
         .collection('User')
         .doc(FirebaseAuth.instance.currentUser!.uid)
