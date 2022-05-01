@@ -1,5 +1,4 @@
 
 class string{
-  static const appName = "Dalal";
-
+  static const appName = "દલાલ";
 }

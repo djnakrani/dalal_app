@@ -295,7 +295,7 @@ class _InputFormState extends State<InputForm> {
       "Uid": uid,
       "Seller_Name": _name,
       "MobileNo": _mobile,
-      "Categoty": widget.category,
+      "Category": widget.category,
       "Details" : _details,
       "Item": _title,
       "Price": _price,

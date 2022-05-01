@@ -12,8 +12,8 @@ import 'package:dalal_app/constants/myColors.dart';
 import 'package:dalal_app/constants/style.dart';
 import 'package:dalal_app/constants/string.dart';
 import 'package:dalal_app/constants/Images.dart';
-import 'package:flutter_share/flutter_share.dart';
 import 'package:get/get.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../mydrawer.dart';
@@ -242,10 +242,13 @@ class _HomeState extends State<Home> {
   }
 
   void share(DocumentSnapshot<Object?> ds) async {
-    await FlutterShare.share(
-        title: ds["Item"],
-        text: ds["Details"],
-        linkUrl: ds["Urls"][0],
-        chooserTitle: ds["MobileNo"]);
+    String data = "તારીખ: "+ds["Date"] +"\n પશુ / વસ્તુ: " + ds["Item"] + "\nવેચનાર નું નામ: " + ds["Seller_Name"] +
+        " \nકિંમત: " + ds["Price"] + "\nમોબાઇલ નંબર: " + ds["MobileNo"] + "\nવર્ણન: " + ds["Details"] +"\nસરનામું: " + ds["Address"]
+        + "\nજિલ્લો: " + ds["City"] +"\nરાજ્ય: " + ds["State"];
+
+    await Share.share(
+      data,
+      subject: "પશુ / વસ્તુ: " + ds["Item"],
+    );
   }
 }

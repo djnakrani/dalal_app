@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
         builder: (context) => GetMaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'Dalal App',
+          title: 'દલાલ',
           theme: ThemeData(
             primaryColor: myColors.colorPrimaryColor,
           ),

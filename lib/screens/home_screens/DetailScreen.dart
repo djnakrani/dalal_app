@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dalal_app/constants/myColors.dart';
 import 'package:dalal_app/constants/Images.dart';
-import 'package:flutter_share/flutter_share.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 Widget DetailScreen(ds) {
@@ -97,11 +97,14 @@ Widget DetailScreen(ds) {
 }
 
 void share(DocumentSnapshot<Object?> ds) async {
-  await FlutterShare.share(
-      title: ds["MobileNo"],
-      text: 'વર્ણન : ' + ds["Details"],
-      linkUrl: 'અહીંયા દબાવો : ' + ds["Urls"][0],
-      chooserTitle: ds["Item"]);
+  String data = "તારીખ: "+ds["Date"] +"\n પશુ / વસ્તુ: " + ds["Item"] + "\nવેચનાર નું નામ: " + ds["Seller_Name"] +
+      " \nકિંમત: " + ds["Price"] + "\nમોબાઇલ નંબર: " + ds["MobileNo"] + "\nવર્ણન: " + ds["Details"] +"\nસરનામું: " + ds["Address"]
+      + "\nજિલ્લો: " + ds["City"] +"\nરાજ્ય: " + ds["State"];
+
+  await Share.share(
+    data,
+    subject: "પશુ / વસ્તુ: " + ds["Item"],
+  );
 }
 
 customDetails(title, value) {
@@ -110,7 +113,7 @@ customDetails(title, value) {
     child: Row(
       children: [
         BoldText(title),
-        SimpleText(value),
+        Flexible(child: SimpleText(value)),
       ],
     ),
   );

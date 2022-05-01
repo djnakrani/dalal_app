@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dalal_app/constants/Images.dart';
 import 'package:dalal_app/constants/style.dart';
+import 'package:dalal_app/widget/custom_button.dart';
+import 'package:dalal_app/widget/custom_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:dalal_app/constants/myColors.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -35,6 +37,20 @@ class _UserHelpLineState extends State<UserHelpLine> {
                   ),
                 ),
               ),
+              Row(
+                children: [
+                  Expanded(
+                    child: CustomTextfield(
+                        inputTxt: "Search",
+                        inputType: TextInputType.text,
+                        myIcon: Icons.location_city,
+                        voidReturn: (value) {
+                        },
+                        validationData: (data) {}),
+                  ),
+                  Expanded(child: CustomButton(btnTxt: "Search",callback: (){},))
+                ],
+              ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
@@ -46,7 +62,7 @@ class _UserHelpLineState extends State<UserHelpLine> {
               ),
               Container(
                 margin: ah10,
-                height: MediaQuery.of(context).size.height / 1.3                                         ,
+                height: MediaQuery.of(context).size.height / 1.5                                         ,
                 decoration: const BoxDecoration(color: Colors.white),
                 child: SingleChildScrollView(
                   child: Column(

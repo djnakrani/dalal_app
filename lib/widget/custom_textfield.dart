@@ -26,33 +26,40 @@ class CustomTextfield extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      keyboardType: inputType,
-      maxLength: maxsize,
-      maxLines: maxLine,
-      obscureText: obscureText,
-      decoration: InputDecoration(
-        filled: true,
-        fillColor: Colors.white,
-        // errorStyle: TextStyle(pa),
-        contentPadding: syv10,
-        counterText: '',
-        border: OutlineInputBorder(
-          borderRadius: br20,
+    return Container(
+      padding: EdgeInsets.all(2.0),
+      child: TextFormField(
+        keyboardType: inputType,
+        maxLength: maxsize,
+        maxLines: maxLine,
+        obscureText: obscureText,
+        decoration: InputDecoration(
+          filled: true,
+          fillColor: Colors.white,
+          hintText: inputTxt,
+          counterText: '',
+          contentPadding: syv5,
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color:myColors.colorPrimaryColor),
+            borderRadius: br20 /2 ,
+          ),
+          errorStyle: const TextStyle(fontSize: 0.01),
+           errorBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.red),
+            borderRadius: br20 / 2,
+          ),
+          prefixIcon: Icon(
+            myIcon,
+            color: myColors.colorPrimaryColor,
+          ),
         ),
-        hintText: inputTxt,
-        prefixIcon: Icon(
-          myIcon,
-          color: myColors.colorPrimaryColor,
-        ),
-        // hintStyle: TextStyle(color: Colors.grey[800]),
+        validator: (value) {
+          return validationData!(value!);
+        },
+        onChanged: (value) {
+          voidReturn!(value);
+        },
       ),
-      validator: (value){
-        return validationData!(value!);
-      },
-      onChanged: (value) {
-        voidReturn!(value);
-      },
     );
   }
 }

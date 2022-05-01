@@ -21,7 +21,7 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  var selectedItem = "";
+  var selectedItem = null;
   var selectedArea = "";
 
   @override
@@ -45,7 +45,6 @@ class _SearchScreenState extends State<SearchScreen> {
             children: [
               Container(
                 margin: EdgeInsets.only(top: MediaQuery.of(context).size.height/5) + ob50/2,
-
                 decoration: BoxDecoration(
                   border: Border.all(
                     color: Colors.black,
