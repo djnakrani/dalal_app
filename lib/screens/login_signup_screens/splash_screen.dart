@@ -27,28 +27,31 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.white,
-        body: Center(
-            child: Image.asset(Images.logoImage)));
+        body: Container(
+          decoration: const BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage(Images.splash), fit: BoxFit.fill)),
+          height: MediaQuery.of(context).size.height,
+        ));
   }
 
-  void _navigatePage() async{
+  void _navigatePage() async {
     await Future.delayed(const Duration(milliseconds: 1000), () {});
-    if(FirebaseAuth.instance.currentUser!=null)
-    {
+    if (FirebaseAuth.instance.currentUser != null) {
       var uid = FirebaseAuth.instance.currentUser!.uid;
-      await FirebaseFirestore.instance.collection('User').doc(uid).get().then((value) {
-        if(value["IsAdmin"] == "1"){
+      await FirebaseFirestore.instance
+          .collection('User')
+          .doc(uid)
+          .get()
+          .then((value) {
+        if (value["IsAdmin"] == "1") {
           Get.offAll(() => const AdminDashboard());
-        }
-        else if(value["IsAdmin"] == "0")
-        {
+        } else if (value["IsAdmin"] == "0") {
           Get.offAll(() => const Home());
         }
-      }).onError((error, stackTrace) => Get.offAll(() => const Signup()) );
-    }
-    else{
+      }).onError((error, stackTrace) => Get.offAll(() => const Signup()));
+    } else {
       Get.offAll(() => const Login());
     }
   }
 }
-

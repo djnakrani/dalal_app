@@ -23,7 +23,7 @@ class _MyPostState extends State<MyPost> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(string.appName + "- MY POST "),
+        title: const Text(string.appName + "- મારી પોસ્ટ"),
         backgroundColor: myColors.colorPrimaryColor,
         actions: [IconButton(onPressed: () => Get.to(()=>const TakeScreen()), icon: const Icon(Icons.add))],
       ),
@@ -111,7 +111,7 @@ Widget myCard(DocumentSnapshot ds,BuildContext context) {
                                   onPressed: () {
                                       removeData(ds.id);
                                   },
-                                  child: const Icon(Icons.delete,color: myColors.btnRemove,)),
+                                  child: const Icon(Icons.delete,color: Colors.white,)),
                             ),
                           ],
                         ),

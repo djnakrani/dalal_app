@@ -60,7 +60,7 @@ class _InputFormState extends State<InputForm> {
                   margin: ot50,
                   child: Text(
                     " તમારા ${widget.category} ની વિગત નાખો ",
-                    style: const TextStyle(fontSize: 32),
+                    style: const TextStyle(fontSize: 18),
                   ),
                 ),
               ),
@@ -140,9 +140,9 @@ class _InputFormState extends State<InputForm> {
                 child: CustomTextfield(
                   myIcon: Icons.location_city,
                   inputType: TextInputType.text,
-                  inputTxt: 'જિલ્લો',
+                  inputTxt: 'તાલુકો',
                   voidReturn: (value) {
-                    _city = value;
+                    _taluko = value;
                   },
                   validationData: (data) {
                     if (data.isEmpty) {
@@ -157,9 +157,9 @@ class _InputFormState extends State<InputForm> {
                 child: CustomTextfield(
                   myIcon: Icons.location_city,
                   inputType: TextInputType.text,
-                  inputTxt: 'તાલુકો',
+                  inputTxt: 'જિલ્લો',
                   voidReturn: (value) {
-                    _taluko = value;
+                    _city = value;
                   },
                   validationData: (data) {
                     if (data.isEmpty) {
@@ -229,7 +229,7 @@ class _InputFormState extends State<InputForm> {
               ),
               isUploading
                   ? Container(
-                      margin: syh20 * 8,
+                      margin: syh20 * 9,
                       child: const CircularProgressIndicator())
                   : const SizedBox()
             ],

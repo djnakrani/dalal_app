@@ -42,13 +42,16 @@ class _DrawerState extends State<MyDrawer> {
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          UserAccountsDrawerHeader(
-            accountName: BoldText(_name),
-            accountEmail: BoldText(_mail),
-            currentAccountPicture: const CircleAvatar(
-              backgroundColor: Colors.white,
-              foregroundColor: Colors.black,
-              child: Icon(Icons.person),
+          Center(
+            child: UserAccountsDrawerHeader(
+              accountName: BoldText(""),
+              accountEmail: BoldText(""),
+              currentAccountPicture: const CircleAvatar(
+                backgroundColor: Colors.white,
+                foregroundColor: Colors.black,
+                child: Icon(Icons.person),
+              ),
+              currentAccountPictureSize: Size(80,80),
             ),
           ),
           ListTile(
@@ -81,7 +84,7 @@ class _DrawerState extends State<MyDrawer> {
           ),
           ListTile(
             leading: const Icon(Icons.play_circle_fill),
-            title:  SimpleText("યૂટ્યૂબ વિડિઓ"),
+            title:  SimpleText("કિસાન ટીવી"),
             onTap: () {
               Get.to(()=> const YoutubeView());
             },

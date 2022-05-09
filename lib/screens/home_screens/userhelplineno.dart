@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dalal_app/constants/Images.dart';
 import 'package:dalal_app/constants/style.dart';
-import 'package:dalal_app/widget/custom_button.dart';
 import 'package:dalal_app/widget/custom_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:dalal_app/constants/myColors.dart';
+import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class UserHelpLine extends StatefulWidget {
@@ -15,6 +15,7 @@ class UserHelpLine extends StatefulWidget {
 }
 
 class _UserHelpLineState extends State<UserHelpLine> {
+  var area = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,10 +46,20 @@ class _UserHelpLineState extends State<UserHelpLine> {
                         inputType: TextInputType.text,
                         myIcon: Icons.location_city,
                         voidReturn: (value) {
+                          area = value;
                         },
                         validationData: (data) {}),
                   ),
-                  Expanded(child: CustomButton(btnTxt: "Search",callback: (){},))
+                  ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          Get.log(area);
+                        });
+                      },
+                      style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(borderRadius: br20),
+                          primary: myColors.colorPrimaryColor),
+                      child: const Icon(Icons.search)),
                 ],
               ),
               Padding(
@@ -62,7 +73,7 @@ class _UserHelpLineState extends State<UserHelpLine> {
               ),
               Container(
                 margin: ah10,
-                height: MediaQuery.of(context).size.height / 1.5                                         ,
+                height: MediaQuery.of(context).size.height / 1.5,
                 decoration: const BoxDecoration(color: Colors.white),
                 child: SingleChildScrollView(
                   child: Column(
@@ -83,25 +94,37 @@ class _UserHelpLineState extends State<UserHelpLine> {
                               scrollDirection: Axis.vertical,
                               shrinkWrap: true,
                               children: snapshot.data!.docs.map((doc) {
-                                return Card(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Row(
-                                      children: [
-                                        Expanded(child: Text(doc['Taluko'])),
-                                        Expanded(child: Text(doc['Number'])),
-                                        Expanded(child: InkWell(
-                                            onTap: () => {
-                                            launch('tel: +91${doc['Number']}')
-                                            },
-                                            child: const Icon(Icons.phone,color: myColors.colorPrimaryColor,))),
-                                      ],
+                                if (area == "" ||
+                                    doc['Taluko'].toString().contains(area)) {
+                                  return Card(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
                                     ),
-                                  ),
-                                );
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Row(
+                                        children: [
+                                          Expanded(child: Text(doc['Taluko'])),
+                                          Expanded(child: Text(doc['Number'])),
+                                          Expanded(
+                                              child: InkWell(
+                                                  onTap: () => {
+                                                    launch(
+                                                        'tel: +91${doc['Number']}')
+                                                  },
+                                                  child: const Icon(
+                                                    Icons.phone,
+                                                    color: myColors
+                                                        .colorPrimaryColor,
+                                                  ))),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                }
+                                else{
+                                  return SizedBox();
+                                }
                               }).toList(),
                             );
                           }
