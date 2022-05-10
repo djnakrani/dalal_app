@@ -6,6 +6,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dalal_app/constants/myColors.dart';
 import 'package:dalal_app/constants/Images.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:photo_view/photo_view.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 Widget DetailScreen(ds) {
@@ -19,19 +20,21 @@ Widget DetailScreen(ds) {
       child: Container(
         color: Colors.white,
         padding: syv10 + syh20,
-        margin: syv40 * 4 + syh20,
+        margin: syv40 * 2 + syh20,
         child: SingleChildScrollView(
           child: Column(
             children: [
               CarouselSlider.builder(
                 itemCount: count,
                 options: CarouselOptions(
-                  aspectRatio: 2.0,
+                  aspectRatio: 1.0,
                   enlargeCenterPage: true,
                   autoPlay: true,
                 ),
                 itemBuilder: (ctx, index, realIdx) {
-                  return Image.network(ds["Urls"][index]);
+                  return PhotoView(
+                    imageProvider: NetworkImage(ds["Urls"][index])
+                  );
                 },
               ),
               customDetails("તારીખ: ", ds["Date"]),

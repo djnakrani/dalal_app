@@ -166,65 +166,57 @@ class _HomeState extends State<Home> {
                                   SimpleText(ds["Address"])
                                 ],
                               ),
+                              // Row(
+                              //   children: [
+                              //     BoldText("મોબાઈલ નંબર: "),
+                              //     SimpleText(ds["MobileNo"])
+                              //   ],
+                              // ),
                               Row(
                                 children: [
-                                  BoldText("મોબાઈલ નંબર: "),
-                                  SimpleText(ds["MobileNo"])
-                                ],
-                              ),Row(
-                                children: [
-                                  BoldText("તારીખ: "),
-                                  SimpleText(ds["Date"])
+                                  Padding(
+                                    padding: syh20 + ot50/2,
+                                    child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          primary: myColors.colorPrimaryColor,
+                                        ),
+                                        onPressed: () {
+                                          launch('tel: ${ds["MobileNo"]}');
+                                        },
+                                        child: const Icon(Icons.call)),
+                                  ),
+                                  Padding(
+                                    padding: syh20 + ot50/2,
+                                    child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          primary: myColors.colorPrimaryColor,
+                                        ),
+                                        onPressed: () {
+                                          launch(
+                                              'https://wa.me/${ds["MobileNo"]}?text=${ds["Item"]}');
+                                        },
+                                        child: Ink.image(
+                                            height: 30,
+                                            width: 30,
+                                            image:
+                                                const AssetImage(Images.wsLogo))),
+                                  ),
+                                  Padding(
+                                    padding: syh20 + ot50/2,
+                                    child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          primary: myColors.colorPrimaryColor,
+                                        ),
+                                        onPressed: () {
+                                          share(ds);
+                                        },
+                                        child: const Icon(Icons.share)),
+                                  ),
                                 ],
                               ),
                             ],
                           ),
                         ),
-                        Container(
-                          padding: const EdgeInsets.only(right: 10),
-                          child: Column(
-                            children: [
-                              Align(
-                                alignment: Alignment.topRight,
-                                child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      primary: myColors.colorPrimaryColor,
-                                    ),
-                                    onPressed: () {
-                                      launch('tel: ${ds["MobileNo"]}');
-                                    },
-                                    child: const Icon(Icons.call)),
-                              ),
-                              Align(
-                                alignment: Alignment.centerRight,
-                                child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      primary: myColors.colorPrimaryColor,
-                                    ),
-                                    onPressed: () {
-                                      launch(
-                                          'https://wa.me/${ds["MobileNo"]}?text=${ds["Item"]}');
-                                    },
-                                    child: Ink.image(
-                                        height: 30,
-                                        width: 30,
-                                        image:
-                                            const AssetImage(Images.wsLogo))),
-                              ),
-                              Align(
-                                alignment: Alignment.bottomRight,
-                                child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      primary: myColors.colorPrimaryColor,
-                                    ),
-                                    onPressed: () {
-                                      share(ds);
-                                    },
-                                    child: const Icon(Icons.share)),
-                              ),
-                            ],
-                          ),
-                        )
                       ],
                     ))
               ],
@@ -242,9 +234,24 @@ class _HomeState extends State<Home> {
   }
 
   void share(DocumentSnapshot<Object?> ds) async {
-    String data = "તારીખ: "+ds["Date"] +"\n પશુ / વસ્તુ: " + ds["Item"] + "\nવેચનાર નું નામ: " + ds["Seller_Name"] +
-        " \nકિંમત: " + ds["Price"] + "\nમોબાઇલ નંબર: " + ds["MobileNo"] + "\nવર્ણન: " + ds["Details"] +"\nસરનામું: " + ds["Address"]
-        + "\nજિલ્લો: " + ds["City"] +"\nરાજ્ય: " + ds["State"];
+    String data = "તારીખ: " +
+        ds["Date"] +
+        "\n પશુ / વસ્તુ: " +
+        ds["Item"] +
+        "\nવેચનાર નું નામ: " +
+        ds["Seller_Name"] +
+        " \nકિંમત: " +
+        ds["Price"] +
+        "\nમોબાઇલ નંબર: " +
+        ds["MobileNo"] +
+        "\nવર્ણન: " +
+        ds["Details"] +
+        "\nસરનામું: " +
+        ds["Address"] +
+        "\nજિલ્લો: " +
+        ds["City"] +
+        "\nરાજ્ય: " +
+        ds["State"];
 
     await Share.share(
       data,

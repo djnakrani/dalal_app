@@ -18,7 +18,7 @@ class TakeScreen extends StatefulWidget {
 
 class _TakeScreenState extends State<TakeScreen> {
   final Stream<QuerySnapshot> data =
-      FirebaseFirestore.instance.collection("Category").snapshots();
+      FirebaseFirestore.instance.collection("Category").orderBy("No").snapshots();
 
   @override
   Widget build(BuildContext context) {

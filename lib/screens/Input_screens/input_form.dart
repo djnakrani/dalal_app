@@ -5,6 +5,7 @@ import 'package:dalal_app/constants/style.dart';
 import 'package:dalal_app/screens/home_screens/home.dart';
 import 'package:dalal_app/screens/messageBox.dart';
 import 'package:dalal_app/widget/custom_button.dart';
+import 'package:dalal_app/widget/custom_text.dart';
 import 'package:dalal_app/widget/custom_textfield.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -45,194 +46,202 @@ class _InputFormState extends State<InputForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Container(
-        decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage(Images.background), fit: BoxFit.fitHeight)),
-        height: MediaQuery.of(context).size.height,
-        child: Form(
-          key: _inputForm,
-          child: ListView(
-            children: <Widget>[
-              Center(
-                child: Container(
-                  constraints: const BoxConstraints(maxHeight: 60),
-                  margin: ot50,
-                  child: Text(
-                    " તમારા ${widget.category} ની વિગત નાખો ",
-                    style: const TextStyle(fontSize: 18),
+      body: SingleChildScrollView(
+        child: Container(
+          decoration: const BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage(Images.background), fit: BoxFit.fill)),
+          height: MediaQuery.of(context).size.height,
+          child: Form(
+            key: _inputForm,
+            child: ListView(
+              children: <Widget>[
+                Center(
+                  child: Container(
+                    constraints: const BoxConstraints(maxHeight: 60),
+                    margin: ot50,
+                    child: Text(
+                      " તમારા ${widget.category} ની વિગત નાખો ",
+                      style: const TextStyle(fontSize: 18),
+                    ),
                   ),
                 ),
-              ),
-              Container(
-                height: 40,
-                margin: syh20v5,
-                child: CustomTextfield(
-                  myIcon: Icons.title,
-                  inputType: TextInputType.text,
-                  inputTxt: 'શીર્ષક',
-                  voidReturn: (value) {
-                    _title = value;
-                  },
-                  validationData: (data) {
-                    if (data.isEmpty) {
-                      return "This is Required";
-                    }
-                  },
-                ),
-              ),
-              Container(
-                height: 40,
-                margin: syh20v5 + syv10,
-                child: CustomTextfield(
-                  myIcon: Icons.price_check,
-                  inputType: TextInputType.number,
-                  inputTxt: 'કિંમત',
-                  voidReturn: (value) {
-                    _price = value;
-                  },
-                  validationData: (data) {
-                    if (data.isEmpty) {
-                      return "Data Required";
-                    }
-                  },
-                ),
-              ),
-              Container(
-                height: 70,
-                margin: syh20v5,
-                child: CustomTextfield(
-                  myIcon: Icons.description,
-                  maxLine: 5,
-                  inputType: TextInputType.text,
-                  inputTxt: 'વર્ણન',
-                  voidReturn: (value) {
-                    _details = value;
-                  },
-                  validationData: (data) {
-                    if (data.isEmpty) {
-                      return "Data Required";
-                    }
-                  },
-                ),
-              ),
-              Container(
-                height: 40,
-                margin: syh20v5,
-                child: CustomTextfield(
-                  myIcon: Icons.location_city_outlined,
-                  inputType: TextInputType.multiline,
-                  maxLine: 4,
-                  inputTxt: 'તમારું સરનામું/ગામ નાખો. ',
-                  voidReturn: (value) {
-                    _address = value;
-                  },
-                  validationData: (data) {
-                    if (data.isEmpty) {
-                      return "Data Required";
-                    }
-                  },
-                ),
-              ),
-              Container(
-                height: 40,
-                margin: syh20v5,
-                child: CustomTextfield(
-                  myIcon: Icons.location_city,
-                  inputType: TextInputType.text,
-                  inputTxt: 'તાલુકો',
-                  voidReturn: (value) {
-                    _taluko = value;
-                  },
-                  validationData: (data) {
-                    if (data.isEmpty) {
-                      return "Data Required";
-                    }
-                  },
-                ),
-              ),
-              Container(
-                height: 40,
-                margin: syh20v5,
-                child: CustomTextfield(
-                  myIcon: Icons.location_city,
-                  inputType: TextInputType.text,
-                  inputTxt: 'જિલ્લો',
-                  voidReturn: (value) {
-                    _city = value;
-                  },
-                  validationData: (data) {
-                    if (data.isEmpty) {
-                      return "Data Required";
-                    }
-                  },
-                ),
-              ),
-              Container(
-                height: 40,
-                margin: syh20v5,
-                child: CustomTextfield(
-                  myIcon: Icons.location_city,
-                  inputType: TextInputType.text,
-                  inputTxt: 'રાજ્ય',
-                  voidReturn: (value) {
-                    _state = value;
-                  },
-                  validationData: (data) {
-                    if (data.isEmpty) {
-                      return "Data Required";
-                    }
-                  },
-                ),
-              ),
-
-              (length != 0)
-                  ? InkWell(
-                      child: const Icon(Icons.close),
-                      onTap: () => resetPicker(),
-                    )
-                  : const SizedBox(),
-              (length == 0)
-                  ? InkWell(
-                      onTap: () => chooseImage(),
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: myColors.btnTextColor,
-                            border:
-                                Border.all(color: myColors.colorPrimaryColor),
-                            borderRadius: br20),
-                        margin: syv10 + syh20 + syh20 + syh20 + syh20 + syh20,
-                        padding: syv40,
-                        child: const Icon(
-                          Icons.add,
-                          color: myColors.colorPrimaryColor,
-                        ),
-                      ),
-                    )
-                  : buildGridView(),
-              Container(
-                margin: syv10 + syh20,
-                child: CustomButton(
-                  btnTxt: 'તમારી પોસ્ટ ઉમેરો ...',
-                  callback: () {
-                    if (_inputForm.currentState!.validate()) {
-                      if (_selectedImage.isNotEmpty) {
-                        uploadOneByOne(_selectedImage);
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                content: Text("Please Select Image")));
+                Container(
+                  height: 40,
+                  margin: syh20v5,
+                  child: CustomTextfield(
+                    myIcon: Icons.title,
+                    inputType: TextInputType.text,
+                    inputTxt: 'શીર્ષક',
+                    voidReturn: (value) {
+                      _title = value;
+                    },
+                    validationData: (data) {
+                      if (data.isEmpty) {
+                        return "This is Required";
                       }
-                    }
-                  },
+                    },
+                  ),
                 ),
-              ),
-              isUploading
-                  ? Container(
-                      margin: syh20 * 9,
-                      child: const CircularProgressIndicator())
-                  : const SizedBox()
-            ],
+                Container(
+                  height: 40,
+                  margin: syh20v5 + syv10,
+                  child: CustomTextfield(
+                    myIcon: Icons.price_check,
+                    inputType: TextInputType.number,
+                    inputTxt: 'કિંમત',
+                    voidReturn: (value) {
+                      _price = value;
+                    },
+                    validationData: (data) {
+                      if (data.isEmpty) {
+                        return "Data Required";
+                      }
+                    },
+                  ),
+                ),
+                Container(
+                  height: 70,
+                  margin: syh20v5,
+                  child: CustomTextfield(
+                    myIcon: Icons.description,
+                    maxLine: 5,
+                    inputType: TextInputType.text,
+                    inputTxt: 'વર્ણન',
+                    voidReturn: (value) {
+                      _details = value;
+                    },
+                    validationData: (data) {
+                      if (data.isEmpty) {
+                        return "Data Required";
+                      }
+                    },
+                  ),
+                ),
+                Container(
+                  height: 40,
+                  margin: syh20v5,
+                  child: CustomTextfield(
+                    myIcon: Icons.location_city_outlined,
+                    inputType: TextInputType.multiline,
+                    maxLine: 4,
+                    inputTxt: 'તમારું સરનામું/ગામ નાખો. ',
+                    voidReturn: (value) {
+                      _address = value;
+                    },
+                    validationData: (data) {
+                      if (data.isEmpty) {
+                        return "Data Required";
+                      }
+                    },
+                  ),
+                ),
+                Container(
+                  height: 40,
+                  margin: syh20v5,
+                  child: CustomTextfield(
+                    myIcon: Icons.location_city,
+                    inputType: TextInputType.text,
+                    inputTxt: 'તાલુકો',
+                    voidReturn: (value) {
+                      _taluko = value;
+                    },
+                    validationData: (data) {
+                      if (data.isEmpty) {
+                        return "Data Required";
+                      }
+                    },
+                  ),
+                ),
+                Container(
+                  height: 40,
+                  margin: syh20v5,
+                  child: CustomTextfield(
+                    myIcon: Icons.location_city,
+                    inputType: TextInputType.text,
+                    inputTxt: 'જિલ્લો',
+                    voidReturn: (value) {
+                      _city = value;
+                    },
+                    validationData: (data) {
+                      if (data.isEmpty) {
+                        return "Data Required";
+                      }
+                    },
+                  ),
+                ),
+                Container(
+                  height: 40,
+                  margin: syh20v5,
+                  child: CustomTextfield(
+                    myIcon: Icons.location_city,
+                    inputType: TextInputType.text,
+                    inputTxt: 'રાજ્ય',
+                    voidReturn: (value) {
+                      _state = value;
+                    },
+                    validationData: (data) {
+                      if (data.isEmpty) {
+                        return "Data Required";
+                      }
+                    },
+                  ),
+                ),
+
+                (length != 0)
+                    ? InkWell(
+                        child: const Icon(Icons.close),
+                        onTap: () => resetPicker(),
+                      )
+                    : const SizedBox(),
+                (length == 0)
+                    ? InkWell(
+                        onTap: () => chooseImage(),
+                        child: Column(
+                          children: [
+                            SimpleText("Maximum 4 Photos Upload"),
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: myColors.btnTextColor,
+                                  border:
+                                  Border.all(color: myColors.colorPrimaryColor),
+                                  borderRadius: br20),
+                              margin: syv10 + syh20 + syh20  ,
+                              padding: syv40/2,
+                              child: const Icon(
+                                Icons.add,
+                                size: 80,
+                                color: myColors.colorPrimaryColor,
+                              ),
+                            ),
+                          ],
+                        )
+                      )
+                    : buildGridView(),
+                Container(
+                  margin: syv10 + syh20,
+                  child: CustomButton(
+                    btnTxt: 'તમારી પોસ્ટ ઉમેરો ...',
+                    callback: () {
+                      if (_inputForm.currentState!.validate()) {
+                        if (_selectedImage.isNotEmpty) {
+                          uploadOneByOne(_selectedImage);
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content: Text("Please Select Image")));
+                        }
+                      }
+                    },
+                  ),
+                ),
+                isUploading
+                    ? Container(
+                        margin: syh20 * 9,
+                        child: const CircularProgressIndicator())
+                    : const SizedBox()
+              ],
+            ),
           ),
         ),
       ),
@@ -248,6 +257,15 @@ class _InputFormState extends State<InputForm> {
       }
     } catch (e) {
       Get.log(e.toString());
+    }
+    if(_selectedImage.length > 4){
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+              content: Text("Maximum 4 Photos Allowed")));
+      setState(() {
+        length = 0;
+        _selectedImage.clear();
+      });
     }
     setState(() {
       length = _selectedImage.length;

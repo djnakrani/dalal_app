@@ -3,6 +3,7 @@ import 'package:dalal_app/constants/myColors.dart';
 import 'package:dalal_app/constants/style.dart';
 import 'package:dalal_app/constants/string.dart';
 import 'package:dalal_app/screens/filter_screens/filterscreen.dart';
+import 'package:dalal_app/screens/messageBox.dart';
 import 'package:dalal_app/screens/mydrawer.dart';
 import 'package:dalal_app/widget/custom_button.dart';
 import 'package:dalal_app/widget/custom_textfield.dart';
@@ -44,15 +45,16 @@ class _SearchScreenState extends State<SearchScreen> {
           child: Column(
             children: [
               Container(
-                margin: EdgeInsets.only(top: MediaQuery.of(context).size.height/5) + ob50/2,
+                margin: EdgeInsets.only(
+                        top: MediaQuery.of(context).size.height / 5) +
+                    ob50 / 2,
                 decoration: BoxDecoration(
                   border: Border.all(
                     color: Colors.black,
                   ),
                   borderRadius: br20,
-
                 ),
-                child:getItems(),
+                child: getItems(),
               ),
               CustomTextfield(
                   inputTxt: "Search In Your City",
@@ -67,10 +69,20 @@ class _SearchScreenState extends State<SearchScreen> {
                 child: CustomButton(
                     btnTxt: 'આગળ વધો',
                     callback: () {
-                      Get.off(() => FilterScreen(
-                            items: selectedItem,
-                            area: selectedArea,
-                          ));
+                      if (selectedItem == null) {
+                        showDialog(
+                          context: context,
+                          builder: (_) => MessageBox(
+                            msg: 'કંઈક સિલેક્ટ કરો ',
+                            icon: Icons.error,
+                          ),
+                        );
+                      } else {
+                        Get.off(() => FilterScreen(
+                              items: selectedItem,
+                              area: selectedArea,
+                            ));
+                      }
                     }),
               ),
             ],
@@ -91,7 +103,7 @@ class _SearchScreenState extends State<SearchScreen> {
           }
           return Row(
             children: <Widget>[
-               Expanded(
+              Expanded(
                 flex: 1,
                 child: Padding(
                   padding: syh20 / 2,

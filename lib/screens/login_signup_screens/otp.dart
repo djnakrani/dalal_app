@@ -66,7 +66,7 @@ class _OtpState extends State<Otp> {
                     children: <Widget>[
                       Text(
                         "+91${widget.phone} નંબર પર Otp મોકલેલ છે",
-                        style: const TextStyle(color: Colors.red, fontSize: 20),
+                        style: const TextStyle(color: Colors.red, fontSize: 16),
                       ),
                       Container(
                           height: 50,
