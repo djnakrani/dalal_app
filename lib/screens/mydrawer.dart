@@ -108,7 +108,7 @@ class _DrawerState extends State<MyDrawer> {
             leading: const Icon(Icons.power_settings_new),
             title:  SimpleText("લોગ આઉટ"),
             onTap: () {
-              Get.to(() => LogOut());
+              logOut();
             },
           ),
         ],

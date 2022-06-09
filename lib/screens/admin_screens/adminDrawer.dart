@@ -64,7 +64,7 @@ class _AdminDrawerState extends State<AdminDrawer> {
             leading: const Icon(Icons.power_settings_new),
             title: SimpleText('Logout'),
             onTap: () {
-              Get.to(() => LogOut());
+              Get.to(() => logOut());
             },
           ),
         ],

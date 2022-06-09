@@ -43,18 +43,19 @@ class CustomTextfield extends StatelessWidget {
             borderSide: BorderSide(color:myColors.colorPrimaryColor),
             borderRadius: br20 /2 ,
           ),
-          errorStyle: const TextStyle(fontSize: 0.01),
-           errorBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.red),
-            borderRadius: br20 / 2,
-          ),
+          // errorStyle: const TextStyle(fontSize: 0.01),
+          //  errorBorder: OutlineInputBorder(
+          //   borderSide: BorderSide(color: Colors.red),
+          //   borderRadius: br20 / 2,
+          // ),
           prefixIcon: Icon(
             myIcon,
             color: myColors.colorPrimaryColor,
           ),
         ),
         validator: (value) {
-          return validationData!(value!);
+          validationData!(value!);
+          return null;
         },
         onChanged: (value) {
           voidReturn!(value);
