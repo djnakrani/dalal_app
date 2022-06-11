@@ -125,25 +125,12 @@ class _OtpState extends State<Otp> {
       });
     } else {
       AlertShow("Error",Icons.error,"Retry");
-      // showDialog(
-      //   context: context,
-      //   builder: (_) => MessageBox(
-      //     msg: 'ફરીથી પ્રયાસ કરો...',
-      //     icon: Icons.error,
-      //   ),
-      // );
+
     }
   }
 
   void verificationFailed(FirebaseAuthException error) {
     AlertShow("Error",Icons.error,error.message.toString());
-    // showDialog(
-    //   context: context,
-    //   builder: (_) => MessageBox(
-    //     msg: error.message.toString(),
-    //     icon: Icons.error,
-    //   ),
-    // );
   }
 
   void codeSent(String verificationId, [int? a]) async {
@@ -173,12 +160,7 @@ class _OtpState extends State<Otp> {
     //     icon: Icons.favorite,
     //   ),
     // );
-    Get.log(FirebaseAuth.instance.currentUser!.uid);
-    FirebaseFirestore.instance
-        .collection('User')
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .get()
-        .then((value) {
+    get_user()?.then((value) {
       Get.log(value.toString());
       if (value["IsAdmin"] == "1") {
         Get.offAll(() => const AdminDashboard());

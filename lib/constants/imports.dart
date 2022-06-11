@@ -28,6 +28,7 @@ export 'package:get/get_navigation/get_navigation.dart';
 export 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // All Other imports
+export 'package:dalal_app/screens/mydrawer.dart';
 export 'package:dalal_app/screens/login_signup_screens/language.dart';
 export 'package:dalal_app/screens/login_signup_screens/splash_screen.dart';
 export 'package:dalal_app/screens/Input_screens/take_screen.dart';

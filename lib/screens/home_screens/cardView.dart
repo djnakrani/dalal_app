@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dalal_app/constants/style.dart';
 import 'package:dalal_app/screens/home_screens/DetailScreen.dart';
 import 'package:dalal_app/screens/messageBox.dart';
-import 'package:dalal_app/widget/custom_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';

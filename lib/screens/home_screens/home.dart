@@ -1,22 +1,10 @@
-import 'dart:async';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dalal_app/constants/imports.dart';
 import 'package:dalal_app/screens/Input_screens/take_screen.dart';
 import 'package:dalal_app/screens/filter_screens/searchscreen.dart';
 import 'package:dalal_app/screens/home_screens/DetailScreen.dart';
-import 'package:dalal_app/screens/messageBox.dart';
-import 'package:dalal_app/widget/custom_text.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:dalal_app/constants/myColors.dart';
-import 'package:dalal_app/constants/style.dart';
-import 'package:dalal_app/constants/string.dart';
-import 'package:dalal_app/constants/Images.dart';
-import 'package:get/get.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../mydrawer.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -37,7 +25,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(string.appName),
+        title: Text('appTitle'.tr),
         backgroundColor: myColors.colorPrimaryColor,
         actions: [
           IconButton(
@@ -51,6 +39,7 @@ class _HomeState extends State<Home> {
           child: StreamBuilder(
             stream: FirebaseFirestore.instance.collection('Items').snapshots(),
             builder: (_, AsyncSnapshot<QuerySnapshot> snapshot) {
+              // Get.log(snapshot.data!.size.toString());
               if (snapshot.data == null) {
                 return const Center(child: CircularProgressIndicator());
               } else {
@@ -85,7 +74,7 @@ class _HomeState extends State<Home> {
           Icons.add,
           size: 40,
         ),
-        label: BoldText("પોસ્ટ કરો"),
+        label: BoldText('postadd'.tr),
       ),
     );
   }
@@ -126,13 +115,7 @@ class _HomeState extends State<Home> {
                             color: Colors.red,
                           ),
                           onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (_) => MessageBox(
-                                msg: 'Added in Favorite',
-                                icon: Icons.favorite,
-                              ),
-                            );
+                            AlertShow("Add In Favorite",Icons.check,"Check Your Favorite Box");
                             add(ds);
                           },
                         )),
