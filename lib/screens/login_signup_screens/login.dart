@@ -16,9 +16,14 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  late String _mobileno;
-  late SnackBar snackBar;
+  String? _mobileno;
   final _LoginForm = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,27 +60,27 @@ class _LoginState extends State<Login> {
                           child: CustomTextfield(
                             myIcon: Icons.call,
                             inputType: TextInputType.number,
-                            inputTxt: 'તમારો મોબાઈલ નંબર નાખો....',
+                            inputTxt: 'mobileNo'.tr ,
                             maxsize: 10,
                             voidReturn: (value) {
                               _mobileno = value;
                             },
                             validationData: (data) {
                               if (data.isEmpty) {
-                                return "મોબાઈલ નંબર જરૂરી છે";
+                                return "Enter Mobile Number";
                               }
                               if(data.length < 10){
-                                return "સાચો મોબાઈલ નંબર નાખો.";
+                                return "Incorrect Mobile Number";
                               }
                             },
                           )),
                       Container(
                         margin: syv10 + syh20,
                         child: CustomButton(
-                            btnTxt: 'આગળ વધો',
+                            btnTxt: 'next'.tr,
                             callback: () {
                               if (_LoginForm.currentState!.validate()) {
-                                Get.to(() => Otp(phone: _mobileno));
+                                Get.to(() => Otp(phone: _mobileno!));
                               }
                             }),
                       ),

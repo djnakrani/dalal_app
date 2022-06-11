@@ -1,17 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dalal_app/constants/myColors.dart';
-import 'package:dalal_app/constants/style.dart';
-import 'package:dalal_app/screens/login_signup_screens/signup.dart';
-import 'package:dalal_app/screens/messageBox.dart';
-import 'package:dalal_app/widget/custom_button.dart';
-import 'package:dalal_app/widget/custom_logo.dart';
-import 'package:dalal_app/widget/custom_textfield.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import '../../constants/Images.dart';
-import '../admin_screens/dashboard.dart';
-import '../home_screens/home.dart';
+import 'package:dalal_app/constants/imports.dart';
 
 class Otp extends StatefulWidget {
   final String phone;
@@ -65,7 +52,7 @@ class _OtpState extends State<Otp> {
                   child: Column(
                     children: <Widget>[
                       Text(
-                        "+91${widget.phone} નંબર પર Otp મોકલેલ છે",
+                        "+91${widget.phone} " + "otpsend".tr,
                         style: const TextStyle(color: Colors.red, fontSize: 16),
                       ),
                       Container(
@@ -74,14 +61,14 @@ class _OtpState extends State<Otp> {
                           child: CustomTextfield(
                             myIcon: Icons.password,
                             inputType: TextInputType.number,
-                            inputTxt: 'Otp દાખલ કરો ...',
+                            inputTxt: 'Otp',
                             maxsize: 6,
                             voidReturn: (value) {
                               _code = value;
                             },
                             validationData: (data) {
                               if (data.isEmpty) {
-                                return "OTP નાખો";
+                                return "Enter OTP";
                               }
                             },
                           )),
@@ -91,9 +78,9 @@ class _OtpState extends State<Otp> {
                           onPressed: () {
                             _verifyphone();
                           },
-                          child: const Text(
-                            "Otp ફરીથી મોકલો?",
-                            style: TextStyle(
+                          child: Text(
+                            "otpresend".tr + "?",
+                            style: const TextStyle(
                               color: myColors.btnRemove,
                             ),
                           ),
@@ -102,7 +89,7 @@ class _OtpState extends State<Otp> {
                       Container(
                         margin: syv10 + syh20,
                         child: CustomButton(
-                            btnTxt: 'આગળ વધો',
+                            btnTxt: 'next'.tr,
                             callback: () async {
                               if (_otpForm.currentState!.validate()) {
                                 _verifyOtp();
@@ -137,24 +124,26 @@ class _OtpState extends State<Otp> {
         uid = _auth.currentUser?.uid;
       });
     } else {
-      showDialog(
-        context: context,
-        builder: (_) => MessageBox(
-          msg: 'ફરીથી પ્રયાસ કરો...',
-          icon: Icons.error,
-        ),
-      );
+      AlertShow("Error",Icons.error,"Retry");
+      // showDialog(
+      //   context: context,
+      //   builder: (_) => MessageBox(
+      //     msg: 'ફરીથી પ્રયાસ કરો...',
+      //     icon: Icons.error,
+      //   ),
+      // );
     }
   }
 
   void verificationFailed(FirebaseAuthException error) {
-    showDialog(
-      context: context,
-      builder: (_) => MessageBox(
-        msg: error.message.toString(),
-        icon: Icons.error,
-      ),
-    );
+    AlertShow("Error",Icons.error,error.message.toString());
+    // showDialog(
+    //   context: context,
+    //   builder: (_) => MessageBox(
+    //     msg: error.message.toString(),
+    //     icon: Icons.error,
+    //   ),
+    // );
   }
 
   void codeSent(String verificationId, [int? a]) async {

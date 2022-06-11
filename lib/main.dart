@@ -1,11 +1,6 @@
-import 'package:dalal_app/constants/myColors.dart';
-import 'package:dalal_app/screens/login_signup_screens/login.dart';
-import 'package:dalal_app/screens/login_signup_screens/splash_screen.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get_navigation/get_navigation.dart';
+import 'package:dalal_app/constants/imports.dart';
+
+
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,12 +18,14 @@ class MyApp extends StatelessWidget {
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
     return ScreenUtilInit(
         builder: (context) => GetMaterialApp(
+          translations: LocateString(),
+          locale: const Locale('en','US'),
           debugShowCheckedModeBanner: false,
-          title: 'દલાલ',
+          title: 'appTitle'.tr,
           theme: ThemeData(
             primaryColor: myColors.colorPrimaryColor,
           ),
-          home: SplashScreen(),
+          home: const SplashScreen(),
           // home: Login(),
         ),
       designSize: const Size(392,850),

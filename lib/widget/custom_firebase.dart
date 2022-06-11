@@ -9,7 +9,8 @@ Future<dynamic>? get_user(){
         .doc(uid)
         .get();
   }else{
-    Get.offAll(() => const Login());
+    // Get.offAll(() => const Login());
+    Get.offAll(() => const LanguageSelector());
     return null;
   }
 }
