@@ -1,12 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dalal_app/constants/Images.dart';
-import 'package:dalal_app/constants/style.dart';
-import 'package:dalal_app/screens/messageBox.dart';
-import 'package:dalal_app/widget/custom_button.dart';
-import 'package:dalal_app/widget/custom_textfield.dart';
-import 'package:flutter/material.dart';
-import 'package:dalal_app/constants/myColors.dart';
-import 'package:get/get.dart';
+import 'package:dalal_app/constants/imports.dart';
 
 class HelpLineno extends StatefulWidget {
   const HelpLineno({Key? key}) : super(key: key);
@@ -24,6 +16,11 @@ class _HelpLinenoState extends State<HelpLineno> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: SimpleText('appTitle'.tr),
+        backgroundColor: myColors.colorPrimaryColor,
+      ),
+      drawer: const AdminDrawer(),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Container(
@@ -39,10 +36,7 @@ class _HelpLinenoState extends State<HelpLineno> {
                   child: Container(
                     constraints: const BoxConstraints(maxHeight: 120),
                     margin: ot80,
-                    child: const Text(
-                      "હેલ્પલાઈન નંબર ઉમેરો",
-                      style: TextStyle(fontSize: 32),
-                    ),
+                    child: BoldText('helpline'.tr),
                   ),
                 ),
                 Container(
@@ -51,7 +45,7 @@ class _HelpLinenoState extends State<HelpLineno> {
                   child: CustomTextfield(
                     myIcon: Icons.location_city,
                     inputType: TextInputType.text,
-                    inputTxt: 'તાલુકો',
+                    inputTxt: 'taluko'.tr,
                     voidReturn: (value) {
                       _taluko = value;
                     },
@@ -68,7 +62,7 @@ class _HelpLinenoState extends State<HelpLineno> {
                   child: CustomTextfield(
                     myIcon: Icons.numbers,
                     inputType: TextInputType.text,
-                    inputTxt: 'નંબર',
+                    inputTxt: 'mobileNo'.tr,
                     voidReturn: (value) {
                       _number = value;
                     },
@@ -82,7 +76,7 @@ class _HelpLinenoState extends State<HelpLineno> {
                 Container(
                   margin: syv10 + syh20,
                   child: CustomButton(
-                    btnTxt: 'ઉમેરો...',
+                    btnTxt: 'add'.tr,
                     callback: () {
                       if (_helplineno.currentState!.validate()) {
                         Map<String, dynamic> data = {
@@ -98,9 +92,9 @@ class _HelpLinenoState extends State<HelpLineno> {
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
                     children: [
-                      dataTableTitle('તાલુકો', myColors.colorPrimaryColor),
-                      dataTableTitle('નંબર', myColors.colorPrimaryColor),
-                      dataTableTitle('કાઢો', myColors.btnRemove),
+                      dataTableTitle('taluko'.tr, myColors.colorPrimaryColor),
+                      dataTableTitle('mobileNo'.tr, myColors.colorPrimaryColor),
+                      dataTableTitle('delete'.tr, myColors.btnRemove),
                     ],
                   ),
                 ),
@@ -135,8 +129,10 @@ class _HelpLinenoState extends State<HelpLineno> {
                                       padding: const EdgeInsets.all(8.0),
                                       child: Row(
                                         children: [
-                                          Expanded(child: Text(doc['Taluko'])),
-                                          Expanded(child: Text(doc['Number'])),
+                                          Expanded(
+                                              child: SimpleText(doc['Taluko'])),
+                                          Expanded(
+                                              child: SimpleText(doc['Number'])),
                                           Expanded(
                                             child: InkWell(
                                               onTap: () => removeData(doc.id),
@@ -173,17 +169,11 @@ class _HelpLinenoState extends State<HelpLineno> {
         .doc()
         .set(data)
         .then((value) => () {
-              MessageBox(
-                msg: 'Number Added Successfully',
-                icon: Icons.check,
-              );
+              AlertShow('Success', Icons.check, 'Number Added Successfully');
               Get.offAll(() => const HelpLineno());
             })
         .catchError((onError) {
-      MessageBox(
-        msg: onError,
-        icon: Icons.error,
-      );
+      AlertShow(Error, Icons.error, onError);
     });
   }
 
@@ -196,10 +186,7 @@ class _HelpLinenoState extends State<HelpLineno> {
       ),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Text(
-          s,
-          style: const TextStyle(color: myColors.btnTextColor),
-        ),
+        child: SimpleText(s),
       ),
     ));
   }
@@ -210,13 +197,7 @@ class _HelpLinenoState extends State<HelpLineno> {
         .doc(docId)
         .delete()
         .then((value) => {
-              showDialog(
-                context: context,
-                builder: (_) => MessageBox(
-                  msg: 'Number Removed Successfully',
-                  icon: Icons.check,
-                ),
-              ),
+              AlertShow('Success', Icons.check, 'Number Removed Successfully'),
               Get.off(() => const HelpLineno())
             });
   }

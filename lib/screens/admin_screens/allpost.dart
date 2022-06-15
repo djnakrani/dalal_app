@@ -1,13 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dalal_app/screens/admin_screens/adminDrawer.dart';
-import 'package:dalal_app/screens/home_screens/DetailScreen.dart';
-import 'package:dalal_app/screens/messageBox.dart';
-import 'package:dalal_app/widget/custom_text.dart';
-import 'package:flutter/material.dart';
-import 'package:dalal_app/constants/myColors.dart';
-import 'package:dalal_app/constants/style.dart';
-import 'package:dalal_app/constants/string.dart';
-import 'package:get/get.dart';
+import 'package:dalal_app/constants/imports.dart';
 
 class AllPost extends StatefulWidget {
   const AllPost({Key? key}) : super(key: key);
@@ -21,9 +12,8 @@ class _AllPostState extends State<AllPost> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(string.appName + "- All Post "),
+        title: SimpleText('appTitle'.tr),
         backgroundColor: myColors.colorPrimaryColor,
-        // actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.search))],
       ),
       drawer: const AdminDrawer(),
       body: Padding(
@@ -88,25 +78,25 @@ class _AllPostState extends State<AllPost> {
                             children: [
                               Row(
                                 children: [
-                                  BoldText("વેચનાર નું નામ: "),
+                                  BoldText('seller'.tr + ' ' + 'name'.tr),
                                   SimpleText(ds["Seller_Name"])
                                 ],
                               ),
                               Row(
                                 children: [
-                                  BoldText("નામ: "),
+                                  BoldText('name'.tr),
                                   SimpleText(ds["Item"])
                                 ],
                               ),
                               Row(
                                 children: [
-                                  BoldText("ગામ: "),
+                                  BoldText("address".tr),
                                   SimpleText(ds["Address"])
                                 ],
                               ),
                               Row(
                                 children: [
-                                  BoldText("મોબાઈલ નંબર: "),
+                                  BoldText('mobileNo'.tr),
                                   SimpleText(ds["MobileNo"])
                                 ],
                               ),
@@ -146,13 +136,7 @@ class _AllPostState extends State<AllPost> {
         .doc(docId)
         .delete()
         .then((value) => {
-      showDialog(
-        context: context,
-        builder: (_) => MessageBox(
-          msg: 'Item Removed Successfully',
-          icon: Icons.check,
-        ),
-      ),
+      AlertShow('Success',Icons.check,'Item Removed Successfully'),
       Get.off(() => const AllPost())});
   }
 

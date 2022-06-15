@@ -1,22 +1,9 @@
 import 'dart:io';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dalal_app/constants/Images.dart';
-import 'package:dalal_app/constants/style.dart';
-import 'package:dalal_app/screens/home_screens/home.dart';
-import 'package:dalal_app/screens/messageBox.dart';
-import 'package:dalal_app/widget/custom_button.dart';
-import 'package:dalal_app/widget/custom_text.dart';
-import 'package:dalal_app/widget/custom_textfield.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:dalal_app/constants/myColors.dart';
+import 'package:dalal_app/constants/imports.dart';
 import 'package:image_picker/image_picker.dart';
 
 class InputForm extends StatefulWidget {
   String category;
-
   InputForm({Key? key, required this.category}) : super(key: key);
 
   @override
@@ -61,7 +48,7 @@ class _InputFormState extends State<InputForm> {
                     constraints: const BoxConstraints(maxHeight: 60),
                     margin: ot50,
                     child: Text(
-                      " તમારા ${widget.category} ની વિગત નાખો ",
+                      "${widget.category}" + 'producttitle'.tr + ' ' + 'add'.tr,
                       style: const TextStyle(fontSize: 18),
                     ),
                   ),

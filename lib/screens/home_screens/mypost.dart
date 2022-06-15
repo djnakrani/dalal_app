@@ -1,14 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dalal_app/screens/Input_screens/take_screen.dart';
-import 'package:dalal_app/screens/home_screens/DetailScreen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:dalal_app/constants/myColors.dart';
-import 'package:dalal_app/constants/style.dart';
-import 'package:dalal_app/constants/string.dart';
-import 'package:get/get.dart';
-
-import '../mydrawer.dart';
+import 'package:dalal_app/constants/imports.dart';
 
 class MyPost extends StatefulWidget {
   const MyPost({Key? key}) : super(key: key);
@@ -23,7 +13,7 @@ class _MyPostState extends State<MyPost> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(string.appName + "- મારી પોસ્ટ"),
+        title: SimpleText('appTitle'.tr),
         backgroundColor: myColors.colorPrimaryColor,
         actions: [IconButton(onPressed: () => Get.to(()=>const TakeScreen()), icon: const Icon(Icons.add))],
       ),
@@ -91,10 +81,11 @@ Widget myCard(DocumentSnapshot ds,BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            customDetails("પશુ / વસ્તુ: ", ds["Item"]),
-                            customDetails("વેચનાર નું નામ: ", ds["Seller_Name"]),
-                            customDetails("કિંમત: ", ds["Price"]),
-                            customDetails("મોબાઇલ નંબર: ", ds["MobileNo"]),
+                            customDetails('producttitle'.tr, ds["Item"]),
+                            customDetails('seller'.tr + ' ' + 'name'.tr, ds["Seller_Name"]),
+                            customDetails('price'.tr, ds["Price"]),
+                            // customDetails('mobileNo'.tr, ds["MobileNo"]),
+                            customDetails('date'.tr, ds["Date"]),
                           ],
                         ),
                       ),
@@ -128,5 +119,5 @@ Future removeData(String docId) async {
       .collection('Items')
       .doc(docId)
       .delete()
-      .then((value) => {Get.off(() => MyPost())});
+      .then((value) => {Get.off(() => const MyPost())});
 }

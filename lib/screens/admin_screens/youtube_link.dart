@@ -1,12 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dalal_app/constants/Images.dart';
-import 'package:dalal_app/constants/style.dart';
-import 'package:dalal_app/screens/messageBox.dart';
-import 'package:dalal_app/widget/custom_button.dart';
-import 'package:dalal_app/widget/custom_textfield.dart';
-import 'package:flutter/material.dart';
-import 'package:dalal_app/constants/myColors.dart';
-import 'package:get/get.dart';
+import 'package:dalal_app/constants/imports.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class InputYTLink extends StatefulWidget {
@@ -25,6 +17,11 @@ class _InputYTLinkState extends State<InputYTLink> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: SimpleText('appTitle'.tr),
+        backgroundColor: myColors.colorPrimaryColor,
+      ),
+      drawer: const AdminDrawer(),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Container(
@@ -38,14 +35,9 @@ class _InputYTLinkState extends State<InputYTLink> {
               children: <Widget>[
                 Center(
                   child: Container(
-                    constraints: const BoxConstraints(maxHeight: 120),
-                    margin: ot80,
-                    child: const Text(
-                      " તમારા ની વિગત નાખો ",
-                      style: TextStyle(fontSize: 38),
-                    ),
-                    // child: Image.asset(Images.logoImage),
-                  ),
+                      constraints: const BoxConstraints(maxHeight: 120),
+                      margin: ot80,
+                      child: BoldText('Add Link')),
                 ),
                 Container(
                   height: 40,
@@ -53,13 +45,13 @@ class _InputYTLinkState extends State<InputYTLink> {
                   child: CustomTextfield(
                     myIcon: Icons.location_city,
                     inputType: TextInputType.text,
-                    inputTxt: ' શીર્ષક  ',
+                    inputTxt: 'title'.tr,
                     voidReturn: (value) {
                       _title = value;
                     },
                     validationData: (data) {
                       if (data.isEmpty) {
-                        return "Title is Required";
+                        return "this is Required";
                       }
                     },
                   ),
@@ -70,13 +62,13 @@ class _InputYTLinkState extends State<InputYTLink> {
                   child: CustomTextfield(
                     myIcon: Icons.location_city,
                     inputType: TextInputType.text,
-                    inputTxt: 'લિંક નાખો  ',
+                    inputTxt: 'link'.tr,
                     voidReturn: (value) {
                       _link = value;
                     },
                     validationData: (data) {
                       if (data.isEmpty) {
-                        return "Link is Required";
+                        return "This is Required";
                       }
                     },
                   ),
@@ -84,7 +76,7 @@ class _InputYTLinkState extends State<InputYTLink> {
                 Container(
                   margin: syv10 + syh20,
                   child: CustomButton(
-                    btnTxt: 'તમારી Link ઉમેરો ...',
+                    btnTxt: 'add'.tr,
                     callback: () {
                       if (_youtubeForm.currentState!.validate()) {
                         var date = DateTime.now().toString();
@@ -108,10 +100,10 @@ class _InputYTLinkState extends State<InputYTLink> {
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
                     children: [
-                      dataTableTitle('Title', myColors.colorPrimaryColor),
-                      dataTableTitle('Link', myColors.colorPrimaryColor),
-                      dataTableTitle('Date', myColors.colorPrimaryColor),
-                      dataTableTitle('Remove', myColors.btnRemove),
+                      dataTableTitle('title'.tr, myColors.colorPrimaryColor),
+                      dataTableTitle('link'.tr, myColors.colorPrimaryColor),
+                      dataTableTitle('date'.tr, myColors.colorPrimaryColor),
+                      dataTableTitle('delete'.tr, myColors.btnRemove),
                     ],
                   ),
                 ),
@@ -147,20 +139,22 @@ class _InputYTLinkState extends State<InputYTLink> {
                                       padding: const EdgeInsets.all(8.0),
                                       child: Row(
                                         children: [
-                                          Expanded(child: Text(doc['Title'])),
+                                          Expanded(
+                                              child: SimpleText(doc['Title'])),
                                           Expanded(
                                               child: InkWell(
-                                            child: Text(doc['Link']),
+                                            child: SimpleText(doc['Link']),
                                             onTap: () async {
                                               final wsurl = doc['Link'];
-                                              if (await canLaunch(wsurl)) {
-                                                await launch(wsurl);
+                                              if (await canLaunchUrl(wsurl)) {
+                                                await launchUrl(wsurl);
                                               } else {
                                                 throw "Not work";
                                               }
                                             },
                                           )),
-                                          Expanded(child: Text(doc['Date'])),
+                                          Expanded(
+                                              child: SimpleText(doc['Date'])),
                                           Expanded(
                                             child: InkWell(
                                               onTap: () => removeData(doc.id),
@@ -197,17 +191,11 @@ class _InputYTLinkState extends State<InputYTLink> {
         .doc()
         .set(data)
         .then((value) => () {
-              MessageBox(
-                msg: 'Number Added Successfully',
-                icon: Icons.check,
-              );
+              AlertShow('Success', Icons.check, 'Number Added..');
               Get.offAll(() => const InputYTLink());
             })
         .catchError((onError) {
-      MessageBox(
-        msg: onError,
-        icon: Icons.error,
-      );
+      AlertShow("Error", Icons.error, onError);
     });
   }
 
@@ -220,10 +208,7 @@ class _InputYTLinkState extends State<InputYTLink> {
       ),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Text(
-          s,
-          style: const TextStyle(color: myColors.btnTextColor),
-        ),
+        child: SimpleText(s),
       ),
     ));
   }
@@ -234,13 +219,7 @@ class _InputYTLinkState extends State<InputYTLink> {
         .doc(docId)
         .delete()
         .then((value) => {
-              showDialog(
-                context: context,
-                builder: (_) => MessageBox(
-                  msg: 'Link Removed Successfully',
-                  icon: Icons.check,
-                ),
-              ),
+              AlertShow('Success', Icons.check, "Link Removed"),
               Get.off(() => const InputYTLink())
             });
   }

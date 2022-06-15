@@ -1,18 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dalal_app/screens/filter_screens/searchscreen.dart';
-import 'package:dalal_app/screens/home_screens/DetailScreen.dart';
-import 'package:flutter/material.dart';
-import 'package:dalal_app/constants/myColors.dart';
-import 'package:dalal_app/constants/style.dart';
-import 'package:dalal_app/constants/string.dart';
-import 'package:dalal_app/constants/Images.dart';
-import 'package:get/get.dart';
+import 'package:dalal_app/constants/imports.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../../widget/custom_text.dart';
-import '../home_screens/cardView.dart';
-import '../messageBox.dart';
-import '../mydrawer.dart';
+import 'package:dalal_app/screens/home_screens/cardView.dart';
 
 class FilterScreen extends StatefulWidget {
   var items;
@@ -26,14 +16,14 @@ class _FilterScreenState extends State<FilterScreen> {
   @override
   void initState() {
     super.initState();
-    Get.log(widget.items);
+    // Get.log(widget.items);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(string.appName),
+        title: SimpleText('appTitle'.tr),
         backgroundColor: myColors.colorPrimaryColor,
         actions: [
           IconButton(
@@ -111,13 +101,7 @@ class _FilterScreenState extends State<FilterScreen> {
                             color: Colors.red,
                           ),
                           onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (_) => MessageBox(
-                                msg: 'Added in Favorite',
-                                icon: Icons.favorite,
-                              ),
-                            );
+                            AlertShow("Success",Icons.favorite,'Added To Favorite');
                             add(ds);
                           },
                         )),
@@ -135,32 +119,20 @@ class _FilterScreenState extends State<FilterScreen> {
                             children: [
                               Row(
                                 children: [
-                                  BoldText("વેચનાર નું નામ: "),
+                                  BoldText('seller'.tr + ' ' + 'name'.tr),
                                   SimpleText(ds["Seller_Name"])
                                 ],
                               ),
                               Row(
                                 children: [
-                                  BoldText("નામ: "),
+                                  BoldText('name'.tr),
                                   SimpleText(ds["Item"])
                                 ],
                               ),
                               Row(
                                 children: [
-                                  BoldText("ગામ: "),
+                                  BoldText("address".tr),
                                   SimpleText(ds["Address"])
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  BoldText("મોબાઈલ નંબર: "),
-                                  SimpleText(ds["MobileNo"])
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  BoldText("તારીખ: "),
-                                  SimpleText(ds["Date"])
                                 ],
                               ),
                             ],
@@ -177,7 +149,8 @@ class _FilterScreenState extends State<FilterScreen> {
                                       primary: myColors.colorPrimaryColor,
                                     ),
                                     onPressed: () {
-                                      launch('tel: ${ds["MobileNo"]}');
+                                      Uri myUri = Uri.parse("tel: ${ds["MobileNo"]}");
+                                      launchUrl(myUri);
                                     },
                                     child: const Icon(Icons.call)),
                               ),
@@ -188,8 +161,11 @@ class _FilterScreenState extends State<FilterScreen> {
                                       primary: myColors.colorPrimaryColor,
                                     ),
                                     onPressed: () {
-                                      launch(
-                                          'https://wa.me/${ds["MobileNo"]}?text=${ds["Item"]}');
+                                      String data = "તારીખ: "+ds["Date"] +"\n પશુ / વસ્તુ: " + ds["Item"] + "\nવેચનાર નું નામ: " + ds["Seller_Name"] +
+                                          " \nકિંમત: " + ds["Price"] + "\nમોબાઇલ નંબર: " + ds["MobileNo"] + "\nવર્ણન: " + ds["Details"] +"\nસરનામું: " + ds["Address"]
+                                          + "\nજિલ્લો: " + ds["City"] +"\nરાજ્ય: " + ds["State"];
+                                      Uri myUri = Uri.parse('https://wa.me/${ds["MobileNo"]}?text=$data');
+                                      launchUrl(myUri);
                                     },
                                     child: Ink.image(
                                         height: 30,

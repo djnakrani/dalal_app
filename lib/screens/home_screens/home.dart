@@ -1,7 +1,5 @@
 import 'package:dalal_app/constants/imports.dart';
-import 'package:dalal_app/screens/Input_screens/take_screen.dart';
 import 'package:dalal_app/screens/filter_screens/searchscreen.dart';
-import 'package:dalal_app/screens/home_screens/DetailScreen.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -25,7 +23,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('appTitle'.tr),
+        title: SimpleText('appTitle'.tr),
         backgroundColor: myColors.colorPrimaryColor,
         actions: [
           IconButton(
@@ -39,7 +37,6 @@ class _HomeState extends State<Home> {
           child: StreamBuilder(
             stream: FirebaseFirestore.instance.collection('Items').snapshots(),
             builder: (_, AsyncSnapshot<QuerySnapshot> snapshot) {
-              // Get.log(snapshot.data!.size.toString());
               if (snapshot.data == null) {
                 return const Center(child: CircularProgressIndicator());
               } else {
@@ -133,28 +130,22 @@ class _HomeState extends State<Home> {
                             children: [
                               Row(
                                 children: [
-                                  BoldText("વેચનાર નું નામ: "),
+                                  BoldText('seller'.tr + ' ' + 'name'.tr),
                                   SimpleText(ds["Seller_Name"])
                                 ],
                               ),
                               Row(
                                 children: [
-                                  BoldText("નામ: "),
+                                  BoldText('name'.tr),
                                   SimpleText(ds["Item"])
                                 ],
                               ),
                               Row(
                                 children: [
-                                  BoldText("ગામ: "),
+                                  BoldText("address".tr),
                                   SimpleText(ds["Address"])
                                 ],
                               ),
-                              // Row(
-                              //   children: [
-                              //     BoldText("મોબાઈલ નંબર: "),
-                              //     SimpleText(ds["MobileNo"])
-                              //   ],
-                              // ),
                               Row(
                                 children: [
                                   Padding(
@@ -164,7 +155,8 @@ class _HomeState extends State<Home> {
                                           primary: myColors.colorPrimaryColor,
                                         ),
                                         onPressed: () {
-                                          launch('tel: ${ds["MobileNo"]}');
+                                          Uri myUri = Uri.parse("tel: ${ds["MobileNo"]}");
+                                          launchUrl(myUri);
                                         },
                                         child: const Icon(Icons.call)),
                                   ),
@@ -175,8 +167,11 @@ class _HomeState extends State<Home> {
                                           primary: myColors.colorPrimaryColor,
                                         ),
                                         onPressed: () {
-                                          launch(
-                                              'https://wa.me/${ds["MobileNo"]}?text=${ds["Item"]}');
+                                          String data = "તારીખ: "+ds["Date"] +"\n પશુ / વસ્તુ: " + ds["Item"] + "\nવેચનાર નું નામ: " + ds["Seller_Name"] +
+                                              " \nકિંમત: " + ds["Price"] + "\nમોબાઇલ નંબર: " + ds["MobileNo"] + "\nવર્ણન: " + ds["Details"] +"\nસરનામું: " + ds["Address"]
+                                              + "\nજિલ્લો: " + ds["City"] +"\nરાજ્ય: " + ds["State"];
+                                          Uri myUri = Uri.parse('https://wa.me/${ds["MobileNo"]}?text=$data');
+                                          launchUrl(myUri);
                                         },
                                         child: Ink.image(
                                             height: 30,
@@ -238,7 +233,7 @@ class _HomeState extends State<Home> {
 
     await Share.share(
       data,
-      subject: "પશુ / વસ્તુ: " + ds["Item"],
+      subject: 'producttitle'.tr + ds["Item"],
     );
   }
 }

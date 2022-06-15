@@ -19,6 +19,8 @@ export 'package:dalal_app/widget/custom_firebase.dart';
 export 'package:firebase_core/firebase_core.dart';
 export 'package:cloud_firestore/cloud_firestore.dart';
 export 'package:firebase_auth/firebase_auth.dart';
+export 'package:firebase_storage/firebase_storage.dart';
+
 
 // Get Library import
 export 'package:get/get.dart';

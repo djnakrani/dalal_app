@@ -1,13 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dalal_app/screens/home_screens/cardView.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:dalal_app/constants/myColors.dart';
-import 'package:dalal_app/constants/style.dart';
-import 'package:dalal_app/constants/string.dart';
-import 'package:get/get.dart';
-
-import '../mydrawer.dart';
+import 'package:dalal_app/constants/imports.dart';
 
 class FavoriteScreen extends StatefulWidget {
   const FavoriteScreen({Key? key}) : super(key: key);
@@ -38,7 +30,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
           });
         }
       }
-      Get.log(favItems.toString());
+      // Get.log(favItems.toString());
     });
   }
 

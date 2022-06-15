@@ -1,17 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dalal_app/constants/style.dart';
-import 'package:dalal_app/screens/home_screens/DetailScreen.dart';
-import 'package:dalal_app/screens/messageBox.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
+import 'package:dalal_app/constants/imports.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:dalal_app/constants/myColors.dart';
 
-
-import '../../constants/Images.dart';
 String uid = FirebaseAuth.instance.currentUser!.uid;
 Widget cardView(DocumentSnapshot ds, BuildContext context) {
-
   return Card(
       clipBehavior: Clip.antiAlias,
       elevation: 10,
@@ -47,13 +38,7 @@ Widget cardView(DocumentSnapshot ds, BuildContext context) {
                           color: Colors.red,
                         ),
                         onPressed: () {
-                          showDialog(
-                            context: context,
-                            builder: (_) => MessageBox(
-                              msg: 'કાઢી નાખી...',
-                              icon: Icons.check,
-                            ),
-                          );
+                          AlertShow('Success', Icons.check,'Removed');
                           remove(ds);
                         },
                       ))
@@ -69,11 +54,11 @@ Widget cardView(DocumentSnapshot ds, BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            customDetails("પશુ / વસ્તુ: ", ds["Item"]),
-                            customDetails("વેચનાર નું નામ: ", ds["Seller_Name"]),
-                            customDetails("કિંમત: ", ds["Price"]),
-                            customDetails("મોબાઇલ નંબર: ", ds["MobileNo"]),
-                            customDetails("તારીખ: ", ds["Date"]),
+                            customDetails('producttitle'.tr, ds["Item"]),
+                            customDetails('seller'.tr + ' ' + 'name'.tr, ds["Seller_Name"]),
+                            customDetails('price'.tr, ds["Price"]),
+                            // customDetails('mobileNo'.tr, ds["MobileNo"]),
+                            customDetails('date'.tr, ds["Date"]),
                           ],
                         ),
                       ),
@@ -88,7 +73,8 @@ Widget cardView(DocumentSnapshot ds, BuildContext context) {
                                     primary: myColors.colorPrimaryColor,
                                   ),
                                   onPressed: () {
-                                    launch('tel: ${ds["MobileNo"]}');
+                                    Uri myUri = Uri.parse("tel: ${ds["MobileNo"]}");
+                                    launchUrl(myUri);
                                   },
                                   child: const Icon(Icons.call)),
                             ),
@@ -99,14 +85,17 @@ Widget cardView(DocumentSnapshot ds, BuildContext context) {
                                     primary: myColors.colorPrimaryColor,
                                   ),
                                   onPressed: () {
-                                    launch(
-                                        'https://wa.me/${ds["MobileNo"]}?text=${ds["Item"]}');
+                                    String data = "તારીખ: "+ds["Date"] +"\n પશુ / વસ્તુ: " + ds["Item"] + "\nવેચનાર નું નામ: " + ds["Seller_Name"] +
+                                        " \nકિંમત: " + ds["Price"] + "\nમોબાઇલ નંબર: " + ds["MobileNo"] + "\nવર્ણન: " + ds["Details"] +"\nસરનામું: " + ds["Address"]
+                                        + "\nજિલ્લો: " + ds["City"] +"\nરાજ્ય: " + ds["State"];
+                                    Uri myUri = Uri.parse('https://wa.me/${ds["MobileNo"]}?text=$data');
+                                    launchUrl(myUri);
                                   },
                                   child: Ink.image(
                                       height: 30,
                                       width: 30,
                                       image:
-                                      AssetImage(Images.wsLogo))),
+                                      const AssetImage(Images.wsLogo))),
                             )
                           ],
                         ),

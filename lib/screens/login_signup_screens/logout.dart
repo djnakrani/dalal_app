@@ -1,6 +1,6 @@
 import 'package:dalal_app/constants/imports.dart';
 
-Widget? logOut() {
+logOut() {
   FirebaseAuth.instance.signOut();
   if (FirebaseAuth.instance.currentUser == null) {
     Get.offAll(() => const Login());

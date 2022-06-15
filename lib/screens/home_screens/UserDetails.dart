@@ -1,16 +1,5 @@
 import 'dart:async';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dalal_app/constants/Images.dart';
-import 'package:dalal_app/constants/style.dart';
-import 'package:dalal_app/screens/home_screens/DetailScreen.dart';
-import 'package:dalal_app/screens/login_signup_screens/signup.dart';
-import 'package:dalal_app/widget/custom_button.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:dalal_app/constants/myColors.dart';
-import 'package:get/get.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:dalal_app/constants/imports.dart';
 
 class UserDetails extends StatefulWidget {
   const UserDetails({Key? key}) : super(key: key);
@@ -43,7 +32,6 @@ class _UserDetailsState extends State<UserDetails> {
         _city= value["City"];
         _dist= value["District"];
         _taluka= value["Taluka"];
-
       });
     });
 
@@ -52,6 +40,10 @@ class _UserDetailsState extends State<UserDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: SimpleText('appTitle'.tr),
+        backgroundColor: myColors.colorPrimaryColor,
+      ),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child:Container(
@@ -65,10 +57,7 @@ class _UserDetailsState extends State<UserDetails> {
                 child:Container(
                   constraints: const BoxConstraints(maxHeight: 120),
                   margin: ot80,
-                  child: const Text(
-                    " મારી વિગતો ",
-                    style: TextStyle(fontSize: 32),
-                  ),
+                  child: BoldText('mydetails'.tr)
                 ),
               ),
               isloading?const CircularProgressIndicator():Container(
@@ -79,17 +68,17 @@ class _UserDetailsState extends State<UserDetails> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    customDetails("નામ :", _name),
-                    customDetails("ઈ-મેલ: ", _email),
-                    customDetails("મોબાઇલ નંબર: ", _mno),
-                    customDetails("સરનામું / ગામ: ", _address),
-                    customDetails("તાલુકો: ", _taluka),
-                    customDetails("જિલ્લો: ", _city),
-                    customDetails("રાજ્ય: ", _dist),
+                    customDetails('name'.tr + ":", _name),
+                    customDetails('email'.tr + ":", _email),
+                    customDetails('mobileNo'.tr + ":", _mno),
+                    customDetails('address'.tr + ":", _address),
+                    customDetails('state'.tr + ":", _dist),
+                    customDetails('taluko'.tr + ":", _taluka),
+                    customDetails('city'.tr + ":", _city),
                     Container(
                       margin: syv10 + syh20*5,
                       child: CustomButton(
-                        btnTxt: 'સુધારો',
+                        btnTxt: 'edit'.tr,
                         callback: () {
                           Get.to(() => const Signup());
                         },
@@ -103,22 +92,5 @@ class _UserDetailsState extends State<UserDetails> {
         ),
       ),
     );
-  }
-
-  dataTitleTable(String s, Color color) {
-    return Expanded(
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: br20,
-            color: color,
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              s,
-              style: const TextStyle(color: myColors.btnTextColor),
-            ),
-          ),
-        ));
   }
 }

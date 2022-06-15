@@ -1,10 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dalal_app/constants/Images.dart';
-import 'package:dalal_app/constants/style.dart';
-import 'package:dalal_app/widget/custom_textfield.dart';
-import 'package:flutter/material.dart';
-import 'package:dalal_app/constants/myColors.dart';
-import 'package:get/get.dart';
+import 'package:dalal_app/constants/imports.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class UserHelpLine extends StatefulWidget {
@@ -19,6 +13,10 @@ class _UserHelpLineState extends State<UserHelpLine> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: SimpleText('appTitle'.tr),
+        backgroundColor: myColors.colorPrimaryColor,
+      ),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Container(
@@ -32,10 +30,7 @@ class _UserHelpLineState extends State<UserHelpLine> {
                 child: Container(
                   constraints: const BoxConstraints(maxHeight: 120),
                   margin: ot80,
-                  child: const Text(
-                    "હેલ્પલાઈન નંબર",
-                    style: TextStyle(fontSize: 32),
-                  ),
+                  child: BoldText('helpline'),
                 ),
               ),
               Row(
@@ -66,8 +61,8 @@ class _UserHelpLineState extends State<UserHelpLine> {
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
                   children: [
-                    dataTitleTable('તાલુકો', myColors.colorPrimaryColor),
-                    dataTitleTable('નંબર', myColors.colorPrimaryColor),
+                    dataTitleTable('taluko'.tr, myColors.colorPrimaryColor),
+                    dataTitleTable('mobileNo'.tr, myColors.colorPrimaryColor),
                   ],
                 ),
               ),
@@ -104,14 +99,14 @@ class _UserHelpLineState extends State<UserHelpLine> {
                                       padding: const EdgeInsets.all(8.0),
                                       child: Row(
                                         children: [
-                                          Expanded(child: Text(doc['Taluko'])),
-                                          Expanded(child: Text(doc['Number'])),
+                                          Expanded(child: SimpleText(doc['Taluko'])),
+                                          Expanded(child: SimpleText(doc['Number'])),
                                           Expanded(
                                               child: InkWell(
                                                   onTap: () => {
-                                                    launch(
-                                                        'tel: +91${doc['Number']}')
-                                                  },
+                                                        launch(
+                                                            'tel: +91${doc['Number']}')
+                                                      },
                                                   child: const Icon(
                                                     Icons.phone,
                                                     color: myColors
@@ -121,8 +116,7 @@ class _UserHelpLineState extends State<UserHelpLine> {
                                       ),
                                     ),
                                   );
-                                }
-                                else{
+                                } else {
                                   return SizedBox();
                                 }
                               }).toList(),
@@ -150,10 +144,7 @@ class _UserHelpLineState extends State<UserHelpLine> {
       ),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Text(
-          s,
-          style: const TextStyle(color: myColors.btnTextColor),
-        ),
+        child: SimpleText(s),
       ),
     ));
   }

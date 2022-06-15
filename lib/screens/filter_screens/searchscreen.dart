@@ -1,18 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dalal_app/constants/myColors.dart';
-import 'package:dalal_app/constants/style.dart';
-import 'package:dalal_app/constants/string.dart';
+import 'package:dalal_app/constants/imports.dart';
 import 'package:dalal_app/screens/filter_screens/filterscreen.dart';
-import 'package:dalal_app/screens/messageBox.dart';
-import 'package:dalal_app/screens/mydrawer.dart';
-import 'package:dalal_app/widget/custom_button.dart';
-import 'package:dalal_app/widget/custom_textfield.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
-import '../../widget/custom_text.dart';
-import '../home_screens/home.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -29,7 +17,7 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: SimpleText(string.appName + " - Filter"),
+        title: SimpleText('appTitle'.tr),
         backgroundColor: myColors.colorPrimaryColor,
         actions: [
           IconButton(
@@ -67,16 +55,10 @@ class _SearchScreenState extends State<SearchScreen> {
               Container(
                 margin: syv10 + syh20,
                 child: CustomButton(
-                    btnTxt: 'આગળ વધો',
+                    btnTxt: 'next'.tr,
                     callback: () {
                       if (selectedItem == null) {
-                        showDialog(
-                          context: context,
-                          builder: (_) => MessageBox(
-                            msg: 'કંઈક સિલેક્ટ કરો ',
-                            icon: Icons.error,
-                          ),
-                        );
+                        AlertShow('Error',Icons.error,"Not Selected");
                       } else {
                         Get.off(() => FilterScreen(
                               items: selectedItem,
@@ -115,7 +97,6 @@ class _SearchScreenState extends State<SearchScreen> {
                       setState(() {
                         selectedItem = valueSelectedByUser.toString();
                       });
-                      Get.log(selectedItem);
                     },
                     value: selectedItem,
                     hint: SimpleText("Select Items"),
