@@ -59,7 +59,7 @@ class _InputFormState extends State<InputForm> {
                   child: CustomTextfield(
                     myIcon: Icons.title,
                     inputType: TextInputType.text,
-                    inputTxt: 'શીર્ષક',
+                    inputTxt: 'title'.tr,
                     voidReturn: (value) {
                       _title = value;
                     },
@@ -76,13 +76,13 @@ class _InputFormState extends State<InputForm> {
                   child: CustomTextfield(
                     myIcon: Icons.price_check,
                     inputType: TextInputType.number,
-                    inputTxt: 'કિંમત',
+                    inputTxt: 'price'.tr,
                     voidReturn: (value) {
                       _price = value;
                     },
                     validationData: (data) {
                       if (data.isEmpty) {
-                        return "Data Required";
+                        return "Required";
                       }
                     },
                   ),
@@ -94,13 +94,13 @@ class _InputFormState extends State<InputForm> {
                     myIcon: Icons.description,
                     maxLine: 5,
                     inputType: TextInputType.text,
-                    inputTxt: 'વર્ણન',
+                    inputTxt: 'description'.tr,
                     voidReturn: (value) {
                       _details = value;
                     },
                     validationData: (data) {
                       if (data.isEmpty) {
-                        return "Data Required";
+                        return "Required";
                       }
                     },
                   ),
@@ -112,13 +112,13 @@ class _InputFormState extends State<InputForm> {
                     myIcon: Icons.location_city_outlined,
                     inputType: TextInputType.multiline,
                     maxLine: 4,
-                    inputTxt: 'તમારું સરનામું/ગામ નાખો. ',
+                    inputTxt: 'address'.tr,
                     voidReturn: (value) {
                       _address = value;
                     },
                     validationData: (data) {
                       if (data.isEmpty) {
-                        return "Data Required";
+                        return "Required";
                       }
                     },
                   ),
@@ -129,13 +129,13 @@ class _InputFormState extends State<InputForm> {
                   child: CustomTextfield(
                     myIcon: Icons.location_city,
                     inputType: TextInputType.text,
-                    inputTxt: 'તાલુકો',
+                    inputTxt: 'taluko'.tr,
                     voidReturn: (value) {
                       _taluko = value;
                     },
                     validationData: (data) {
                       if (data.isEmpty) {
-                        return "Data Required";
+                        return "Required";
                       }
                     },
                   ),
@@ -146,13 +146,13 @@ class _InputFormState extends State<InputForm> {
                   child: CustomTextfield(
                     myIcon: Icons.location_city,
                     inputType: TextInputType.text,
-                    inputTxt: 'જિલ્લો',
+                    inputTxt: 'city'.tr,
                     voidReturn: (value) {
                       _city = value;
                     },
                     validationData: (data) {
                       if (data.isEmpty) {
-                        return "Data Required";
+                        return "Required";
                       }
                     },
                   ),
@@ -163,13 +163,13 @@ class _InputFormState extends State<InputForm> {
                   child: CustomTextfield(
                     myIcon: Icons.location_city,
                     inputType: TextInputType.text,
-                    inputTxt: 'રાજ્ય',
+                    inputTxt: 'state'.tr,
                     voidReturn: (value) {
                       _state = value;
                     },
                     validationData: (data) {
                       if (data.isEmpty) {
-                        return "Data Required";
+                        return "Required";
                       }
                     },
                   ),
@@ -208,7 +208,7 @@ class _InputFormState extends State<InputForm> {
                 Container(
                   margin: syv10 + syh20,
                   child: CustomButton(
-                    btnTxt: 'તમારી પોસ્ટ ઉમેરો ...',
+                    btnTxt: 'add'.tr,
                     callback: () {
                       if (_inputForm.currentState!.validate()) {
                         if (_selectedImage.isNotEmpty) {
@@ -343,7 +343,7 @@ class _InputFormState extends State<InputForm> {
         .doc()
         .set(data)
         .whenComplete(() => Get.offAll(() => const Home()))
-        .onError((error, stackTrace) => MessageBox(msg: error.toString(),icon: Icons.error,));
+        .onError((error, stackTrace) => AlertShow("Error", Icons.error,error.toString()));
     _imagesUrlsList.clear();
   }
 

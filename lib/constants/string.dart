@@ -17,6 +17,7 @@ class LocateString extends Translations
       'otpresend': 'Resent Otp',
       'add':'Add',
       'postadd': 'Add Post',
+      'mypost':'My Post',
       'delete':'Delete',
       'title':'Title',
       'link':'Link',
@@ -37,7 +38,8 @@ class LocateString extends Translations
       'price': 'Price',
       'description': 'Description',
       'helpline': 'HelpLine Number',
-      'exit': 'Exit'
+      'exit': 'Exit',
+      'retry': 'Retry',
     },
     'hi_IN':{
       'appTitle': 'दलाल',
@@ -47,6 +49,7 @@ class LocateString extends Translations
       'otpresend': 'पुनः भेजें',
       'add':'डालो',
       'postadd': 'पोस्ट डालो',
+      'mypost':'मेरा पोस्ट',
       'delete':'मिटाना',
       'title':'शीर्षक',
       'link':'लिंक',
@@ -67,7 +70,8 @@ class LocateString extends Translations
       'price': 'कीमत',
       'description': 'विवरण',
       'helpline': 'हेल्पलाइन नंबर',
-      'exit': 'બહાર'
+      'exit': 'બહાર',
+      'retry':'पुन: प्रयास करें',
     },
     'gu_IN':{
       'appTitle' : 'દલાલ',
@@ -77,6 +81,7 @@ class LocateString extends Translations
       'otpresend': 'ફરીથી મોકલો ',
       'add':'ઉમેરો',
       'postadd': ' પોસ્ટ નાખો',
+      'mypost':'મારી પોસ્ટ',
       'delete':'કાઢી નાખો',
       'title':'શીર્ષક',
       'link':'લિંક્સ',
@@ -90,14 +95,15 @@ class LocateString extends Translations
       'address': 'સરનામું',
       'state': 'રાજ્ય',
       'taluko': 'તાલુકો',
-      'city': 'શહેર',
+      'city': 'જિલ્લો',
       'edit': 'સુધારો',
       'date': 'તારીખ',
       'producttitle': 'વસ્તુ',
       'price': 'કિંમત',
       'description': 'વર્ણન',
       'helpline': 'હેલ્પલાઇન નંબર',
-      'exit': 'બહાર'
+      'exit': 'બહાર',
+      'retry':'ફરી પ્રયાસ કરો',
     }
 
   };

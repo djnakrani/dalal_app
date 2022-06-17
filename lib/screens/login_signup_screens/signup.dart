@@ -1,15 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dalal_app/constants/style.dart';
-import 'package:dalal_app/screens/home_screens/home.dart';
-import 'package:dalal_app/screens/messageBox.dart';
-import 'package:dalal_app/widget/custom_button.dart';
-import 'package:dalal_app/widget/custom_logo.dart';
-import 'package:dalal_app/widget/custom_textfield.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
-import '../../constants/Images.dart';
+import 'package:dalal_app/constants/imports.dart';
 
 class Signup extends StatefulWidget {
   const Signup({
@@ -21,7 +10,7 @@ class Signup extends StatefulWidget {
 }
 
 class _SignupState extends State<Signup> {
-  String? _name,_email,_address,_city,_dist,_taluka;
+  String? _name, _email, _address, _city, _dist, _taluka;
   String? uid;
   String? _mno;
   final _signUpForm = GlobalKey<FormState>();
@@ -30,9 +19,9 @@ class _SignupState extends State<Signup> {
   @override
   void initState() {
     super.initState();
-    if(FirebaseAuth.instance.currentUser?.uid != null){
+    if (FirebaseAuth.instance.currentUser?.uid != null) {
       uid = FirebaseAuth.instance.currentUser!.uid;
-     _mno = FirebaseAuth.instance.currentUser!.phoneNumber;
+      _mno = FirebaseAuth.instance.currentUser!.phoneNumber;
     }
   }
 
@@ -60,15 +49,14 @@ class _SignupState extends State<Signup> {
                   child: CustomTextfield(
                     myIcon: Icons.person,
                     inputType: TextInputType.text,
-                    inputTxt: 'તમારું પૂરું નામ નાખો...',
+                    inputTxt: 'name'.tr,
                     voidReturn: (value) {
                       _name = value;
                     },
                     validationData: (data) {
                       if (data.isEmpty) {
-                        return " પૂરું નામ નાખો..";
+                        return "Name Is Required";
                       }
-
                     },
                   ),
                 ),
@@ -78,15 +66,14 @@ class _SignupState extends State<Signup> {
                   child: CustomTextfield(
                     myIcon: Icons.email,
                     inputType: TextInputType.emailAddress,
-                    inputTxt: 'તમારું ઈ-મેલ નાખો....',
+                    inputTxt: 'email'.tr,
                     voidReturn: (value) {
                       _email = value;
                     },
                     validationData: (data) {
                       if (data.isEmpty) {
-                        return "ઈ-મેલ નાખો..";
+                        return "Email is Required.";
                       }
-
                     },
                   ),
                 ),
@@ -97,7 +84,7 @@ class _SignupState extends State<Signup> {
                     myIcon: Icons.location_city,
                     inputType: TextInputType.multiline,
                     maxLine: 4,
-                    inputTxt: 'તમારું સરનામું / ગામ નાખો. ',
+                    inputTxt: 'address'.tr,
                     voidReturn: (value) {
                       _address = value;
                     },
@@ -110,47 +97,47 @@ class _SignupState extends State<Signup> {
                   child: CustomTextfield(
                     myIcon: Icons.location_city,
                     inputType: TextInputType.text,
-                    inputTxt: 'રાજ્ય',
-                    voidReturn: (value) {
-                      _dist = value;
-                    },
-                    validationData: (data) {
-                      if (data.isEmpty) {
-                        return "રાજ્ય નાખો..";
-                      }
-                    },
-                  ),
-                ),
-                Container(
-                  height: 40,
-                  margin: syh20v5 + syv10,
-                  child: CustomTextfield(
-                    myIcon: Icons.location_city,
-                    inputType: TextInputType.text,
-                    inputTxt: 'જિલ્લો',
-                    voidReturn: (value) {
-                      _city = value;
-                    },
-                    validationData: (data) {
-                      if (data.isEmpty) {
-                        return "જિલ્લો નાખો..";
-                      }
-                    },
-                  ),
-                ),
-                Container(
-                  height: 40,
-                  margin: syh20v5 + syv10,
-                  child: CustomTextfield(
-                    myIcon: Icons.location_city,
-                    inputType: TextInputType.text,
-                    inputTxt: 'તાલુકો',
+                    inputTxt: 'taluko'.tr,
                     voidReturn: (value) {
                       _taluka = value;
                     },
                     validationData: (data) {
                       if (data.isEmpty) {
-                        return "તાલુકો નાખો.";
+                        return "This is required";
+                      }
+                    },
+                  ),
+                ),
+                Container(
+                  height: 40,
+                  margin: syh20v5 + syv10,
+                  child: CustomTextfield(
+                    myIcon: Icons.location_city,
+                    inputType: TextInputType.text,
+                    inputTxt: 'city'.tr,
+                    voidReturn: (value) {
+                      _city = value;
+                    },
+                    validationData: (data) {
+                      if (data.isEmpty) {
+                        return "This is required";
+                      }
+                    },
+                  ),
+                ),
+                Container(
+                  height: 40,
+                  margin: syh20v5 + syv10,
+                  child: CustomTextfield(
+                    myIcon: Icons.location_city,
+                    inputType: TextInputType.text,
+                    inputTxt: 'state'.tr,
+                    voidReturn: (value) {
+                      _dist = value;
+                    },
+                    validationData: (data) {
+                      if (data.isEmpty) {
+                        return "This is Required";
                       }
                     },
                   ),
@@ -158,7 +145,7 @@ class _SignupState extends State<Signup> {
                 Container(
                   margin: syv10 + syh20,
                   child: CustomButton(
-                    btnTxt: 'આગળ વધો...',
+                    btnTxt: 'next'.tr,
                     callback: () {
                       if (_signUpForm.currentState!.validate()) {
                         Map<String, dynamic> data = {
@@ -172,13 +159,6 @@ class _SignupState extends State<Signup> {
                           "IsAdmin": "0",
                         };
                         addUsers(data);
-                        showDialog(
-                          context: context,
-                          builder: (_) => MessageBox(
-                            msg: "તમારી વિગતો સેવ કરવામા આવી",
-                            icon: Icons.check,
-                          ),
-                        );
                         Get.offAll(() => const Home());
                       }
                     },
@@ -198,17 +178,10 @@ class _SignupState extends State<Signup> {
         .doc(uid)
         .set(data)
         .then((value) => () {
-
+              AlertShow("Success", Icons.check, "");
             })
         .catchError((onError) {
-      showDialog(
-        context: context,
-        builder: (_) => MessageBox(
-          msg: onError.toString(),
-          icon: Icons.error,
-        ),
-      );
-
+      AlertShow("Error", Icons.error, onError.toString());
     });
   }
 }

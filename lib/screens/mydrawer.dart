@@ -1,8 +1,6 @@
 import 'package:dalal_app/constants/imports.dart';
-import 'package:dalal_app/screens/Input_screens/take_screen.dart';
 import 'package:dalal_app/screens/home_screens/UserDetails.dart';
 import 'package:dalal_app/screens/home_screens/favorite_screen.dart';
-import 'package:dalal_app/screens/home_screens/home.dart';
 import 'package:dalal_app/screens/home_screens/mypost.dart';
 import 'package:dalal_app/screens/home_screens/userhelplineno.dart';
 import 'package:dalal_app/screens/home_screens/youtubeview.dart';
@@ -46,49 +44,49 @@ class _DrawerState extends State<MyDrawer> {
           ),
           ListTile(
             leading: const Icon(Icons.home),
-            title: SimpleText("હોમ"),
+            title: SimpleText('home'.tr),
             onTap: () {
               Get.to(()=> const Home());
             },
           ),
           ListTile(
             leading: const Icon(Icons.person_pin),
-            title:  SimpleText("મારી વિગતો"),
+            title:  SimpleText('mydetails'.tr),
             onTap: () {
               Get.to(()=> const UserDetails());
             },
           ),
           ListTile(
             leading: const Icon(Icons.add_box_outlined),
-            title:  SimpleText("પોસ્ટ ઉમેરો"),
+            title:  SimpleText('postadd'.tr),
             onTap: () {
               Get.to(()=> const TakeScreen());
             },
           ),
           ListTile(
             leading: const Icon(Icons.list_alt_outlined),
-            title:  SimpleText("મારી પોસ્ટ"),
+            title:  SimpleText('mypost'.tr),
             onTap: () {
               Get.to(()=>const MyPost());
             },
           ),
           ListTile(
             leading: const Icon(Icons.play_circle_fill),
-            title:  SimpleText("કિસાન ટીવી"),
+            title:  SimpleText('tv'.tr),
             onTap: () {
               Get.to(()=> const YoutubeView());
             },
           ),
           ListTile(
             leading: const Icon(Icons.add_ic_call_outlined),
-            title:  SimpleText("હેલ્પલાઈન નંબર"),
+            title:  SimpleText('helpline'.tr),
             onTap: () {
               Get.to(()=>const UserHelpLine());
             },
           ),
           ListTile(
             leading: const Icon(Icons.favorite),
-            title:  SimpleText("મને ગમતું"),
+            title:  SimpleText('favorite'.tr),
             onTap: () {
               Get.offAll(() => const FavoriteScreen());
 
@@ -96,7 +94,7 @@ class _DrawerState extends State<MyDrawer> {
           ),
           ListTile(
             leading: const Icon(Icons.power_settings_new),
-            title:  SimpleText("લોગ આઉટ"),
+            title:  SimpleText('exit'.tr),
             onTap: () {
               logOut();
             },

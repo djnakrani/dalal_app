@@ -1,13 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dalal_app/constants/Images.dart';
-import 'package:dalal_app/constants/myColors.dart';
+import 'package:dalal_app/constants/imports.dart';
 import 'package:dalal_app/screens/Input_screens/input_form.dart';
 import 'package:dalal_app/screens/home_screens/userhelplineno.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-
-import '../../constants/style.dart';
 
 class TakeScreen extends StatefulWidget {
   const TakeScreen({Key? key}) : super(key: key);
@@ -46,7 +39,7 @@ class _TakeScreenState extends State<TakeScreen> {
                               padding:
                                   const EdgeInsets.only(top: 8.0, left: 5.0),
                               child: Text(
-                                "ખેડૂત હેલ્પલાઈન નંબર ",
+                                "helpline".tr,
                                 style: TextStyle(
                                     fontSize: 18.w, color: Colors.white),
                               ),
@@ -62,10 +55,10 @@ class _TakeScreenState extends State<TakeScreen> {
                     builder: (BuildContext context,
                         AsyncSnapshot<QuerySnapshot> snapshot) {
                       if (snapshot.hasError) {
-                        return const Text("ફરીથી પ્રયાસ કરો...");
+                        return SimpleText("retry".tr);
                       }
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Text("રાહ જોવો....");
+                        return SimpleText("Wait....");
                       }
                       final category = snapshot.requireData;
                       return GridView.builder(
@@ -104,8 +97,8 @@ class _TakeScreenState extends State<TakeScreen> {
                     onPressed: () {
                       Get.back();
                     },
-                    child: const Text(
-                      " બંધ કરો ",
+                    child: SimpleText(
+                      'exit'.tr,
                     ),
                   )
                 ],
