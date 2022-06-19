@@ -2,8 +2,9 @@ import 'package:dalal_app/constants/imports.dart';
 
 
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await GetStorage.init();
   Firebase.initializeApp();
   runApp(const MyApp());
 }
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
     return ScreenUtilInit(
-        builder: (context) => GetMaterialApp(
+        builder: (_,child) => GetMaterialApp(
           translations: LocateString(),
           locale: const Locale('en','US'),
           debugShowCheckedModeBanner: false,

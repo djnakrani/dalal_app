@@ -1,10 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dalal_app/screens/mydrawer.dart';
-import 'package:dalal_app/widget/custom_text.dart';
-import 'package:flutter/material.dart';
-import 'package:dalal_app/constants/myColors.dart';
-import 'package:dalal_app/constants/style.dart';
-import 'package:dalal_app/constants/string.dart';
+import 'package:dalal_app/constants/imports.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -63,7 +57,7 @@ class _YoutubeViewState extends State<YoutubeView> {
                           child: InkWell(
                             onTap: () => {launch(document['Link'])},
                             child: BoldText(
-                              "અહીંયા દબાવો => " + document['Title'],
+                              "Click Here => " + document['Title'],
                             ),
                             highlightColor: myColors.btnRemove,
                             focusColor: myColors.colorPrimaryColor,

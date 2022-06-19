@@ -8,7 +8,16 @@ class MyPost extends StatefulWidget {
 }
 
 class _MyPostState extends State<MyPost> {
-  String uid = FirebaseAuth.instance.currentUser!.uid;
+  String? uid;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    setState(() {
+      uid = FirebaseAuth.instance.currentUser!.uid;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,32 +90,47 @@ Widget myCard(DocumentSnapshot ds,BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            customDetails('producttitle'.tr, ds["Item"]),
-                            customDetails('seller'.tr + ' ' + 'name'.tr, ds["Seller_Name"]),
-                            customDetails('price'.tr, ds["Price"]),
-                            // customDetails('mobileNo'.tr, ds["MobileNo"]),
-                            customDetails('date'.tr, ds["Date"]),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.only(right: 10),
-                        child: Column(
-                          children: [
-                            Align(
-                              alignment: Alignment.topRight,
-                              child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    primary: myColors.colorPrimaryColor,
-                                  ),
-                                  onPressed: () {
-                                      removeData(ds.id);
-                                  },
-                                  child: const Icon(Icons.delete,color: Colors.white,)),
+                            // customDetails('producttitle'.tr + ': ', ds["Item"]),
+                            // customDetails('seller'.tr + ' ' + 'name'.tr + ': ', ds["Seller_Name"]),
+                            // customDetails('price'.tr + ': ', ds["Price"]),
+                            // customDetails('date'.tr + ': ', ds["Date"]),
+                            Row(
+                              children: [
+                                BoldText('seller'.tr + ' ' + 'name'.tr + ': '),
+                                SimpleText(ds["Seller_Name"])
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                BoldText('name'.tr + ': '),
+                                SimpleText(ds["Item"])
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                BoldText("address".tr + ': '),
+                                SimpleText(ds["Address"])
+                              ],
                             ),
                           ],
                         ),
-                      )
+                      ),
+                      Row(
+                        children: [
+                          Padding(
+                            padding: syh20 + ot50/2,
+                            child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  primary: myColors.colorPrimaryColor,
+                                ),
+                                onPressed: () {
+                                  removeData(ds.id);
+                                },
+                                child: const Icon(Icons.delete,color: Colors.white,)),
+                          ),
+                        ],
+                      ),
+
                     ],
                   ))
             ],

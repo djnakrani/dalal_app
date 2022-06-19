@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:dalal_app/constants/myColors.dart';
-import 'package:dalal_app/constants/style.dart';
+import 'package:dalal_app/constants/imports.dart';
 
 class CustomTextfield extends StatelessWidget {
   final String inputTxt;
@@ -54,8 +52,7 @@ class CustomTextfield extends StatelessWidget {
           ),
         ),
         validator: (value) {
-          validationData!(value!);
-          // return null;
+          return validationData!(value!);
         },
         onChanged: (value) {
           voidReturn!(value);

@@ -8,9 +8,11 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  final lang = GetStorage();
   @override
   void initState() {
     super.initState();
+    _selectlang();
     _navigatePage();
   }
 
@@ -34,6 +36,24 @@ class _SplashScreenState extends State<SplashScreen> {
       } else if (value["IsAdmin"] == "0") {
         Get.offAll(() => const Home());
       }
-    }).onError((error, stackTrace) => Get.offAll(() => const Signup()));
+    }).onError((error, stackTrace) {
+      Get.log(error.toString());
+      Get.offAll(() => const LanguageSelector());
+      // Get.offAll(() => const Signup());
+    });
+  }
+
+  void _selectlang() {
+    var locale;
+    if (lang.read('mylang') == "Gujarati"){
+      locale = Locale('gu','IN');
+    }
+    else if(lang.read('mylang') == "Hindi"){
+      locale = Locale('hi','IN');
+    }
+    else{
+      locale = Locale('en','US');
+    }
+    Get.updateLocale(locale);
   }
 }

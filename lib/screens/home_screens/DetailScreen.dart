@@ -40,7 +40,7 @@ Widget DetailScreen(ds) {
               customDetails('description'.tr + ":", ds["Details"]),
               customDetails('address'.tr + ":", ds["Address"]),
               customDetails('city'.tr + ":", ds["City"]),
-              customDetails('taluko'.tr + ":", ds["Taluka"]),
+              customDetails('taluko'.tr + ":", ds["Taluko"]),
               customDetails("state".tr + ":", ds["State"]),
               Row(
                 children: [
@@ -64,27 +64,9 @@ Widget DetailScreen(ds) {
                           primary: myColors.colorPrimaryColor,
                         ),
                         onPressed: () {
-                          String data = "તારીખ: " +
-                              ds["Date"] +
-                              "\n પશુ / વસ્તુ: " +
-                              ds["Item"] +
-                              "\nવેચનાર નું નામ: " +
-                              ds["Seller_Name"] +
-                              " \nકિંમત: " +
-                              ds["Price"] +
-                              "\nમોબાઇલ નંબર: " +
-                              ds["MobileNo"] +
-                              "\nવર્ણન: " +
-                              ds["Details"] +
-                              "\nસરનામું: " +
-                              ds["Address"] +
-                              "\nજિલ્લો: " +
-                              ds["City"] +
-                              "\nરાજ્ય: " +
-                              ds["State"];
-                          Uri myUri = Uri.parse(
-                              'https://wa.me/${ds["MobileNo"]}?text=$data');
-                          launchUrl(myUri);
+                          String data = "Download App For More Details:";
+                          launch(
+                              'https://wa.me/+91${ds["MobileNo"]}?text=$data');
                         },
                         child: Ink.image(
                             height: 30,
@@ -113,25 +95,7 @@ Widget DetailScreen(ds) {
 }
 
 void share(DocumentSnapshot<Object?> ds) async {
-  String data = "તારીખ: " +
-      ds["Date"] +
-      "\n પશુ / વસ્તુ: " +
-      ds["Item"] +
-      "\nવેચનાર નું નામ: " +
-      ds["Seller_Name"] +
-      " \nકિંમત: " +
-      ds["Price"] +
-      "\nમોબાઇલ નંબર: " +
-      ds["MobileNo"] +
-      "\nવર્ણન: " +
-      ds["Details"] +
-      "\nસરનામું: " +
-      ds["Address"] +
-      "\nજિલ્લો: " +
-      ds["City"] +
-      "\nરાજ્ય: " +
-      ds["State"];
-
+  String data = "Download App For More Details:";
   await Share.share(
     data,
     subject: 'producttitle'.tr + ds["Item"],

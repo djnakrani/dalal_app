@@ -70,7 +70,7 @@ class LocateString extends Translations
       'price': 'कीमत',
       'description': 'विवरण',
       'helpline': 'हेल्पलाइन नंबर',
-      'exit': 'બહાર',
+      'exit': 'बाहर',
       'retry':'पुन: प्रयास करें',
     },
     'gu_IN':{

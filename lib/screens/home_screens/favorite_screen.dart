@@ -15,6 +15,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
   @override
   void initState() {
     super.initState();
+    Get.log(uid);
     favItems.clear();
     FirebaseFirestore.instance
         .collection('Favorite')

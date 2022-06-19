@@ -124,13 +124,12 @@ class _OtpState extends State<Otp> {
         uid = _auth.currentUser?.uid;
       });
     } else {
-      AlertShow("Error",Icons.error,"Retry");
-
+      AlertShow("Error", Icons.error, "Retry");
     }
   }
 
   void verificationFailed(FirebaseAuthException error) {
-    AlertShow("Error",Icons.error,error.message.toString());
+    AlertShow("Error", Icons.error, error.message.toString());
   }
 
   void codeSent(String verificationId, [int? a]) async {
@@ -145,28 +144,29 @@ class _OtpState extends State<Otp> {
     });
   }
 
-  void _verifyOtp() {
+  void _verifyOtp() async {
     final AuthCredential credential = PhoneAuthProvider.credential(
       verificationId: _verificationCode,
       smsCode: _code,
     );
 
-    var user;
-    user = _auth.signInWithCredential(credential).toString();
-    // showDialog(
-    //   context: context,
-    //   builder: (_) => MessageBox(
-    //     msg:user.toString(),
-    //     icon: Icons.favorite,
-    //   ),
-    // );
-    get_user()?.then((value) {
-      Get.log(value.toString());
-      if (value["IsAdmin"] == "1") {
-        Get.offAll(() => const AdminDashboard());
-      } else if (value["IsAdmin"] == "0") {
-        Get.offAll(() => const Home());
-      }
-    }).onError((error, stackTrace) => Get.offAll(() => const Signup()));
+    await _auth.signInWithCredential(credential).then((value) {
+      Get.log(value.user!.uid.toString());
+      FirebaseFirestore.instance
+          .collection('User')
+          .doc(value.user!.uid)
+          .get()
+          .then((value) {
+        Get.log(value["IsAdmin"].toString());
+        if (value["IsAdmin"] == "1") {
+          Get.offAll(() => const AdminDashboard());
+        } else if (value["IsAdmin"] == "0") {
+          Get.offAll(() => const Home());
+        }
+      }).onError((error, stackTrace) {
+        Get.log(error.toString());
+        Get.offAll(() => const Signup());
+      });
+    });
   }
 }

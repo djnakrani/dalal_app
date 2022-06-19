@@ -19,9 +19,11 @@ class _SignupState extends State<Signup> {
   @override
   void initState() {
     super.initState();
+    // Get.log(FirebaseAuth.instance.currentUser!.uid.toString());
     if (FirebaseAuth.instance.currentUser?.uid != null) {
       uid = FirebaseAuth.instance.currentUser!.uid;
       _mno = FirebaseAuth.instance.currentUser!.phoneNumber;
+      Get.log(_mno.toString());
     }
   }
 
@@ -158,6 +160,7 @@ class _SignupState extends State<Signup> {
                           "City": _city,
                           "IsAdmin": "0",
                         };
+                        Get.log(data.toString());
                         addUsers(data);
                         Get.offAll(() => const Home());
                       }

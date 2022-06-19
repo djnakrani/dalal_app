@@ -1,12 +1,6 @@
-import 'package:dalal_app/constants/style.dart';
+import 'package:dalal_app/constants/imports.dart';
 import 'package:dalal_app/screens/login_signup_screens/otp.dart';
-import 'package:dalal_app/widget/custom_button.dart';
-import 'package:dalal_app/widget/custom_logo.dart';
-import 'package:dalal_app/widget/custom_textfield.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
-import '../../constants/Images.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);

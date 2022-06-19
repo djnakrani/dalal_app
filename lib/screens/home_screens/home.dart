@@ -85,6 +85,7 @@ class _HomeState extends State<Home> {
         ),
         child: InkWell(
             onTap: () async {
+              Get.log(ds["Seller_Name"].toString());
               await showDialog(
                 builder: (BuildContext context) => DetailScreen(ds),
                 context: context,
@@ -130,19 +131,19 @@ class _HomeState extends State<Home> {
                             children: [
                               Row(
                                 children: [
-                                  BoldText('seller'.tr + ' ' + 'name'.tr),
+                                  BoldText('seller'.tr + ' ' + 'name'.tr + ': '),
                                   SimpleText(ds["Seller_Name"])
                                 ],
                               ),
                               Row(
                                 children: [
-                                  BoldText('name'.tr),
+                                  BoldText('name'.tr + ': '),
                                   SimpleText(ds["Item"])
                                 ],
                               ),
                               Row(
                                 children: [
-                                  BoldText("address".tr),
+                                  BoldText("address".tr + ': '),
                                   SimpleText(ds["Address"])
                                 ],
                               ),
@@ -167,11 +168,10 @@ class _HomeState extends State<Home> {
                                           primary: myColors.colorPrimaryColor,
                                         ),
                                         onPressed: () {
-                                          String data = "તારીખ: "+ds["Date"] +"\n પશુ / વસ્તુ: " + ds["Item"] + "\nવેચનાર નું નામ: " + ds["Seller_Name"] +
-                                              " \nકિંમત: " + ds["Price"] + "\nમોબાઇલ નંબર: " + ds["MobileNo"] + "\nવર્ણન: " + ds["Details"] +"\nસરનામું: " + ds["Address"]
-                                              + "\nજિલ્લો: " + ds["City"] +"\nરાજ્ય: " + ds["State"];
-                                          Uri myUri = Uri.parse('https://wa.me/${ds["MobileNo"]}?text=$data');
-                                          launchUrl(myUri);
+                                          String Data = "Download App For More Details:";
+                                          launch(
+                                              'https://wa.me/+${ds["MobileNo"]}?text=$Data');
+
                                         },
                                         child: Ink.image(
                                             height: 30,
@@ -212,25 +212,7 @@ class _HomeState extends State<Home> {
   }
 
   void share(DocumentSnapshot<Object?> ds) async {
-    String data = "તારીખ: " +
-        ds["Date"] +
-        "\n પશુ / વસ્તુ: " +
-        ds["Item"] +
-        "\nવેચનાર નું નામ: " +
-        ds["Seller_Name"] +
-        " \nકિંમત: " +
-        ds["Price"] +
-        "\nમોબાઇલ નંબર: " +
-        ds["MobileNo"] +
-        "\nવર્ણન: " +
-        ds["Details"] +
-        "\nસરનામું: " +
-        ds["Address"] +
-        "\nજિલ્લો: " +
-        ds["City"] +
-        "\nરાજ્ય: " +
-        ds["State"];
-
+    String data = "Download App For More Details:";
     await Share.share(
       data,
       subject: 'producttitle'.tr + ds["Item"],

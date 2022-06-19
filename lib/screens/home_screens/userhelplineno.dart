@@ -26,13 +26,13 @@ class _UserHelpLineState extends State<UserHelpLine> {
           height: MediaQuery.of(context).size.height,
           child: Column(
             children: <Widget>[
-              Center(
-                child: Container(
-                  constraints: const BoxConstraints(maxHeight: 120),
-                  margin: ot80,
-                  child: BoldText('helpline'),
-                ),
-              ),
+              // Center(
+              //   child: Container(
+              //     constraints: const BoxConstraints(maxHeight: 120),
+              //     margin: ot80,
+              //     child: BoldText('helpline'),
+              //   ),
+              // ),
               Row(
                 children: [
                   Expanded(
@@ -67,7 +67,7 @@ class _UserHelpLineState extends State<UserHelpLine> {
                 ),
               ),
               Container(
-                margin: ah10,
+                // margin: ah10,
                 height: MediaQuery.of(context).size.height / 1.5,
                 decoration: const BoxDecoration(color: Colors.white),
                 child: SingleChildScrollView(

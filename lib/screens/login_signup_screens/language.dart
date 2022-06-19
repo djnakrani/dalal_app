@@ -8,14 +8,15 @@ class LanguageSelector extends StatefulWidget {
 }
 
 class _LanguageSelectorState extends State<LanguageSelector> {
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
   }
-
   @override
   Widget build(BuildContext context) {
+    final lang = GetStorage();
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -38,8 +39,9 @@ class _LanguageSelectorState extends State<LanguageSelector> {
                 button: "English",
                 callback: () {
                   Get.log("English");
+                  lang.write('mylang',"English");
                   Get.updateLocale(Locale('en','US'));
-                  Get.offAll(() => Login());
+                  Get.offAll(() => const Login());
                 },
                 btnImage: Images.languageUS,
               ),
@@ -47,8 +49,9 @@ class _LanguageSelectorState extends State<LanguageSelector> {
                 button: "हिन्दी",
                 callback: () {
                   Get.log("Hindi");
+                  lang.write('mylang',"Hindi");
                   Get.updateLocale(Locale('hi','IN'));
-                  Get.offAll(() => Login());
+                  Get.offAll(() => const Login());
                 },
                 btnImage: Images.languageIN,
 
@@ -57,8 +60,9 @@ class _LanguageSelectorState extends State<LanguageSelector> {
                 button: "ગુજરાતી",
                 callback: () {
                   Get.log("Gujarati");
+                  lang.write('mylang',"Gujarati");
                   Get.updateLocale(Locale('gu','IN'));
-                  Get.offAll(() => Login());
+                  Get.offAll(() => const Login());
                 },
                 btnImage: Images.languageIN,
 

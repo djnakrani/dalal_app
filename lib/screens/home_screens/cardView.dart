@@ -1,4 +1,5 @@
 import 'package:dalal_app/constants/imports.dart';
+import 'package:dalal_app/screens/home_screens/favorite_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 String uid = FirebaseAuth.instance.currentUser!.uid;
@@ -11,6 +12,7 @@ Widget cardView(DocumentSnapshot ds, BuildContext context) {
       ),
       child: InkWell(
           onTap: () async {
+            Get.log(ds["Seller_Name"].toString());
             await showDialog(
               builder: (BuildContext context) => DetailScreen(ds),
               context: context,
@@ -34,14 +36,15 @@ Widget cardView(DocumentSnapshot ds, BuildContext context) {
                       right: 5,
                       child: IconButton(
                         icon: const Icon(
-                          Icons.close_rounded,
+                          Icons.favorite,
                           color: Colors.red,
                         ),
                         onPressed: () {
-                          AlertShow('Success', Icons.check,'Removed');
                           remove(ds);
+                          Get.to(()=>const FavoriteScreen());
+                          AlertShow('Success', Icons.check,'Removed');
                         },
-                      ))
+                      )),
                 ],
               ),
               Padding(
@@ -54,52 +57,71 @@ Widget cardView(DocumentSnapshot ds, BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            customDetails('producttitle'.tr, ds["Item"]),
-                            customDetails('seller'.tr + ' ' + 'name'.tr, ds["Seller_Name"]),
-                            customDetails('price'.tr, ds["Price"]),
-                            // customDetails('mobileNo'.tr, ds["MobileNo"]),
-                            customDetails('date'.tr, ds["Date"]),
+                            Row(
+                              children: [
+                                BoldText('seller'.tr + ' ' + 'name'.tr + ': '),
+                                SimpleText(ds["Seller_Name"])
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                BoldText('name'.tr + ': '),
+                                SimpleText(ds["Item"])
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                BoldText("address".tr + ': '),
+                                SimpleText(ds["Address"])
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Padding(
+                                  padding: syh20 + ot50/2,
+                                  child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        primary: myColors.colorPrimaryColor,
+                                      ),
+                                      onPressed: () {
+                                        Uri myUri = Uri.parse("tel: ${ds["MobileNo"]}");
+                                        launchUrl(myUri);
+                                      },
+                                      child: const Icon(Icons.call)),
+                                ),
+                                Padding(
+                                  padding: syh20 + ot50/2,
+                                  child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        primary: myColors.colorPrimaryColor,
+                                      ),
+                                      onPressed: () {
+                                        String data = "Download App For More Details:";
+                                        launch(
+                                            'https://wa.me/+91${ds["MobileNo"]}?text=$data');
+                                      },
+                                      child: Ink.image(
+                                          height: 30,
+                                          width: 30,
+                                          image:
+                                          const AssetImage(Images.wsLogo))),
+                                ),
+                                Padding(
+                                  padding: syh20 + ot50/2,
+                                  child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        primary: myColors.colorPrimaryColor,
+                                      ),
+                                      onPressed: () {
+                                        share(ds);
+                                      },
+                                      child: const Icon(Icons.share)),
+                                ),
+                              ],
+                            ),
                           ],
                         ),
                       ),
-                      Container(
-                        padding: EdgeInsets.only(right: 10),
-                        child: Column(
-                          children: [
-                            Align(
-                              alignment: Alignment.topRight,
-                              child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    primary: myColors.colorPrimaryColor,
-                                  ),
-                                  onPressed: () {
-                                    Uri myUri = Uri.parse("tel: ${ds["MobileNo"]}");
-                                    launchUrl(myUri);
-                                  },
-                                  child: const Icon(Icons.call)),
-                            ),
-                            Align(
-                              alignment: Alignment.centerRight,
-                              child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    primary: myColors.colorPrimaryColor,
-                                  ),
-                                  onPressed: () {
-                                    String data = "તારીખ: "+ds["Date"] +"\n પશુ / વસ્તુ: " + ds["Item"] + "\nવેચનાર નું નામ: " + ds["Seller_Name"] +
-                                        " \nકિંમત: " + ds["Price"] + "\nમોબાઇલ નંબર: " + ds["MobileNo"] + "\nવર્ણન: " + ds["Details"] +"\nસરનામું: " + ds["Address"]
-                                        + "\nજિલ્લો: " + ds["City"] +"\nરાજ્ય: " + ds["State"];
-                                    Uri myUri = Uri.parse('https://wa.me/${ds["MobileNo"]}?text=$data');
-                                    launchUrl(myUri);
-                                  },
-                                  child: Ink.image(
-                                      height: 30,
-                                      width: 30,
-                                      image:
-                                      const AssetImage(Images.wsLogo))),
-                            )
-                          ],
-                        ),
-                      )
                     ],
                   ))
             ],
