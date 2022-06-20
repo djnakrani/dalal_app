@@ -18,7 +18,7 @@ class _InputYTLinkState extends State<InputYTLink> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: SimpleText('appTitle'.tr),
+        title: CustomText(text:'appTitle'.tr,color:Colors.white,fontWeight: FontWeight.bold,size: 14.0),
         backgroundColor: myColors.colorPrimaryColor,
       ),
       drawer: const AdminDrawer(),
@@ -28,7 +28,7 @@ class _InputYTLinkState extends State<InputYTLink> {
           decoration: const BoxDecoration(
               image: DecorationImage(
                   image: AssetImage(Images.background), fit: BoxFit.fill)),
-          height: MediaQuery.of(context).size.height,
+          height: Get.size.height,
           child: Form(
             key: _youtubeForm,
             child: Column(
@@ -37,7 +37,7 @@ class _InputYTLinkState extends State<InputYTLink> {
                   child: Container(
                       constraints: const BoxConstraints(maxHeight: 120),
                       margin: ot80,
-                      child: boldText('Add Link')),
+                      child: CustomText(fontWeight: FontWeight.bold,text:'Add Link')),
                 ),
                 Container(
                   height: 40,
@@ -109,7 +109,7 @@ class _InputYTLinkState extends State<InputYTLink> {
                 ),
                 Container(
                   margin: ah10,
-                  height: MediaQuery.of(context).size.height / 100 * 50,
+                  height: Get.size.height / 100 * 50,
                   decoration: const BoxDecoration(color: Colors.white),
                   child: SingleChildScrollView(
                     child: Column(
@@ -140,10 +140,10 @@ class _InputYTLinkState extends State<InputYTLink> {
                                       child: Row(
                                         children: [
                                           Expanded(
-                                              child: SimpleText(doc['Title'])),
+                                              child: CustomText(text:doc['Title'])),
                                           Expanded(
                                               child: InkWell(
-                                            child: SimpleText(doc['Link']),
+                                            child: CustomText(text:doc['Link']),
                                             onTap: () async {
                                               final wsurl = doc['Link'];
                                               if (await canLaunchUrl(wsurl)) {
@@ -154,7 +154,7 @@ class _InputYTLinkState extends State<InputYTLink> {
                                             },
                                           )),
                                           Expanded(
-                                              child: SimpleText(doc['Date'])),
+                                              child: CustomText(text:doc['Date'])),
                                           Expanded(
                                             child: InkWell(
                                               onTap: () => removeData(doc.id),
@@ -208,7 +208,7 @@ class _InputYTLinkState extends State<InputYTLink> {
       ),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: SimpleText(s),
+        child: CustomText(text:s),
       ),
     ));
   }

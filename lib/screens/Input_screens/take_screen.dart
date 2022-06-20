@@ -55,10 +55,10 @@ class _TakeScreenState extends State<TakeScreen> {
                     builder: (BuildContext context,
                         AsyncSnapshot<QuerySnapshot> snapshot) {
                       if (snapshot.hasError) {
-                        return SimpleText("retry".tr);
+                        return CustomText(text:"retry".tr);
                       }
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return SimpleText("Wait....");
+                        return CustomText(text:"Wait....");
                       }
                       final category = snapshot.requireData;
                       return GridView.builder(
@@ -97,7 +97,7 @@ class _TakeScreenState extends State<TakeScreen> {
                     onPressed: () {
                       Get.back();
                     },
-                    child: SimpleText(
+                    child: CustomText(text:
                       'exit'.tr,
                     ),
                   )

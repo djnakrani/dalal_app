@@ -28,7 +28,7 @@ class _LoginState extends State<Login> {
           decoration: const BoxDecoration(
               image: DecorationImage(
                   image: AssetImage(Images.background), fit: BoxFit.fill)),
-          height: MediaQuery.of(context).size.height,
+          height: Get.size.height,
           child: Column(
             children: <Widget>[
               Expanded(

@@ -17,7 +17,7 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: SimpleText('appTitle'.tr),
+        title: CustomText(text:'appTitle'.tr,color:Colors.white,fontWeight: FontWeight.bold,size: 14.0),
         backgroundColor: myColors.colorPrimaryColor,
         actions: [
           IconButton(
@@ -34,7 +34,7 @@ class _SearchScreenState extends State<SearchScreen> {
             children: [
               Container(
                 margin: EdgeInsets.only(
-                        top: MediaQuery.of(context).size.height / 5) +
+                        top: Get.size.height / 5) +
                     ob50 / 2,
                 decoration: BoxDecoration(
                   border: Border.all(
@@ -99,11 +99,11 @@ class _SearchScreenState extends State<SearchScreen> {
                       });
                     },
                     value: selectedItem,
-                    hint: SimpleText("Select Items"),
+                    hint: CustomText(text:"Select Items"),
                     items: snapshot.data!.docs.map((document) {
                       return DropdownMenuItem(
                         value: document['Type'].toString(),
-                        child: SimpleText(document['Type']),
+                        child: CustomText(text:document['Type']),
                       );
                     }).toList(),
                   ),

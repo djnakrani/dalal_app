@@ -41,7 +41,7 @@ class _UserDetailsState extends State<UserDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: SimpleText('appTitle'.tr),
+        title: CustomText(text:'appTitle'.tr,color:Colors.white,fontWeight: FontWeight.bold,size: 14.0),
         backgroundColor: myColors.colorPrimaryColor,
       ),
       backgroundColor: Colors.white,
@@ -50,20 +50,20 @@ class _UserDetailsState extends State<UserDetails> {
           decoration: const BoxDecoration(
               image: DecorationImage(
                   image: AssetImage(Images.background), fit: BoxFit.fill)),
-          height: MediaQuery.of(context).size.height,
+          height: Get.size.height,
           child:  Column(
             children: <Widget>[
               Center(
                 child:Container(
                   constraints: const BoxConstraints(maxHeight: 120),
                   margin: ot80,
-                  child: boldText('mydetails'.tr)
+                  child: CustomText(fontWeight: FontWeight.bold,text:'mydetails'.tr)
                 ),
               ),
               isloading?const CircularProgressIndicator():Container(
                 margin: ah10,
                 padding: syv10+syh20,
-                height: MediaQuery.of(context).size.height/2 ,
+                height: Get.size.height/2 ,
                 decoration: const BoxDecoration(color: Colors.white),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

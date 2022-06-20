@@ -59,20 +59,20 @@ Widget cardView(DocumentSnapshot ds, BuildContext context) {
                           children: [
                             Row(
                               children: [
-                                boldText('seller'.tr + ' ' + 'name'.tr + ': '),
-                                SimpleText(ds["Seller_Name"])
+                                CustomText(fontWeight: FontWeight.bold,text:'seller'.tr + ' ' + 'name'.tr + ': '),
+                                CustomText(text:ds["Seller_Name"])
                               ],
                             ),
                             Row(
                               children: [
-                                boldText('name'.tr + ': '),
-                                SimpleText(ds["Item"])
+                                CustomText(fontWeight: FontWeight.bold,text:'name'.tr + ': '),
+                                CustomText(text:ds["Item"])
                               ],
                             ),
                             Row(
                               children: [
-                                boldText("address".tr + ': '),
-                                SimpleText(ds["Address"])
+                                CustomText(fontWeight: FontWeight.bold,text:"address".tr + ': '),
+                                CustomText(text:ds["Address"])
                               ],
                             ),
                             Row(

@@ -17,7 +17,7 @@ class _HelpLinenoState extends State<HelpLineno> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: SimpleText('appTitle'.tr),
+        title: CustomText(text:'appTitle'.tr,color:Colors.white,fontWeight: FontWeight.bold,size: 14.0),
         backgroundColor: myColors.colorPrimaryColor,
       ),
       drawer: const AdminDrawer(),
@@ -27,7 +27,7 @@ class _HelpLinenoState extends State<HelpLineno> {
           decoration: const BoxDecoration(
               image: DecorationImage(
                   image: AssetImage(Images.background), fit: BoxFit.fill)),
-          height: MediaQuery.of(context).size.height,
+          height: Get.size.height,
           child: Form(
             key: _helplineno,
             child: Column(
@@ -36,7 +36,7 @@ class _HelpLinenoState extends State<HelpLineno> {
                   child: Container(
                     constraints: const BoxConstraints(maxHeight: 120),
                     margin: ot80,
-                    child: boldText('helpline'.tr),
+                    child: CustomText(fontWeight: FontWeight.bold,text:'helpline'.tr),
                   ),
                 ),
                 Container(
@@ -100,7 +100,7 @@ class _HelpLinenoState extends State<HelpLineno> {
                 ),
                 Container(
                   margin: ah10,
-                  height: MediaQuery.of(context).size.height / 100 * 50,
+                  height: Get.size.height / 100 * 50,
                   decoration: const BoxDecoration(color: Colors.white),
                   child: SingleChildScrollView(
                     child: Column(
@@ -130,9 +130,9 @@ class _HelpLinenoState extends State<HelpLineno> {
                                       child: Row(
                                         children: [
                                           Expanded(
-                                              child: SimpleText(doc['Taluko'])),
+                                              child: CustomText(text:doc['Taluko'])),
                                           Expanded(
-                                              child: SimpleText(doc['Number'])),
+                                              child: CustomText(text:doc['Number'])),
                                           Expanded(
                                             child: InkWell(
                                               onTap: () => removeData(doc.id),
@@ -186,7 +186,7 @@ class _HelpLinenoState extends State<HelpLineno> {
       ),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: SimpleText(s),
+        child: CustomText(text:s),
       ),
     ));
   }

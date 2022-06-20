@@ -36,7 +36,7 @@ class _SignupState extends State<Signup> {
           decoration: const BoxDecoration(
               image: DecorationImage(
                   image: AssetImage(Images.background), fit: BoxFit.fill)),
-          height: MediaQuery.of(context).size.height,
+          height: Get.size.height,
           child: Form(
             key: _signUpForm,
             child: Column(

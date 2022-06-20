@@ -22,7 +22,7 @@ class _MyPostState extends State<MyPost> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: SimpleText('appTitle'.tr),
+        title: CustomText(text:'appTitle'.tr,color:Colors.white,fontWeight: FontWeight.bold,size: 14.0),
         backgroundColor: myColors.colorPrimaryColor,
         actions: [IconButton(onPressed: () => Get.to(()=>const TakeScreen()), icon: const Icon(Icons.add))],
       ),
@@ -96,20 +96,20 @@ Widget myCard(DocumentSnapshot ds,BuildContext context) {
                             // customDetails('date'.tr + ': ', ds["Date"]),
                             Row(
                               children: [
-                                boldText('seller'.tr + ' ' + 'name'.tr + ': '),
-                                SimpleText(ds["Seller_Name"])
+                                CustomText(fontWeight: FontWeight.bold,text:'seller'.tr + ' ' + 'name'.tr + ': '),
+                                CustomText(text:ds["Seller_Name"])
                               ],
                             ),
                             Row(
                               children: [
-                                boldText('name'.tr + ': '),
-                                SimpleText(ds["Item"])
+                                CustomText(fontWeight: FontWeight.bold,text:'name'.tr + ': '),
+                                CustomText(text:ds["Item"])
                               ],
                             ),
                             Row(
                               children: [
-                                boldText("address".tr + ': '),
-                                SimpleText(ds["Address"])
+                                CustomText(fontWeight: FontWeight.bold,text:"address".tr + ': '),
+                                CustomText(text:ds["Address"])
                               ],
                             ),
                           ],

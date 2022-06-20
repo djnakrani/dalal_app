@@ -35,7 +35,7 @@ class _OtpState extends State<Otp> {
           decoration: const BoxDecoration(
               image: DecorationImage(
                   image: AssetImage(Images.background), fit: BoxFit.fill)),
-          height: MediaQuery.of(context).size.height,
+          height: Get.size.height,
           child: Column(
             children: <Widget>[
               Expanded(

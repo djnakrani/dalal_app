@@ -23,7 +23,7 @@ class _FilterScreenState extends State<FilterScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: SimpleText('appTitle'.tr),
+        title: CustomText(text:'appTitle'.tr,color:Colors.white,fontWeight: FontWeight.bold,size: 14.0),
         backgroundColor: myColors.colorPrimaryColor,
         actions: [
           IconButton(
@@ -119,20 +119,20 @@ class _FilterScreenState extends State<FilterScreen> {
                             children: [
                               Row(
                                 children: [
-                                  boldText('seller'.tr + ' ' + 'name'.tr),
-                                  SimpleText(ds["Seller_Name"])
+                                  CustomText(fontWeight: FontWeight.bold,text:'seller'.tr + ' ' + 'name'.tr),
+                                  CustomText(text:ds["Seller_Name"])
                                 ],
                               ),
                               Row(
                                 children: [
-                                  boldText('name'.tr),
-                                  SimpleText(ds["Item"])
+                                  CustomText(fontWeight: FontWeight.bold,text:'name'.tr),
+                                  CustomText(text:ds["Item"])
                                 ],
                               ),
                               Row(
                                 children: [
-                                  boldText("address".tr),
-                                  SimpleText(ds["Address"])
+                                  CustomText(fontWeight: FontWeight.bold,text:"address".tr),
+                                  CustomText(text:ds["Address"])
                                 ],
                               ),
                             ],

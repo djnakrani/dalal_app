@@ -38,7 +38,7 @@ class _InputFormState extends State<InputForm> {
           decoration: const BoxDecoration(
               image: DecorationImage(
                   image: AssetImage(Images.background), fit: BoxFit.fill)),
-          height: MediaQuery.of(context).size.height,
+          height: Get.size.height,
           child: Form(
             key: _inputForm,
             child: ListView(
@@ -186,7 +186,7 @@ class _InputFormState extends State<InputForm> {
                         onTap: () => chooseImage(),
                         child: Column(
                           children: [
-                            SimpleText("Maximum 4 Photos Upload"),
+                            CustomText(text:"Maximum 4 Photos Upload"),
                             Container(
                               decoration: BoxDecoration(
                                   color: myColors.btnTextColor,

@@ -42,7 +42,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: SimpleText('appTitle'.tr),
+        title: CustomText(text:'appTitle'.tr,color:Colors.white,fontWeight: FontWeight.bold,size: 14.0),
         backgroundColor: myColors.colorPrimaryColor,
       ),
       drawer: const AdminDrawer(),
@@ -106,11 +106,11 @@ class _AdminDashboardState extends State<AdminDashboard> {
                   CircleAvatar(
                     backgroundColor: Colors.white,
                     radius: 70,
-                    child: SimpleText(number), //CircleAvatar
+                    child: CustomText(text:number), //CircleAvatar
                   ),
                 ],
               ),
-              SimpleText(category),
+              CustomText(text:category),
             ],
           ),
         ),

@@ -36,8 +36,8 @@ class _DrawerState extends State<MyDrawer> {
         children: [
           Center(
             child: UserAccountsDrawerHeader(
-              accountName: boldText(name),
-              accountEmail: boldText(email),
+              accountName: CustomText(fontWeight: FontWeight.bold,text:name,color: Colors.white,),
+              accountEmail: CustomText(fontWeight: FontWeight.bold,text:email,color: Colors.white,),
               currentAccountPicture: const CircleAvatar(
                 backgroundColor: Colors.white,
                 foregroundColor: Colors.black,
@@ -48,49 +48,49 @@ class _DrawerState extends State<MyDrawer> {
           ),
           ListTile(
             leading: const Icon(Icons.home),
-            title: SimpleText('home'.tr),
+            title: CustomText(text:'home'.tr),
             onTap: () {
               Get.to(()=> const Home());
             },
           ),
           ListTile(
             leading: const Icon(Icons.person_pin),
-            title:  SimpleText('mydetails'.tr),
+            title:  CustomText(text:'mydetails'.tr),
             onTap: () {
               Get.to(()=> const UserDetails());
             },
           ),
           ListTile(
             leading: const Icon(Icons.add_box_outlined),
-            title:  SimpleText('postadd'.tr),
+            title:  CustomText(text:'postadd'.tr),
             onTap: () {
               Get.to(()=> const TakeScreen());
             },
           ),
           ListTile(
             leading: const Icon(Icons.list_alt_outlined),
-            title:  SimpleText('mypost'.tr),
+            title:  CustomText(text:'mypost'.tr),
             onTap: () {
               Get.to(()=>const MyPost());
             },
           ),
           ListTile(
             leading: const Icon(Icons.play_circle_fill),
-            title:  SimpleText('tv'.tr),
+            title:  CustomText(text:'tv'.tr),
             onTap: () {
               Get.to(()=> const YoutubeView());
             },
           ),
           ListTile(
             leading: const Icon(Icons.add_ic_call_outlined),
-            title:  SimpleText('helpline'.tr),
+            title:  CustomText(text:'helpline'.tr),
             onTap: () {
               Get.to(()=>const UserHelpLine());
             },
           ),
           ListTile(
             leading: const Icon(Icons.favorite),
-            title:  SimpleText('favorite'.tr),
+            title:  CustomText(text:'favorite'.tr),
             onTap: () {
               Get.offAll(() => const FavoriteScreen());
 
@@ -98,7 +98,7 @@ class _DrawerState extends State<MyDrawer> {
           ),
           ListTile(
             leading: const Icon(Icons.power_settings_new),
-            title:  SimpleText('logout'.tr),
+            title:  CustomText(text:'logout'.tr),
             onTap: () {
               logOut();
             },
@@ -124,11 +124,11 @@ class _AdminDrawerState extends State<AdminDrawer> {
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          Center(
+          const Center(
             child: UserAccountsDrawerHeader(
-              accountName: boldText("Admin"),
-              accountEmail: const Text(""),
-              currentAccountPicture: const CircleAvatar(
+              accountName: CustomText(fontWeight: FontWeight.bold,text:"Admin",color: Colors.white,),
+              accountEmail: CustomText(fontWeight: FontWeight.bold,text:"",color: Colors.white,),
+              currentAccountPicture: CircleAvatar(
                 backgroundColor: Colors.white,
                 foregroundColor: Colors.black,
                 child: Icon(Icons.person,size: 50,),
@@ -137,35 +137,35 @@ class _AdminDrawerState extends State<AdminDrawer> {
           ),
           ListTile(
             leading: const Icon(Icons.person_pin),
-            title: SimpleText('Dashboard'),
+            title: CustomText(text:'Dashboard'),
             onTap: () {
               Get.to(() => AdminDashboard());
             },
           ),
           ListTile(
             leading: const Icon(Icons.list_alt),
-            title: SimpleText('All Post'),
+            title: CustomText(text:'All Post'),
             onTap: () {
               Get.to(() => AllPost());
             },
           ),
           ListTile(
             leading: const Icon(Icons.add_box_outlined),
-            title: SimpleText('Add Youtube Link'),
+            title: CustomText(text:'Add Youtube Link'),
             onTap: () {
               Get.to(() => const InputYTLink());
             },
           ),
           ListTile(
             leading: const Icon(Icons.favorite),
-            title: SimpleText('Add Helpline Number'),
+            title: CustomText(text:'Add Helpline Number'),
             onTap: () {
               Get.to(()=> const HelpLineno());
             },
           ),
           ListTile(
             leading: const Icon(Icons.power_settings_new),
-            title: SimpleText('Logout'),
+            title: CustomText(text:'Logout'),
             onTap: () {
               Get.to(() => logOut());
             },
