@@ -150,23 +150,21 @@ class _OtpState extends State<Otp> {
       smsCode: _code,
     );
 
-    await _auth.signInWithCredential(credential).then((value) {
-      Get.log(value.user!.uid.toString());
-      FirebaseFirestore.instance
-          .collection('User')
-          .doc(value.user!.uid)
-          .get()
-          .then((value) {
-        Get.log(value["IsAdmin"].toString());
-        if (value["IsAdmin"] == "1") {
-          Get.offAll(() => const AdminDashboard());
-        } else if (value["IsAdmin"] == "0") {
-          Get.offAll(() => const Home());
-        }
-      }).onError((error, stackTrace) {
-        Get.log(error.toString());
-        Get.offAll(() => const Signup());
-      });
+    var user =await _auth.signInWithCredential(credential);
+    FirebaseFirestore.instance
+        .collection('User')
+        .doc(user.user!.uid)
+        .get()
+        .then((value) {
+      Get.log(value["IsAdmin"].toString());
+      if (value["IsAdmin"] == "1") {
+        Get.offAll(() => const AdminDashboard());
+      } else if (value["IsAdmin"] == "0") {
+        Get.offAll(() => const Home());
+      }
+    }).onError((error, stackTrace) {
+      Get.log(error.toString());
+      Get.offAll(() => const Signup());
     });
   }
 }

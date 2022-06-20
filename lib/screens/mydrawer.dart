@@ -94,7 +94,7 @@ class _DrawerState extends State<MyDrawer> {
           ),
           ListTile(
             leading: const Icon(Icons.power_settings_new),
-            title:  SimpleText('exit'.tr),
+            title:  SimpleText('logout'.tr),
             onTap: () {
               logOut();
             },

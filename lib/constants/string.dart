@@ -40,13 +40,14 @@ class LocateString extends Translations
       'helpline': 'HelpLine Number',
       'exit': 'Exit',
       'retry': 'Retry',
+      'logout':'Logout'
     },
     'hi_IN':{
       'appTitle': 'दलाल',
       'mobileNo': 'मोबाइल नंबर',
       'next': 'आगे बढ़ो',
-      'otpsend': 'Otp भेज दिया',
-      'otpresend': 'पुनः भेजें',
+      'otpsend': 'Otp भेज दिया गया है।',
+      'otpresend': 'OTP पुनः भेजें',
       'add':'डालो',
       'postadd': 'पोस्ट डालो',
       'mypost':'मेरा पोस्ट',
@@ -72,15 +73,16 @@ class LocateString extends Translations
       'helpline': 'हेल्पलाइन नंबर',
       'exit': 'बाहर',
       'retry':'पुन: प्रयास करें',
+      'logout':'लॉग आउट'
     },
     'gu_IN':{
       'appTitle' : 'દલાલ',
       'mobileNo': 'મોબાઈલ નંબર',
       'next': 'આગળ વધો',
-      'otpsend': 'Otp મોકલેલ ',
-      'otpresend': 'ફરીથી મોકલો ',
+      'otpsend': 'Otp મોકલવામાં આવેલ છે.',
+      'otpresend': 'OTP ફરીથી મોકલો ',
       'add':'ઉમેરો',
-      'postadd': ' પોસ્ટ નાખો',
+      'postadd': ' પોસ્ટ કરો',
       'mypost':'મારી પોસ્ટ',
       'delete':'કાઢી નાખો',
       'title':'શીર્ષક',
@@ -104,6 +106,7 @@ class LocateString extends Translations
       'helpline': 'હેલ્પલાઇન નંબર',
       'exit': 'બહાર',
       'retry':'ફરી પ્રયાસ કરો',
+      'logout':'લોગ આઉટ'
     }
 
   };
