@@ -30,7 +30,7 @@ class _UserHelpLineState extends State<UserHelpLine> {
               //   child: Container(
               //     constraints: const BoxConstraints(maxHeight: 120),
               //     margin: ot80,
-              //     child: BoldText('helpline'),
+              //     child: boldText('helpline'),
               //   ),
               // ),
               Row(

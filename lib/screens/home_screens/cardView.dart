@@ -59,19 +59,19 @@ Widget cardView(DocumentSnapshot ds, BuildContext context) {
                           children: [
                             Row(
                               children: [
-                                BoldText('seller'.tr + ' ' + 'name'.tr + ': '),
+                                boldText('seller'.tr + ' ' + 'name'.tr + ': '),
                                 SimpleText(ds["Seller_Name"])
                               ],
                             ),
                             Row(
                               children: [
-                                BoldText('name'.tr + ': '),
+                                boldText('name'.tr + ': '),
                                 SimpleText(ds["Item"])
                               ],
                             ),
                             Row(
                               children: [
-                                BoldText("address".tr + ': '),
+                                boldText("address".tr + ': '),
                                 SimpleText(ds["Address"])
                               ],
                             ),
@@ -131,6 +131,10 @@ Widget cardView(DocumentSnapshot ds, BuildContext context) {
 void remove(DocumentSnapshot<Object?> ds) {
   FirebaseFirestore.instance.collection('Favorite').doc(uid).update({
     "Items": FieldValue.arrayRemove([ds.id.toString()])
+  });
+  
+  Future.delayed(Duration(seconds: 1),(){
+    Get.offAll(()=>FavoriteScreen());
   });
 }
 

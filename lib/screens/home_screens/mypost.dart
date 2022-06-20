@@ -96,19 +96,19 @@ Widget myCard(DocumentSnapshot ds,BuildContext context) {
                             // customDetails('date'.tr + ': ', ds["Date"]),
                             Row(
                               children: [
-                                BoldText('seller'.tr + ' ' + 'name'.tr + ': '),
+                                boldText('seller'.tr + ' ' + 'name'.tr + ': '),
                                 SimpleText(ds["Seller_Name"])
                               ],
                             ),
                             Row(
                               children: [
-                                BoldText('name'.tr + ': '),
+                                boldText('name'.tr + ': '),
                                 SimpleText(ds["Item"])
                               ],
                             ),
                             Row(
                               children: [
-                                BoldText("address".tr + ': '),
+                                boldText("address".tr + ': '),
                                 SimpleText(ds["Address"])
                               ],
                             ),

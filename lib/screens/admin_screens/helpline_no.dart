@@ -36,7 +36,7 @@ class _HelpLinenoState extends State<HelpLineno> {
                   child: Container(
                     constraints: const BoxConstraints(maxHeight: 120),
                     margin: ot80,
-                    child: BoldText('helpline'.tr),
+                    child: boldText('helpline'.tr),
                   ),
                 ),
                 Container(

@@ -31,7 +31,6 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
           });
         }
       }
-      // Get.log(favItems.toString());
     });
   }
 

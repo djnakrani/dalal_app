@@ -2,16 +2,21 @@ import 'package:dalal_app/constants/imports.dart';
 
 class Otp extends StatefulWidget {
   final String phone;
+
   const Otp({Key? key, required this.phone}) : super(key: key);
+
   @override
   _OtpState createState() => _OtpState();
 }
 
 class _OtpState extends State<Otp> {
-  late String _verificationCode;
-  late String _code;
-  FirebaseAuth _auth = FirebaseAuth.instance;
+  String? _verificationCode;
+  String? _code;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   String? uid;
+  int i = 0;
+  final user_name_email = GetStorage();
+
 
   final GlobalKey<FormState> _otpForm = GlobalKey<FormState>();
 
@@ -134,6 +139,7 @@ class _OtpState extends State<Otp> {
 
   void codeSent(String verificationId, [int? a]) async {
     setState(() {
+      print("Verify Data : $verificationId");
       _verificationCode = verificationId;
     });
   }
@@ -145,26 +151,50 @@ class _OtpState extends State<Otp> {
   }
 
   void _verifyOtp() async {
-    final AuthCredential credential = PhoneAuthProvider.credential(
-      verificationId: _verificationCode,
-      smsCode: _code,
-    );
-
-    var user =await _auth.signInWithCredential(credential);
-    FirebaseFirestore.instance
-        .collection('User')
-        .doc(user.user!.uid)
-        .get()
-        .then((value) {
-      Get.log(value["IsAdmin"].toString());
-      if (value["IsAdmin"] == "1") {
-        Get.offAll(() => const AdminDashboard());
-      } else if (value["IsAdmin"] == "0") {
-        Get.offAll(() => const Home());
+    await Future.delayed(const Duration(seconds: 2));
+    if (_verificationCode != null) {
+      i = 0;
+      final AuthCredential credential = PhoneAuthProvider.credential(
+        verificationId: _verificationCode!,
+        smsCode: _code!,
+      );
+      _auth
+          .signInWithCredential(credential)
+          .then(
+            (userData) => FirebaseFirestore.instance
+                .collection('User')
+                .doc(userData.user!.uid)
+                .get()
+                .then((value) {
+              Get.log(value["IsAdmin"].toString());
+              user_name_email.write('userName',value["Name"].toString());
+              user_name_email.write('userEmail',value["Email"].toString());
+              if (value["IsAdmin"] == "1") {
+                Get.offAll(() => const AdminDashboard());
+              } else if (value["IsAdmin"] == "0") {
+                Get.offAll(() => const Home());
+              } else {
+                print("Error");
+              }
+            }).onError(
+              (error, stackTrace) {
+                Get.defaultDialog(title: error.toString());
+                Get.offAll(() => const Signup());
+              },
+            ),
+          )
+          .onError(
+        (error, stackTrace) {
+          AlertShow("Otp Not Match", Icons.error, "Please Enter Valid Otp");
+          Get.log("Not Match $error");
+        },
+      );
+    } else {
+      i++;
+      Get.log(i.toString());
+      if (i <= 1) {
+        _verifyOtp();
       }
-    }).onError((error, stackTrace) {
-      Get.log(error.toString());
-      Get.offAll(() => const Signup());
-    });
+    }
   }
 }

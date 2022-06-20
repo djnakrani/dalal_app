@@ -71,7 +71,7 @@ class _HomeState extends State<Home> {
           Icons.add,
           size: 40,
         ),
-        label: BoldText('postadd'.tr),
+        label: boldText('postadd'.tr),
       ),
     );
   }
@@ -131,19 +131,19 @@ class _HomeState extends State<Home> {
                             children: [
                               Row(
                                 children: [
-                                  BoldText('seller'.tr + ' ' + 'name'.tr + ': '),
+                                  boldText('seller'.tr + ' ' + 'name'.tr + ': '),
                                   SimpleText(ds["Seller_Name"])
                                 ],
                               ),
                               Row(
                                 children: [
-                                  BoldText('name'.tr + ': '),
+                                  boldText('name'.tr + ': '),
                                   SimpleText(ds["Item"])
                                 ],
                               ),
                               Row(
                                 children: [
-                                  BoldText("address".tr + ': '),
+                                  boldText("address".tr + ': '),
                                   SimpleText(ds["Address"])
                                 ],
                               ),

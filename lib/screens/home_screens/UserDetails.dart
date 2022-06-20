@@ -57,7 +57,7 @@ class _UserDetailsState extends State<UserDetails> {
                 child:Container(
                   constraints: const BoxConstraints(maxHeight: 120),
                   margin: ot80,
-                  child: BoldText('mydetails'.tr)
+                  child: boldText('mydetails'.tr)
                 ),
               ),
               isloading?const CircularProgressIndicator():Container(

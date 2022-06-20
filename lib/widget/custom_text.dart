@@ -8,7 +8,7 @@ Widget SimpleText(text){
   );
 }
 
-Widget BoldText(text){
+Widget boldText(text){
   return Text(
       text,
     style: TextStyle(fontWeight: FontWeight.bold,fontSize: regularSize),

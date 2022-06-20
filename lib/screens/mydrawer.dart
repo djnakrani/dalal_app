@@ -19,9 +19,13 @@ class MyDrawer extends StatefulWidget {
 
 class _DrawerState extends State<MyDrawer> {
   var uid = FirebaseAuth.instance.currentUser!.uid;
+  final user_name_email = GetStorage();
+  var name = "";
+  var email = "";
   @override
   void initState() {
-    // TODO: implement initState
+    name = user_name_email.read('userName') ?? "";
+    email = user_name_email.read('userEmail') ?? "";
     super.initState();
   }
   @override
@@ -32,14 +36,14 @@ class _DrawerState extends State<MyDrawer> {
         children: [
           Center(
             child: UserAccountsDrawerHeader(
-              accountName: BoldText(""),
-              accountEmail: BoldText(""),
+              accountName: boldText(name),
+              accountEmail: boldText(email),
               currentAccountPicture: const CircleAvatar(
                 backgroundColor: Colors.white,
                 foregroundColor: Colors.black,
                 child: Icon(Icons.person),
               ),
-              currentAccountPictureSize: Size(80,80),
+              currentAccountPictureSize: const Size(80,80),
             ),
           ),
           ListTile(
@@ -122,7 +126,7 @@ class _AdminDrawerState extends State<AdminDrawer> {
         children: [
           Center(
             child: UserAccountsDrawerHeader(
-              accountName: BoldText("Admin"),
+              accountName: boldText("Admin"),
               accountEmail: const Text(""),
               currentAccountPicture: const CircleAvatar(
                 backgroundColor: Colors.white,

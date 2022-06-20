@@ -93,12 +93,12 @@ class CustomLanguageButton extends StatelessWidget {
             children: [
               Ink.image(
                   height: 30, width: 30, image: AssetImage(btnImage)),
-              SizedBox(
+              const SizedBox(
                 width: 10,
               ),
               Text(
                 button,
-                style: TextStyle(fontSize: 20.0),
+                style: const TextStyle(fontSize: 20.0),
               ),
             ],
           )),

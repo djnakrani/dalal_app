@@ -37,7 +37,7 @@ class _InputYTLinkState extends State<InputYTLink> {
                   child: Container(
                       constraints: const BoxConstraints(maxHeight: 120),
                       margin: ot80,
-                      child: BoldText('Add Link')),
+                      child: boldText('Add Link')),
                 ),
                 Container(
                   height: 40,

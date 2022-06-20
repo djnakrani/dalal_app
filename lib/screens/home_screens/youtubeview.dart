@@ -56,7 +56,7 @@ class _YoutubeViewState extends State<YoutubeView> {
                           // child: Text(document['Title']),
                           child: InkWell(
                             onTap: () => {launch(document['Link'])},
-                            child: BoldText(
+                            child: boldText(
                               "Click Here => " + document['Title'],
                             ),
                             highlightColor: myColors.btnRemove,
