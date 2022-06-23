@@ -118,20 +118,19 @@ class _OtpState extends State<Otp> {
         verificationCompleted: verificationCompleted,
         verificationFailed: verificationFailed,
         codeSent: codeSent,
-        codeAutoRetrievalTimeout: codeAuthRetrievalTimeout,
-        timeout: const Duration(seconds: 120));
+        codeAutoRetrievalTimeout: codeAuthRetrievalTimeout);
   }
 
   void verificationCompleted(PhoneAuthCredential phoneAuthCredential) async {
-    await _auth.signInWithCredential(phoneAuthCredential);
-    if (_auth.currentUser != null) {
-      setState(() {
-        uid = _auth.currentUser?.uid;
-        Get.log(uid.toString());
-      });
-    } else {
-      AlertShow("Error", Icons.error, "Retry");
-    }
+    // await _auth.signInWithCredential(phoneAuthCredential);
+    // if (_auth.currentUser != null) {
+    //   setState(() {
+    //     uid = _auth.currentUser?.uid;
+    //     Get.log(uid.toString());
+    //   });
+    // } else {
+    //   AlertShow("Error", Icons.error, "Retry");
+    // }
   }
 
   void verificationFailed(FirebaseAuthException error) {
