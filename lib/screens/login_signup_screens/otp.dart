@@ -119,7 +119,7 @@ class _OtpState extends State<Otp> {
         verificationFailed: verificationFailed,
         codeSent: codeSent,
         codeAutoRetrievalTimeout: codeAuthRetrievalTimeout,
-        timeout: const Duration(milliseconds: 60000));
+        timeout: const Duration(seconds: 120));
   }
 
   void verificationCompleted(PhoneAuthCredential phoneAuthCredential) async {
@@ -127,6 +127,7 @@ class _OtpState extends State<Otp> {
     if (_auth.currentUser != null) {
       setState(() {
         uid = _auth.currentUser?.uid;
+        Get.log(uid.toString());
       });
     } else {
       AlertShow("Error", Icons.error, "Retry");
@@ -151,16 +152,19 @@ class _OtpState extends State<Otp> {
   }
 
   void _verifyOtp() async {
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 2),(){
+      Get.defaultDialog(title:"",content: CircularProgressIndicator());
+    });
+    // Get.log(_code!);
     if (_verificationCode != null) {
-      i = 0;
+      // i = 0;
       final AuthCredential credential = PhoneAuthProvider.credential(
         verificationId: _verificationCode!,
         smsCode: _code!,
       );
-      _auth
+      var userData = await _auth
           .signInWithCredential(credential)
-          .then(
+         .then(
             (userData) => FirebaseFirestore.instance
                 .collection('User')
                 .doc(userData.user!.uid)
@@ -195,6 +199,8 @@ class _OtpState extends State<Otp> {
       if (i <= 1) {
         _verifyOtp();
       }
+      // AlertShow("Try Again", Icons.error, "Something Went Wrong");
     }
+
   }
 }
