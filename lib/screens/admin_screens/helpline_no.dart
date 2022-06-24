@@ -17,7 +17,11 @@ class _HelpLinenoState extends State<HelpLineno> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: CustomText(text:'appTitle'.tr,color:Colors.white,fontWeight: FontWeight.bold,size: 14.0),
+        title: CustomText(
+            text: 'appTitle'.tr,
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            size: 14.0),
         backgroundColor: myColors.colorPrimaryColor,
       ),
       drawer: const AdminDrawer(),
@@ -36,7 +40,8 @@ class _HelpLinenoState extends State<HelpLineno> {
                   child: Container(
                     constraints: const BoxConstraints(maxHeight: 120),
                     margin: ot80,
-                    child: CustomText(fontWeight: FontWeight.bold,text:'helpline'.tr),
+                    child: CustomText(
+                        fontWeight: FontWeight.bold, text: 'helpline'.tr),
                   ),
                 ),
                 Container(
@@ -108,6 +113,7 @@ class _HelpLinenoState extends State<HelpLineno> {
                         StreamBuilder<QuerySnapshot>(
                           stream: FirebaseFirestore.instance
                               .collection('HelpLineNo')
+                              .orderBy('taluko')
                               .snapshots(),
                           builder: (context, snapshot) {
                             if (!snapshot.hasData) {
@@ -130,9 +136,11 @@ class _HelpLinenoState extends State<HelpLineno> {
                                       child: Row(
                                         children: [
                                           Expanded(
-                                              child: CustomText(text:doc['Taluko'])),
+                                              child: CustomText(
+                                                  text: doc['Taluko'])),
                                           Expanded(
-                                              child: CustomText(text:doc['Number'])),
+                                              child: CustomText(
+                                                  text: doc['Number'])),
                                           Expanded(
                                             child: InkWell(
                                               onTap: () => removeData(doc.id),
@@ -186,7 +194,7 @@ class _HelpLinenoState extends State<HelpLineno> {
       ),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: CustomText(text:s),
+        child: CustomText(text: s),
       ),
     ));
   }

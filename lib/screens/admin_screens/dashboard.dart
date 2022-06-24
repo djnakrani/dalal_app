@@ -110,7 +110,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                   ),
                 ],
               ),
-              CustomText(text:category),
+              CustomText(text:category,size: 22.sp,),
             ],
           ),
         ),
