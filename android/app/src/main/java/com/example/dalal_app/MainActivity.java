@@ -1,4 +1,4 @@
-package com.example.dalal_app;
+package com.rudra.dalal_app;
 
 import io.flutter.embedding.android.FlutterActivity;
 
