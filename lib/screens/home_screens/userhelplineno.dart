@@ -14,7 +14,11 @@ class _UserHelpLineState extends State<UserHelpLine> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: CustomText(text:'appTitle'.tr,color:Colors.white,fontWeight: FontWeight.bold,size: 14.0),
+        title: CustomText(
+            text: 'appTitle'.tr,
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            size: 18.0),
         backgroundColor: myColors.colorPrimaryColor,
       ),
       backgroundColor: Colors.white,
@@ -99,8 +103,12 @@ class _UserHelpLineState extends State<UserHelpLine> {
                                       padding: const EdgeInsets.all(8.0),
                                       child: Row(
                                         children: [
-                                          Expanded(child: CustomText(text:doc['Taluko'])),
-                                          Expanded(child: CustomText(text:doc['Number'])),
+                                          Expanded(
+                                              child: CustomText(
+                                                  text: doc['Taluko'])),
+                                          Expanded(
+                                              child: CustomText(
+                                                  text: doc['Number'])),
                                           Expanded(
                                               child: InkWell(
                                                   onTap: () => {
@@ -144,7 +152,7 @@ class _UserHelpLineState extends State<UserHelpLine> {
       ),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: CustomText(text:s),
+        child: CustomText(text: s),
       ),
     ));
   }

@@ -42,7 +42,11 @@ class _AdminDashboardState extends State<AdminDashboard> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: CustomText(text:'appTitle'.tr,color:Colors.white,fontWeight: FontWeight.bold,size: 14.0),
+        title: CustomText(
+            text: 'appTitle'.tr,
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            size: 18.0),
         backgroundColor: myColors.colorPrimaryColor,
       ),
       drawer: const AdminDrawer(),
@@ -51,69 +55,16 @@ class _AdminDashboardState extends State<AdminDashboard> {
             padding: const EdgeInsets.all(10),
             child: Column(
               children: [
-                viewCard(Colors.amberAccent, "User",
+                viewCard(Color.fromARGB(255, 32, 114, 0), "User",
                     Icons.supervised_user_circle, totalUser),
-                viewCard(Colors.green, "Items", Icons.view_list, totalItems),
-                viewCard(Colors.redAccent, "Youtube Links",
+                viewCard(Color.fromARGB(255, 41, 145, 0), "Items",
+                    Icons.view_list, totalItems),
+                viewCard(Color.fromARGB(255, 48, 170, 0), "Youtube Links",
                     Icons.play_circle_fill, totalYouLink),
-                viewCard(Colors.lightGreen, "HelpLine Numbers", Icons.view_list,
-                    totalHelpLineNo),
+                viewCard(Color.fromARGB(255, 62, 219, 0), "Helpline No",
+                    Icons.view_list, totalHelpLineNo),
               ],
             )),
-      ),
-    );
-  }
-
-  Widget viewCard(
-    Color cardColor,
-    String category,
-    IconData icon,
-    String number,
-  ) {
-    return Card(
-      margin: syv10,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(40), // if you need this
-        side: BorderSide(
-          color: cardColor,
-          width: 1,
-        ),
-      ),
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: br20,
-          color: cardColor,
-        ),
-        width: MediaQuery.of(context).size.width,
-        height: 200,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0) + syh20 * 2,
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  CircleAvatar(
-                    backgroundColor: Colors.white,
-                    radius: 50,
-                    child: Icon(
-                      icon,
-                      size: 50,
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  CircleAvatar(
-                    backgroundColor: Colors.white,
-                    radius: 70,
-                    child: CustomText(text:number), //CircleAvatar
-                  ),
-                ],
-              ),
-              CustomText(text:category,size: 22.sp,),
-            ],
-          ),
-        ),
       ),
     );
   }
@@ -145,4 +96,75 @@ class _AdminDashboardState extends State<AdminDashboard> {
     List<DocumentSnapshot> _myDocCount = _myDoc.docs;
     return _myDocCount.length.toString();
   }
+}
+
+Widget viewCard(
+  Color cardColor,
+  String category,
+  IconData icon,
+  String number,
+) {
+  return Card(
+    margin: syv10 / 2,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(30), // if you need this
+      side: BorderSide(
+        color: cardColor,
+        width: 1,
+      ),
+    ),
+    child: Container(
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        borderRadius: br20,
+        color: cardColor,
+      ),
+      width: Get.size.width,
+      height: 180.h,
+      // child: Padding(
+      //   padding: syv10 * 2 + syh20,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        // mainAxisSize: MainAxisSize.min,
+        children: [
+          Row(
+            children: [
+              Spacer(),
+              Column(children: [
+                CircleAvatar(
+                  backgroundColor: Colors.white,
+                  radius: 50,
+                  child: Icon(
+                    icon,
+                    size: 50,
+                    color: Colors.black,
+                  ),
+                ),
+                CustomText(
+                  text: category,
+                  size: 22.sp,
+                  color: Colors.white,
+                ),
+              ]),
+              const SizedBox(
+                width: 20,
+              ),
+              CircleAvatar(
+                backgroundColor: Colors.white,
+                radius: 70,
+                child: CustomText(
+                  text: number,
+                  size: 40.0,
+                  fontWeight: FontWeight.bold,
+                ), //CircleAvatar
+              ),
+              Spacer(),
+            ],
+          ),
+        ],
+        // ),
+      ),
+    ),
+  );
 }

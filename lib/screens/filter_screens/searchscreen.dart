@@ -17,7 +17,11 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: CustomText(text:'appTitle'.tr,color:Colors.white,fontWeight: FontWeight.bold,size: 14.0),
+        title: CustomText(
+            text: 'appTitle'.tr,
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            size: 18.0),
         backgroundColor: myColors.colorPrimaryColor,
         actions: [
           IconButton(
@@ -33,9 +37,7 @@ class _SearchScreenState extends State<SearchScreen> {
           child: Column(
             children: [
               Container(
-                margin: EdgeInsets.only(
-                        top: Get.size.height / 5) +
-                    ob50 / 2,
+                margin: EdgeInsets.only(top: Get.size.height / 5) + ob50 / 2,
                 decoration: BoxDecoration(
                   border: Border.all(
                     color: Colors.black,
@@ -58,7 +60,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     btnTxt: 'next'.tr,
                     callback: () {
                       if (selectedItem == null) {
-                        AlertShow('Error',Icons.error,"Not Selected");
+                        AlertShow('Error', Icons.error, "Not Selected");
                       } else {
                         Get.off(() => FilterScreen(
                               items: selectedItem,
@@ -99,11 +101,11 @@ class _SearchScreenState extends State<SearchScreen> {
                       });
                     },
                     value: selectedItem,
-                    hint: CustomText(text:"Select Items"),
+                    hint: CustomText(text: "Select Items"),
                     items: snapshot.data!.docs.map((document) {
                       return DropdownMenuItem(
                         value: document['Type'].toString(),
-                        child: CustomText(text:document['Type']),
+                        child: CustomText(text: document['Type']),
                       );
                     }).toList(),
                   ),

@@ -12,7 +12,11 @@ class _AllPostState extends State<AllPost> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: CustomText(text:'appTitle'.tr,color:Colors.white,fontWeight: FontWeight.bold,size: 14.0),
+        title: CustomText(
+            text: 'appTitle'.tr,
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            size: 18.0),
         backgroundColor: myColors.colorPrimaryColor,
       ),
       drawer: const AdminDrawer(),
@@ -78,26 +82,34 @@ class _AllPostState extends State<AllPost> {
                             children: [
                               Row(
                                 children: [
-                                  CustomText(fontWeight: FontWeight.bold,text:'seller'.tr + ' ' + 'name'.tr),
-                                  CustomText(text:ds["Seller_Name"])
+                                  CustomText(
+                                      fontWeight: FontWeight.bold,
+                                      text: 'seller'.tr + ' ' + 'name'.tr),
+                                  CustomText(text: ds["Seller_Name"])
                                 ],
                               ),
                               Row(
                                 children: [
-                                  CustomText(fontWeight: FontWeight.bold,text:'name'.tr),
-                                  CustomText(text:ds["Item"])
+                                  CustomText(
+                                      fontWeight: FontWeight.bold,
+                                      text: 'name'.tr),
+                                  CustomText(text: ds["Item"])
                                 ],
                               ),
                               Row(
                                 children: [
-                                  CustomText(fontWeight: FontWeight.bold,text:"address".tr),
-                                  CustomText(text:ds["Address"])
+                                  CustomText(
+                                      fontWeight: FontWeight.bold,
+                                      text: "address".tr),
+                                  CustomText(text: ds["Address"])
                                 ],
                               ),
                               Row(
                                 children: [
-                                  CustomText(fontWeight: FontWeight.bold,text:'mobileNo'.tr),
-                                  CustomText(text:ds["MobileNo"])
+                                  CustomText(
+                                      fontWeight: FontWeight.bold,
+                                      text: 'mobileNo'.tr),
+                                  CustomText(text: ds["MobileNo"])
                                 ],
                               ),
                             ],
@@ -136,9 +148,8 @@ class _AllPostState extends State<AllPost> {
         .doc(docId)
         .delete()
         .then((value) => {
-      AlertShow('Success',Icons.check,'Item Removed Successfully'),
-      Get.off(() => const AllPost())});
+              AlertShow('Success', Icons.check, 'Item Removed Successfully'),
+              Get.off(() => const AllPost())
+            });
   }
-
 }
-

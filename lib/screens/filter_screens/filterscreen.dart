@@ -23,7 +23,11 @@ class _FilterScreenState extends State<FilterScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: CustomText(text:'appTitle'.tr,color:Colors.white,fontWeight: FontWeight.bold,size: 14.0),
+        title: CustomText(
+            text: 'appTitle'.tr,
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            size: 18.0),
         backgroundColor: myColors.colorPrimaryColor,
         actions: [
           IconButton(
@@ -101,7 +105,8 @@ class _FilterScreenState extends State<FilterScreen> {
                             color: Colors.red,
                           ),
                           onPressed: () {
-                            AlertShow("Success",Icons.favorite,'Added To Favorite');
+                            AlertShow(
+                                "Success", Icons.favorite, 'Added To Favorite');
                             add(ds);
                           },
                         )),
@@ -119,20 +124,26 @@ class _FilterScreenState extends State<FilterScreen> {
                             children: [
                               Row(
                                 children: [
-                                  CustomText(fontWeight: FontWeight.bold,text:'seller'.tr + ' ' + 'name'.tr),
-                                  CustomText(text:ds["Seller_Name"])
+                                  CustomText(
+                                      fontWeight: FontWeight.bold,
+                                      text: 'seller'.tr + ' ' + 'name'.tr),
+                                  CustomText(text: ds["Seller_Name"])
                                 ],
                               ),
                               Row(
                                 children: [
-                                  CustomText(fontWeight: FontWeight.bold,text:'name'.tr),
-                                  CustomText(text:ds["Item"])
+                                  CustomText(
+                                      fontWeight: FontWeight.bold,
+                                      text: 'name'.tr),
+                                  CustomText(text: ds["Item"])
                                 ],
                               ),
                               Row(
                                 children: [
-                                  CustomText(fontWeight: FontWeight.bold,text:"address".tr),
-                                  CustomText(text:ds["Address"])
+                                  CustomText(
+                                      fontWeight: FontWeight.bold,
+                                      text: "address".tr),
+                                  CustomText(text: ds["Address"])
                                 ],
                               ),
                             ],
@@ -149,7 +160,8 @@ class _FilterScreenState extends State<FilterScreen> {
                                       primary: myColors.colorPrimaryColor,
                                     ),
                                     onPressed: () {
-                                      Uri myUri = Uri.parse("tel: ${ds["MobileNo"]}");
+                                      Uri myUri =
+                                          Uri.parse("tel: ${ds["MobileNo"]}");
                                       launchUrl(myUri);
                                     },
                                     child: const Icon(Icons.call)),
@@ -161,10 +173,26 @@ class _FilterScreenState extends State<FilterScreen> {
                                       primary: myColors.colorPrimaryColor,
                                     ),
                                     onPressed: () {
-                                      String data = "તારીખ: "+ds["Date"] +"\n પશુ / વસ્તુ: " + ds["Item"] + "\nવેચનાર નું નામ: " + ds["Seller_Name"] +
-                                          " \nકિંમત: " + ds["Price"] + "\nમોબાઇલ નંબર: " + ds["MobileNo"] + "\nવર્ણન: " + ds["Details"] +"\nસરનામું: " + ds["Address"]
-                                          + "\nજિલ્લો: " + ds["City"] +"\nરાજ્ય: " + ds["State"];
-                                      Uri myUri = Uri.parse('https://wa.me/${ds["MobileNo"]}?text=$data');
+                                      String data = "તારીખ: " +
+                                          ds["Date"] +
+                                          "\n પશુ / વસ્તુ: " +
+                                          ds["Item"] +
+                                          "\nવેચનાર નું નામ: " +
+                                          ds["Seller_Name"] +
+                                          " \nકિંમત: " +
+                                          ds["Price"] +
+                                          "\nમોબાઇલ નંબર: " +
+                                          ds["MobileNo"] +
+                                          "\nવર્ણન: " +
+                                          ds["Details"] +
+                                          "\nસરનામું: " +
+                                          ds["Address"] +
+                                          "\nજિલ્લો: " +
+                                          ds["City"] +
+                                          "\nરાજ્ય: " +
+                                          ds["State"];
+                                      Uri myUri = Uri.parse(
+                                          'https://wa.me/${ds["MobileNo"]}?text=$data');
                                       launchUrl(myUri);
                                     },
                                     child: Ink.image(
@@ -204,9 +232,24 @@ class _FilterScreenState extends State<FilterScreen> {
   }
 
   void share(DocumentSnapshot<Object?> ds) async {
-    String data = "તારીખ: "+ds["Date"] +"\n પશુ / વસ્તુ: " + ds["Item"] + "\nવેચનાર નું નામ: " + ds["Seller_Name"] +
-        " \nકિંમત: " + ds["Price"] + "\nમોબાઇલ નંબર: " + ds["MobileNo"] + "\nવર્ણન: " + ds["Details"] +"\nસરનામું: " + ds["Address"]
-        + "\nજિલ્લો: " + ds["City"] +"\nરાજ્ય: " + ds["State"];
+    String data = "તારીખ: " +
+        ds["Date"] +
+        "\n પશુ / વસ્તુ: " +
+        ds["Item"] +
+        "\nવેચનાર નું નામ: " +
+        ds["Seller_Name"] +
+        " \nકિંમત: " +
+        ds["Price"] +
+        "\nમોબાઇલ નંબર: " +
+        ds["MobileNo"] +
+        "\nવર્ણન: " +
+        ds["Details"] +
+        "\nસરનામું: " +
+        ds["Address"] +
+        "\nજિલ્લો: " +
+        ds["City"] +
+        "\nરાજ્ય: " +
+        ds["State"];
 
     await Share.share(
       data,

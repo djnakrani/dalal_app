@@ -18,7 +18,11 @@ class _InputYTLinkState extends State<InputYTLink> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: CustomText(text:'appTitle'.tr,color:Colors.white,fontWeight: FontWeight.bold,size: 14.0),
+        title: CustomText(
+            text: 'appTitle'.tr,
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            size: 18.0),
         backgroundColor: myColors.colorPrimaryColor,
       ),
       drawer: const AdminDrawer(),
@@ -28,22 +32,26 @@ class _InputYTLinkState extends State<InputYTLink> {
           decoration: const BoxDecoration(
               image: DecorationImage(
                   image: AssetImage(Images.background), fit: BoxFit.fill)),
-          height: Get.size.height,
+          height: Get.size.height / 1.1,
           child: Form(
             key: _youtubeForm,
             child: Column(
               children: <Widget>[
                 Center(
                   child: Container(
-                      constraints: const BoxConstraints(maxHeight: 120),
-                      margin: ot80,
-                      child: CustomText(fontWeight: FontWeight.bold,text:'Add Link')),
+                    margin: ot50 / 3,
+                    child: const CustomText(
+                      text: "Add Youtube Link",
+                      fontWeight: FontWeight.bold,
+                      size: 18.0,
+                    ),
+                  ),
                 ),
                 Container(
                   height: 40,
                   margin: syh20v5 + syv10,
                   child: CustomTextfield(
-                    myIcon: Icons.location_city,
+                    myIcon: Icons.title,
                     inputType: TextInputType.text,
                     inputTxt: 'title'.tr,
                     voidReturn: (value) {
@@ -60,7 +68,7 @@ class _InputYTLinkState extends State<InputYTLink> {
                   height: 40,
                   margin: syh20v5 + syv10,
                   child: CustomTextfield(
-                    myIcon: Icons.location_city,
+                    myIcon: Icons.link,
                     inputType: TextInputType.text,
                     inputTxt: 'link'.tr,
                     voidReturn: (value) {
@@ -76,7 +84,7 @@ class _InputYTLinkState extends State<InputYTLink> {
                 Container(
                   margin: syv10 + syh20,
                   child: CustomButton(
-                    btnTxt: 'add'.tr,
+                    btnTxt: "Add Link",
                     callback: () {
                       if (_youtubeForm.currentState!.validate()) {
                         var date = DateTime.now().toString();
@@ -96,14 +104,17 @@ class _InputYTLinkState extends State<InputYTLink> {
                     },
                   ),
                 ),
+                const Divider(
+                  height: 10.0,
+                ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
                     children: [
-                      dataTableTitle('title'.tr, myColors.colorPrimaryColor),
-                      dataTableTitle('link'.tr, myColors.colorPrimaryColor),
-                      dataTableTitle('date'.tr, myColors.colorPrimaryColor),
-                      dataTableTitle('delete'.tr, myColors.btnRemove),
+                      dataTableTitle('title'.tr),
+                      dataTableTitle('link'.tr),
+                      dataTableTitle('date'.tr),
+                      dataTableTitle('delete'.tr),
                     ],
                   ),
                 ),
@@ -140,10 +151,12 @@ class _InputYTLinkState extends State<InputYTLink> {
                                       child: Row(
                                         children: [
                                           Expanded(
-                                              child: CustomText(text:doc['Title'])),
+                                              child: CustomText(
+                                                  text: doc['Title'])),
                                           Expanded(
                                               child: InkWell(
-                                            child: CustomText(text:doc['Link']),
+                                            child:
+                                                CustomText(text: doc['Link']),
                                             onTap: () async {
                                               final wsurl = doc['Link'];
                                               if (await canLaunchUrl(wsurl)) {
@@ -154,7 +167,8 @@ class _InputYTLinkState extends State<InputYTLink> {
                                             },
                                           )),
                                           Expanded(
-                                              child: CustomText(text:doc['Date'])),
+                                              child: CustomText(
+                                                  text: doc['Date'])),
                                           Expanded(
                                             child: InkWell(
                                               onTap: () => removeData(doc.id),
@@ -192,25 +206,11 @@ class _InputYTLinkState extends State<InputYTLink> {
         .set(data)
         .then((value) => () {
               AlertShow('Success', Icons.check, 'Number Added..');
-              Get.offAll(() => const InputYTLink());
+              _youtubeForm.currentState!.reset();
             })
         .catchError((onError) {
       AlertShow("Error", Icons.error, onError);
     });
-  }
-
-  dataTableTitle(String s, Color color) {
-    return Expanded(
-        child: Container(
-      decoration: BoxDecoration(
-        borderRadius: br20,
-        color: color,
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: CustomText(text:s),
-      ),
-    ));
   }
 
   Future removeData(String docId) async {
@@ -220,7 +220,7 @@ class _InputYTLinkState extends State<InputYTLink> {
         .delete()
         .then((value) => {
               AlertShow('Success', Icons.check, "Link Removed"),
-              Get.off(() => const InputYTLink())
+              Get.offAll(() => const InputYTLink())
             });
   }
 }

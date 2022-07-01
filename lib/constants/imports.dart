@@ -21,17 +21,15 @@ export 'package:cloud_firestore/cloud_firestore.dart';
 export 'package:firebase_auth/firebase_auth.dart';
 export 'package:firebase_storage/firebase_storage.dart';
 
-
 // Get Library import
 export 'package:get/get.dart';
 export 'package:get/get_navigation/get_navigation.dart';
 export 'package:get_storage/get_storage.dart';
 
-
-
 export 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // All Other imports
+export 'package:dalal_app/screens/admin_screens/data_table_title.dart';
 export 'package:dalal_app/screens/mydrawer.dart';
 export 'package:dalal_app/screens/login_signup_screens/language.dart';
 export 'package:dalal_app/screens/login_signup_screens/splash_screen.dart';

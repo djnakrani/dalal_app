@@ -1,4 +1,5 @@
 import 'package:dalal_app/constants/imports.dart';
+import 'package:dalal_app/screens/admin_screens/youtube_link.dart';
 
 class HelpLineno extends StatefulWidget {
   const HelpLineno({Key? key}) : super(key: key);
@@ -31,17 +32,19 @@ class _HelpLinenoState extends State<HelpLineno> {
           decoration: const BoxDecoration(
               image: DecorationImage(
                   image: AssetImage(Images.background), fit: BoxFit.fill)),
-          height: Get.size.height,
+          height: Get.size.height / 1.1,
           child: Form(
             key: _helplineno,
             child: Column(
               children: <Widget>[
                 Center(
                   child: Container(
-                    constraints: const BoxConstraints(maxHeight: 120),
-                    margin: ot80,
-                    child: CustomText(
-                        fontWeight: FontWeight.bold, text: 'helpline'.tr),
+                    margin: ot50 / 3,
+                    child: const CustomText(
+                      text: "Add Helpline Number",
+                      fontWeight: FontWeight.bold,
+                      size: 18.0,
+                    ),
                   ),
                 ),
                 Container(
@@ -81,7 +84,7 @@ class _HelpLinenoState extends State<HelpLineno> {
                 Container(
                   margin: syv10 + syh20,
                   child: CustomButton(
-                    btnTxt: 'add'.tr,
+                    btnTxt: "Add Helpline Number",
                     callback: () {
                       if (_helplineno.currentState!.validate()) {
                         Map<String, dynamic> data = {
@@ -93,13 +96,16 @@ class _HelpLinenoState extends State<HelpLineno> {
                     },
                   ),
                 ),
+                const Divider(
+                  height: 10.0,
+                ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
                     children: [
-                      dataTableTitle('taluko'.tr, myColors.colorPrimaryColor),
-                      dataTableTitle('mobileNo'.tr, myColors.colorPrimaryColor),
-                      dataTableTitle('delete'.tr, myColors.btnRemove),
+                      dataTableTitle('taluko'.tr),
+                      dataTableTitle('mobileNo'.tr),
+                      dataTableTitle('delete'.tr),
                     ],
                   ),
                 ),
@@ -185,19 +191,19 @@ class _HelpLinenoState extends State<HelpLineno> {
     });
   }
 
-  dataTableTitle(String s, Color color) {
-    return Expanded(
-        child: Container(
-      decoration: BoxDecoration(
-        borderRadius: br20,
-        color: color,
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: CustomText(text: s),
-      ),
-    ));
-  }
+  // dataTableTitle(String s, Color color) {
+  //   return Expanded(
+  //       child: Container(
+  //     decoration: BoxDecoration(
+  //       borderRadius: br20,
+  //       color: color,
+  //     ),
+  //     child: Padding(
+  //       padding: const EdgeInsets.all(8.0),
+  //       child: CustomText(text: s),
+  //     ),
+  //   ));
+  // }
 
   Future removeData(String docId) async {
     await FirebaseFirestore.instance

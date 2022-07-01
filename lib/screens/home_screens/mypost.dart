@@ -18,40 +18,50 @@ class _MyPostState extends State<MyPost> {
       uid = FirebaseAuth.instance.currentUser!.uid;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: CustomText(text:'appTitle'.tr,color:Colors.white,fontWeight: FontWeight.bold,size: 14.0),
+        title: CustomText(
+            text: 'appTitle'.tr,
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            size: 18.0),
         backgroundColor: myColors.colorPrimaryColor,
-        actions: [IconButton(onPressed: () => Get.to(()=>const TakeScreen()), icon: const Icon(Icons.add))],
+        actions: [
+          IconButton(
+              onPressed: () => Get.to(() => const TakeScreen()),
+              icon: const Icon(Icons.add))
+        ],
       ),
       drawer: const MyDrawer(),
       body: Padding(
-        padding: const EdgeInsets.all(10),
-        child:
-        StreamBuilder(
-          stream: FirebaseFirestore.instance.collection('Items').where("Uid",isEqualTo: uid).snapshots(),
-          builder: (_, AsyncSnapshot<QuerySnapshot> snapshot) {
-            if (snapshot.data == null) {
-              return const Center(child: CircularProgressIndicator());
-            } else {
-              return ListView.builder(
-                  itemCount: snapshot.data?.size,
-                  padding: ob50,
-                  itemBuilder: (context, index) {
-                    DocumentSnapshot ds = snapshot.data!.docs[index];
-                    return myCard(ds, context);
-                  });
-            }
-          },
-        )
-      ),
+          padding: const EdgeInsets.all(10),
+          child: StreamBuilder(
+            stream: FirebaseFirestore.instance
+                .collection('Items')
+                .where("Uid", isEqualTo: uid)
+                .snapshots(),
+            builder: (_, AsyncSnapshot<QuerySnapshot> snapshot) {
+              if (snapshot.data == null) {
+                return const Center(child: CircularProgressIndicator());
+              } else {
+                return ListView.builder(
+                    itemCount: snapshot.data?.size,
+                    padding: ob50,
+                    itemBuilder: (context, index) {
+                      DocumentSnapshot ds = snapshot.data!.docs[index];
+                      return myCard(ds, context);
+                    });
+              }
+            },
+          )),
     );
   }
 }
 
-Widget myCard(DocumentSnapshot ds,BuildContext context) {
+Widget myCard(DocumentSnapshot ds, BuildContext context) {
   return Card(
       clipBehavior: Clip.antiAlias,
       elevation: 10,
@@ -96,20 +106,26 @@ Widget myCard(DocumentSnapshot ds,BuildContext context) {
                             // customDetails('date'.tr + ': ', ds["Date"]),
                             Row(
                               children: [
-                                CustomText(fontWeight: FontWeight.bold,text:'seller'.tr + ' ' + 'name'.tr + ': '),
-                                CustomText(text:ds["Seller_Name"])
+                                CustomText(
+                                    fontWeight: FontWeight.bold,
+                                    text: 'seller'.tr + ' ' + 'name'.tr + ': '),
+                                CustomText(text: ds["Seller_Name"])
                               ],
                             ),
                             Row(
                               children: [
-                                CustomText(fontWeight: FontWeight.bold,text:'name'.tr + ': '),
-                                CustomText(text:ds["Item"])
+                                CustomText(
+                                    fontWeight: FontWeight.bold,
+                                    text: 'name'.tr + ': '),
+                                CustomText(text: ds["Item"])
                               ],
                             ),
                             Row(
                               children: [
-                                CustomText(fontWeight: FontWeight.bold,text:"address".tr + ': '),
-                                CustomText(text:ds["Address"])
+                                CustomText(
+                                    fontWeight: FontWeight.bold,
+                                    text: "address".tr + ': '),
+                                CustomText(text: ds["Address"])
                               ],
                             ),
                           ],
@@ -118,7 +134,7 @@ Widget myCard(DocumentSnapshot ds,BuildContext context) {
                       Row(
                         children: [
                           Padding(
-                            padding: syh20 + ot50/2,
+                            padding: syh20 + ot50 / 2,
                             child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                   primary: myColors.colorPrimaryColor,
@@ -126,16 +142,17 @@ Widget myCard(DocumentSnapshot ds,BuildContext context) {
                                 onPressed: () {
                                   removeData(ds.id);
                                 },
-                                child: const Icon(Icons.delete,color: Colors.white,)),
+                                child: const Icon(
+                                  Icons.delete,
+                                  color: Colors.white,
+                                )),
                           ),
                         ],
                       ),
-
                     ],
                   ))
             ],
           )));
-
 }
 
 Future removeData(String docId) async {

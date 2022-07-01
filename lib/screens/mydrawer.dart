@@ -28,6 +28,7 @@ class _DrawerState extends State<MyDrawer> {
     email = user_name_email.read('userEmail') ?? "";
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -36,69 +37,77 @@ class _DrawerState extends State<MyDrawer> {
         children: [
           Center(
             child: UserAccountsDrawerHeader(
-              accountName: CustomText(fontWeight: FontWeight.bold,text:name,color: Colors.white,),
-              accountEmail: CustomText(fontWeight: FontWeight.bold,text:email,color: Colors.white,),
+              accountName: CustomText(
+                fontWeight: FontWeight.bold,
+                text: name,
+                color: Colors.white,
+              ),
+              accountEmail: CustomText(
+                fontWeight: FontWeight.bold,
+                text: email,
+                color: Colors.white,
+              ),
               currentAccountPicture: const CircleAvatar(
                 backgroundColor: Colors.white,
                 foregroundColor: Colors.black,
                 child: Icon(Icons.person),
               ),
-              currentAccountPictureSize: const Size(80,80),
+              currentAccountPictureSize: const Size(80, 80),
             ),
           ),
           ListTile(
             leading: const Icon(Icons.home),
-            title: CustomText(text:'home'.tr),
+            title: CustomText(text: 'home'.tr, fontWeight: FontWeight.bold),
             onTap: () {
-              Get.to(()=> const Home());
+              Get.to(() => const Home());
             },
           ),
           ListTile(
             leading: const Icon(Icons.person_pin),
-            title:  CustomText(text:'mydetails'.tr),
+            title:
+                CustomText(text: 'mydetails'.tr, fontWeight: FontWeight.bold),
             onTap: () {
-              Get.to(()=> const UserDetails());
+              Get.to(() => const UserDetails());
             },
           ),
           ListTile(
             leading: const Icon(Icons.add_box_outlined),
-            title:  CustomText(text:'postadd'.tr),
+            title: CustomText(text: 'postadd'.tr, fontWeight: FontWeight.bold),
             onTap: () {
-              Get.to(()=> const TakeScreen());
+              Get.to(() => const TakeScreen());
             },
           ),
           ListTile(
             leading: const Icon(Icons.list_alt_outlined),
-            title:  CustomText(text:'mypost'.tr),
+            title: CustomText(text: 'mypost'.tr, fontWeight: FontWeight.bold),
             onTap: () {
-              Get.to(()=>const MyPost());
+              Get.to(() => const MyPost());
             },
           ),
           ListTile(
             leading: const Icon(Icons.play_circle_fill),
-            title:  CustomText(text:'tv'.tr),
+            title: CustomText(text: 'tv'.tr, fontWeight: FontWeight.bold),
             onTap: () {
-              Get.to(()=> const YoutubeView());
+              Get.to(() => const YoutubeView());
             },
           ),
           ListTile(
             leading: const Icon(Icons.add_ic_call_outlined),
-            title:  CustomText(text:'helpline'.tr),
+            title: CustomText(text: 'helpline'.tr, fontWeight: FontWeight.bold),
             onTap: () {
-              Get.to(()=>const UserHelpLine());
+              Get.to(() => const UserHelpLine());
             },
           ),
           ListTile(
             leading: const Icon(Icons.favorite),
-            title:  CustomText(text:'favorite'.tr),
+            title: CustomText(text: 'favorite'.tr, fontWeight: FontWeight.bold),
             onTap: () {
               Get.offAll(() => const FavoriteScreen());
-
             },
           ),
           ListTile(
             leading: const Icon(Icons.power_settings_new),
-            title:  CustomText(text:'logout'.tr),
+            title: CustomText(text: 'logout'.tr, fontWeight: FontWeight.bold),
             onTap: () {
               logOut();
             },
@@ -108,7 +117,6 @@ class _DrawerState extends State<MyDrawer> {
     );
   }
 }
-
 
 class AdminDrawer extends StatefulWidget {
   const AdminDrawer({Key? key}) : super(key: key);
@@ -126,46 +134,62 @@ class _AdminDrawerState extends State<AdminDrawer> {
         children: [
           const Center(
             child: UserAccountsDrawerHeader(
-              accountName: CustomText(fontWeight: FontWeight.bold,text:"Admin",color: Colors.white,),
-              accountEmail: CustomText(fontWeight: FontWeight.bold,text:"",color: Colors.white,),
+              accountName: CustomText(
+                fontWeight: FontWeight.bold,
+                text: "Admin",
+                color: Colors.white,
+              ),
+              accountEmail: CustomText(
+                fontWeight: FontWeight.bold,
+                text: "",
+                color: Colors.white,
+              ),
               currentAccountPicture: CircleAvatar(
                 backgroundColor: Colors.white,
                 foregroundColor: Colors.black,
-                child: Icon(Icons.person,size: 50,),
+                child: Icon(
+                  Icons.person,
+                  size: 50,
+                ),
               ),
             ),
           ),
           ListTile(
             leading: const Icon(Icons.person_pin),
-            title: CustomText(text:'Dashboard'),
+            title: const CustomText(
+                text: 'Dashboard', fontWeight: FontWeight.bold),
             onTap: () {
               Get.to(() => AdminDashboard());
             },
           ),
           ListTile(
             leading: const Icon(Icons.list_alt),
-            title: CustomText(text:'All Post'),
+            title:
+                const CustomText(text: 'All Post', fontWeight: FontWeight.bold),
             onTap: () {
               Get.to(() => AllPost());
             },
           ),
           ListTile(
             leading: const Icon(Icons.add_box_outlined),
-            title: CustomText(text:'Add Youtube Link'),
+            title: const CustomText(
+                text: 'Add Youtube Link', fontWeight: FontWeight.bold),
             onTap: () {
               Get.to(() => const InputYTLink());
             },
           ),
           ListTile(
             leading: const Icon(Icons.favorite),
-            title: CustomText(text:'Add Helpline Number'),
+            title: const CustomText(
+                text: 'Add Helpline Number', fontWeight: FontWeight.bold),
             onTap: () {
-              Get.to(()=> const HelpLineno());
+              Get.to(() => const HelpLineno());
             },
           ),
           ListTile(
             leading: const Icon(Icons.power_settings_new),
-            title: CustomText(text:'Logout'),
+            title:
+                const CustomText(text: 'Logout', fontWeight: FontWeight.bold),
             onTap: () {
               logOut();
             },

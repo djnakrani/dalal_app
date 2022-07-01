@@ -107,8 +107,9 @@ customDetails(title, value) {
     padding: const EdgeInsets.symmetric(vertical: 8.0),
     child: Row(
       children: [
-        CustomText(fontWeight: FontWeight.bold,text:title),
-        Flexible(child: CustomText(text:value)),
+        CustomText(fontWeight: FontWeight.bold, text: title),
+        const SizedBox(width: 10.0),
+        Flexible(child: CustomText(text: value)),
       ],
     ),
   );
