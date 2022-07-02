@@ -1,5 +1,4 @@
 import 'package:dalal_app/constants/imports.dart';
-import 'package:dalal_app/screens/admin_screens/youtube_link.dart';
 
 class HelpLineno extends StatefulWidget {
   const HelpLineno({Key? key}) : super(key: key);
@@ -51,7 +50,7 @@ class _HelpLinenoState extends State<HelpLineno> {
                   height: 40,
                   margin: syh20v5 + syv10,
                   child: CustomTextfield(
-                    myIcon: Icons.location_city,
+                    myIcon: Icons.my_location,
                     inputType: TextInputType.text,
                     inputTxt: 'taluko'.tr,
                     voidReturn: (value) {
@@ -68,8 +67,9 @@ class _HelpLinenoState extends State<HelpLineno> {
                   height: 40,
                   margin: syh20v5 + syv10,
                   child: CustomTextfield(
-                    myIcon: Icons.numbers,
+                    myIcon: Icons.app_registration,
                     inputType: TextInputType.text,
+                    maxsize: 10,
                     inputTxt: 'mobileNo'.tr,
                     voidReturn: (value) {
                       _number = value;
@@ -112,14 +112,15 @@ class _HelpLinenoState extends State<HelpLineno> {
                 Container(
                   margin: ah10,
                   height: Get.size.height / 100 * 50,
-                  decoration: const BoxDecoration(color: Colors.white),
+                  decoration:
+                      BoxDecoration(color: Colors.white, borderRadius: br20),
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
                         StreamBuilder<QuerySnapshot>(
                           stream: FirebaseFirestore.instance
                               .collection('HelpLineNo')
-                              .orderBy('taluko')
+                              .orderBy('Taluko')
                               .snapshots(),
                           builder: (context, snapshot) {
                             if (!snapshot.hasData) {
@@ -190,20 +191,6 @@ class _HelpLinenoState extends State<HelpLineno> {
       AlertShow(Error, Icons.error, onError);
     });
   }
-
-  // dataTableTitle(String s, Color color) {
-  //   return Expanded(
-  //       child: Container(
-  //     decoration: BoxDecoration(
-  //       borderRadius: br20,
-  //       color: color,
-  //     ),
-  //     child: Padding(
-  //       padding: const EdgeInsets.all(8.0),
-  //       child: CustomText(text: s),
-  //     ),
-  //   ));
-  // }
 
   Future removeData(String docId) async {
     await FirebaseFirestore.instance
