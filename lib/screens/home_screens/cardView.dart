@@ -41,8 +41,8 @@ Widget cardView(DocumentSnapshot ds, BuildContext context) {
                         ),
                         onPressed: () {
                           remove(ds);
-                          Get.to(()=>const FavoriteScreen());
-                          AlertShow('Success', Icons.check,'Removed');
+                          Get.to(() => const FavoriteScreen());
+                          AlertShow('Success', Icons.check, 'Removed');
                         },
                       )),
                 ],
@@ -59,44 +59,52 @@ Widget cardView(DocumentSnapshot ds, BuildContext context) {
                           children: [
                             Row(
                               children: [
-                                CustomText(fontWeight: FontWeight.bold,text:'seller'.tr + ' ' + 'name'.tr + ': '),
-                                CustomText(text:ds["Seller_Name"])
+                                CustomText(
+                                    fontWeight: FontWeight.bold,
+                                    text: 'seller'.tr + ' ' + 'name'.tr + ': '),
+                                CustomText(text: ds["Seller_Name"])
                               ],
                             ),
                             Row(
                               children: [
-                                CustomText(fontWeight: FontWeight.bold,text:'name'.tr + ': '),
-                                CustomText(text:ds["Item"])
+                                CustomText(
+                                    fontWeight: FontWeight.bold,
+                                    text: 'name'.tr + ': '),
+                                CustomText(text: ds["Item"])
                               ],
                             ),
                             Row(
                               children: [
-                                CustomText(fontWeight: FontWeight.bold,text:"address".tr + ': '),
-                                CustomText(text:ds["Address"])
+                                CustomText(
+                                    fontWeight: FontWeight.bold,
+                                    text: "address".tr + ': '),
+                                CustomText(text: ds["Address"])
                               ],
                             ),
                             Row(
                               children: [
                                 Padding(
-                                  padding: syh20 + ot50/2,
+                                  padding: syh20 + ot50 / 2,
                                   child: ElevatedButton(
                                       style: ElevatedButton.styleFrom(
                                         primary: myColors.colorPrimaryColor,
                                       ),
                                       onPressed: () {
-                                        Uri myUri = Uri.parse("tel: ${ds["MobileNo"]}");
+                                        Uri myUri =
+                                            Uri.parse("tel: ${ds["MobileNo"]}");
                                         launchUrl(myUri);
                                       },
                                       child: const Icon(Icons.call)),
                                 ),
                                 Padding(
-                                  padding: syh20 + ot50/2,
+                                  padding: syh20 + ot50 / 2,
                                   child: ElevatedButton(
                                       style: ElevatedButton.styleFrom(
                                         primary: myColors.colorPrimaryColor,
                                       ),
                                       onPressed: () {
-                                        String data = "Download App For More Details:";
+                                        String data =
+                                            "Download App For More Details:";
                                         launch(
                                             'https://wa.me/+91${ds["MobileNo"]}?text=$data');
                                       },
@@ -104,10 +112,10 @@ Widget cardView(DocumentSnapshot ds, BuildContext context) {
                                           height: 30,
                                           width: 30,
                                           image:
-                                          const AssetImage(Images.wsLogo))),
+                                              const AssetImage(Images.wsLogo))),
                                 ),
                                 Padding(
-                                  padding: syh20 + ot50/2,
+                                  padding: syh20 + ot50 / 2,
                                   child: ElevatedButton(
                                       style: ElevatedButton.styleFrom(
                                         primary: myColors.colorPrimaryColor,
@@ -132,9 +140,8 @@ void remove(DocumentSnapshot<Object?> ds) {
   FirebaseFirestore.instance.collection('Favorite').doc(uid).update({
     "Items": FieldValue.arrayRemove([ds.id.toString()])
   });
-  
-  Future.delayed(Duration(seconds: 1),(){
-    Get.offAll(()=>FavoriteScreen());
+
+  Future.delayed(Duration(seconds: 1), () {
+    Get.offAll(() => FavoriteScreen());
   });
 }
-
