@@ -59,9 +59,9 @@ Changes to This Privacy Policy
 
 I may update our Privacy Policy from time to time. Thus, you are advised to review this page periodically for any changes. I will notify you of any changes by posting the new Privacy Policy on this page.
 
-We Gives Your Demo Mobile Number & Otp for only testing purpose.
-    Mobile No : 99999 99999
-    OTP : 111111
+--> We Gives Your Demo Mobile Number & Otp for only testing purpose.
+      Mobile No : 9999999999
+      OTP : 111111
 
 This policy is effective as of 2022-06-26
 
