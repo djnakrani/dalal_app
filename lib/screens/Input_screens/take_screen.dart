@@ -10,13 +10,15 @@ class TakeScreen extends StatefulWidget {
 }
 
 class _TakeScreenState extends State<TakeScreen> {
-  final Stream<QuerySnapshot> data =
-      FirebaseFirestore.instance.collection("Category").orderBy("No").snapshots();
+  final Stream<QuerySnapshot> data = FirebaseFirestore.instance
+      .collection("Category")
+      .orderBy("No")
+      .snapshots();
 
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      insetPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+      insetPadding: syh20v5 + syv40,
       child: SizedBox(
           width: double.maxFinite,
           child: Column(
@@ -24,7 +26,7 @@ class _TakeScreenState extends State<TakeScreen> {
               Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: ah10,
                     child: ElevatedButton(
                         onPressed: () {
                           Get.to(() => const UserHelpLine());
@@ -35,9 +37,11 @@ class _TakeScreenState extends State<TakeScreen> {
                           children: [
                             Image.asset(Images.logoImage,
                                 height: 50.h, width: 50.w),
+                            const SizedBox(
+                              width: 10.0,
+                            ),
                             Padding(
-                              padding:
-                                  const EdgeInsets.only(top: 8.0, left: 5.0),
+                              padding: syv5,
                               child: Text(
                                 "helpline".tr,
                                 style: TextStyle(
@@ -55,10 +59,10 @@ class _TakeScreenState extends State<TakeScreen> {
                     builder: (BuildContext context,
                         AsyncSnapshot<QuerySnapshot> snapshot) {
                       if (snapshot.hasError) {
-                        return CustomText(text:"retry".tr);
+                        return CustomText(text: "retry".tr);
                       }
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return CustomText(text:"Wait....");
+                        return CustomText(text: "Wait....");
                       }
                       final category = snapshot.requireData;
                       return GridView.builder(
@@ -79,7 +83,8 @@ class _TakeScreenState extends State<TakeScreen> {
                               child: ElevatedButton(
                                 onPressed: () {
                                   Get.to(() => InputForm(
-                                      category: category.docs[index]['Type'],));
+                                        category: category.docs[index]['Type'],
+                                      ));
                                 },
                                 style: ElevatedButton.styleFrom(
                                     onPrimary: Colors.green,
@@ -97,8 +102,8 @@ class _TakeScreenState extends State<TakeScreen> {
                     onPressed: () {
                       Get.back();
                     },
-                    child: CustomText(text:
-                      'exit'.tr,
+                    child: CustomText(
+                      text: 'exit'.tr,
                     ),
                   )
                 ],

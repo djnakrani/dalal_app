@@ -12,11 +12,9 @@ Widget cardView(DocumentSnapshot ds, BuildContext context) {
       ),
       child: InkWell(
           onTap: () async {
-            Get.log(ds["Seller_Name"].toString());
-            await showDialog(
-              builder: (BuildContext context) => DetailScreen(ds),
-              context: context,
-            );
+            Get.dialog(CustomDetailsPopup(
+              dataSet: ds,
+            ));
           },
           child: Column(
             mainAxisSize: MainAxisSize.min,

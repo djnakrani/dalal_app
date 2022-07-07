@@ -33,7 +33,7 @@ class _AllPostState extends State<AllPost> {
                     padding: ob50,
                     itemBuilder: (context, index) {
                       DocumentSnapshot ds = snapshot.data!.docs[index];
-                      return myCard(ds, context);
+                      return myCard(ds);
                     });
               }
             },
@@ -41,7 +41,7 @@ class _AllPostState extends State<AllPost> {
     );
   }
 
-  Widget myCard(DocumentSnapshot ds, BuildContext context) {
+  Widget myCard(DocumentSnapshot ds) {
     return Card(
         clipBehavior: Clip.antiAlias,
         elevation: 10,
@@ -50,10 +50,9 @@ class _AllPostState extends State<AllPost> {
         ),
         child: InkWell(
             onTap: () async {
-              await showDialog(
-                builder: (BuildContext context) => DetailScreen(ds),
-                context: context,
-              );
+              Get.dialog(CustomDetailsPopup(
+                dataSet: ds,
+              ));
             },
             child: Column(
               mainAxisSize: MainAxisSize.min,

@@ -3,7 +3,6 @@ import 'package:dalal_app/screens/filter_screens/searchscreen.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
 
@@ -23,7 +22,11 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: CustomText(text:'appTitle'.tr,color:Colors.white,fontWeight: FontWeight.bold,),
+        title: CustomText(
+            text: 'appTitle'.tr,
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            size: 16.0),
         backgroundColor: myColors.colorPrimaryColor,
         actions: [
           IconButton(
@@ -57,7 +60,7 @@ class _HomeState extends State<Home> {
 
   Widget bottomBar(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: ah10,
       child: FloatingActionButton.extended(
         backgroundColor: myColors.colorPrimaryColor,
         onPressed: () {
@@ -71,7 +74,11 @@ class _HomeState extends State<Home> {
           Icons.add,
           size: 40,
         ),
-        label: CustomText(fontWeight: FontWeight.bold,text:'postadd'.tr, color: Colors.white,),
+        label: CustomText(
+          fontWeight: FontWeight.bold,
+          text: 'postadd'.tr,
+          color: Colors.white,
+        ),
       ),
     );
   }
@@ -85,11 +92,9 @@ class _HomeState extends State<Home> {
         ),
         child: InkWell(
             onTap: () async {
-              Get.log(ds["Seller_Name"].toString());
-              await showDialog(
-                builder: (BuildContext context) => DetailScreen(ds),
-                context: context,
-              );
+              Get.dialog(CustomDetailsPopup(
+                dataSet: ds,
+              ));
             },
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -113,7 +118,8 @@ class _HomeState extends State<Home> {
                             color: Colors.red,
                           ),
                           onPressed: () {
-                            AlertShow("Add In Favorite",Icons.check,"Check Your Favorite Box");
+                            AlertShow("Add In Favorite", Icons.check,
+                                "Check Your Favorite Box");
                             add(ds);
                           },
                         )),
@@ -131,56 +137,64 @@ class _HomeState extends State<Home> {
                             children: [
                               Row(
                                 children: [
-                                  CustomText(fontWeight: FontWeight.bold,text:'seller'.tr + ' ' + 'name'.tr + ': '),
-                                  CustomText(text:ds["Seller_Name"])
+                                  CustomText(
+                                      fontWeight: FontWeight.bold,
+                                      text:
+                                          'seller'.tr + ' ' + 'name'.tr + ': '),
+                                  CustomText(text: ds["Seller_Name"])
                                 ],
                               ),
                               Row(
                                 children: [
-                                  CustomText(fontWeight: FontWeight.bold,text:'name'.tr + ': '),
-                                  CustomText(text:ds["Item"])
+                                  CustomText(
+                                      fontWeight: FontWeight.bold,
+                                      text: 'name'.tr + ': '),
+                                  CustomText(text: ds["Item"])
                                 ],
                               ),
                               Row(
                                 children: [
-                                  CustomText(fontWeight: FontWeight.bold,text:"address".tr + ': '),
-                                  CustomText(text:ds["Address"])
+                                  CustomText(
+                                      fontWeight: FontWeight.bold,
+                                      text: "address".tr + ': '),
+                                  CustomText(text: ds["Address"])
                                 ],
                               ),
                               Row(
                                 children: [
                                   Padding(
-                                    padding: syh20 + ot50/2,
+                                    padding: syh20 + ot50 / 2,
                                     child: ElevatedButton(
                                         style: ElevatedButton.styleFrom(
                                           primary: myColors.colorPrimaryColor,
                                         ),
                                         onPressed: () {
-                                          Uri myUri = Uri.parse("tel: ${ds["MobileNo"]}");
+                                          Uri myUri = Uri.parse(
+                                              "tel: ${ds["MobileNo"]}");
                                           launchUrl(myUri);
                                         },
                                         child: const Icon(Icons.call)),
                                   ),
                                   Padding(
-                                    padding: syh20 + ot50/2,
+                                    padding: syh20 + ot50 / 2,
                                     child: ElevatedButton(
                                         style: ElevatedButton.styleFrom(
                                           primary: myColors.colorPrimaryColor,
                                         ),
                                         onPressed: () {
-                                          String Data = "Download App For More Details:";
+                                          String Data =
+                                              "Download App For More Details:";
                                           launch(
                                               'https://wa.me/+${ds["MobileNo"]}?text=$Data');
-
                                         },
                                         child: Ink.image(
                                             height: 30,
                                             width: 30,
-                                            image:
-                                                const AssetImage(Images.wsLogo))),
+                                            image: const AssetImage(
+                                                Images.wsLogo))),
                                   ),
                                   Padding(
-                                    padding: syh20 + ot50/2,
+                                    padding: syh20 + ot50 / 2,
                                     child: ElevatedButton(
                                         style: ElevatedButton.styleFrom(
                                           primary: myColors.colorPrimaryColor,

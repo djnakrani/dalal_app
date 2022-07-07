@@ -1,7 +1,5 @@
 import 'package:dalal_app/screens/filter_screens/searchscreen.dart';
 import 'package:dalal_app/constants/imports.dart';
-import 'package:share_plus/share_plus.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:dalal_app/screens/home_screens/cardView.dart';
 
 class FilterScreen extends StatefulWidget {
@@ -78,10 +76,9 @@ class _FilterScreenState extends State<FilterScreen> {
         ),
         child: InkWell(
             onTap: () async {
-              await showDialog(
-                builder: (BuildContext context) => DetailScreen(ds),
-                context: context,
-              );
+              Get.dialog(CustomDetailsPopup(
+                dataSet: ds,
+              ));
             },
             child: Column(
               mainAxisSize: MainAxisSize.min,

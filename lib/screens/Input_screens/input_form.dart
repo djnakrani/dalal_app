@@ -11,7 +11,15 @@ class InputForm extends StatefulWidget {
 }
 
 class _InputFormState extends State<InputForm> {
-  String? _name, _mobile, _title, _price, _details, _address, _city, _state,_taluko;
+  String? _name,
+      _mobile,
+      _title,
+      _price,
+      _details,
+      _address,
+      _city,
+      _state,
+      _taluko;
   final ImagePicker _picker = ImagePicker();
   final List<XFile> _selectedImage = [];
   var length;
@@ -47,10 +55,10 @@ class _InputFormState extends State<InputForm> {
                   child: Container(
                     constraints: const BoxConstraints(maxHeight: 60),
                     margin: ot50,
-                    child: Text(
-                      "${widget.category}" + 'producttitle'.tr + ' ' + 'add'.tr,
-                      style: const TextStyle(fontSize: 18),
-                    ),
+                    child: CustomText(
+                        text: 'producttitle'.tr + ' ' + 'add'.tr,
+                        fontWeight: FontWeight.bold,
+                        size: 16.0),
                   ),
                 ),
                 Container(
@@ -74,7 +82,7 @@ class _InputFormState extends State<InputForm> {
                   height: 40,
                   margin: syh20v5 + syv10,
                   child: CustomTextfield(
-                    myIcon: Icons.price_check,
+                    myIcon: Icons.price_change,
                     inputType: TextInputType.number,
                     inputTxt: 'price'.tr,
                     voidReturn: (value) {
@@ -109,7 +117,7 @@ class _InputFormState extends State<InputForm> {
                   height: 40,
                   margin: syh20v5,
                   child: CustomTextfield(
-                    myIcon: Icons.location_city_outlined,
+                    myIcon: Icons.my_location,
                     inputType: TextInputType.multiline,
                     maxLine: 4,
                     inputTxt: 'address'.tr,
@@ -127,11 +135,11 @@ class _InputFormState extends State<InputForm> {
                   height: 40,
                   margin: syh20v5,
                   child: CustomTextfield(
-                    myIcon: Icons.location_city,
+                    myIcon: Icons.location_on,
                     inputType: TextInputType.text,
-                    inputTxt: 'taluko'.tr,
+                    inputTxt: 'city'.tr,
                     voidReturn: (value) {
-                      _taluko = value;
+                      _city = value;
                     },
                     validationData: (data) {
                       if (data.isEmpty) {
@@ -144,11 +152,11 @@ class _InputFormState extends State<InputForm> {
                   height: 40,
                   margin: syh20v5,
                   child: CustomTextfield(
-                    myIcon: Icons.location_city,
+                    myIcon: Icons.local_police,
                     inputType: TextInputType.text,
-                    inputTxt: 'city'.tr,
+                    inputTxt: 'taluko'.tr,
                     voidReturn: (value) {
-                      _city = value;
+                      _taluko = value;
                     },
                     validationData: (data) {
                       if (data.isEmpty) {
@@ -174,7 +182,6 @@ class _InputFormState extends State<InputForm> {
                     },
                   ),
                 ),
-
                 (length != 0)
                     ? InkWell(
                         child: const Icon(Icons.close),
@@ -186,15 +193,15 @@ class _InputFormState extends State<InputForm> {
                         onTap: () => chooseImage(),
                         child: Column(
                           children: [
-                            CustomText(text:"Maximum 4 Photos Upload"),
+                            CustomText(text: "Maximum 4 Photos Upload"),
                             Container(
                               decoration: BoxDecoration(
                                   color: myColors.btnTextColor,
-                                  border:
-                                  Border.all(color: myColors.colorPrimaryColor),
+                                  border: Border.all(
+                                      color: myColors.colorPrimaryColor),
                                   borderRadius: br20),
-                              margin: syv10 + syh20 + syh20  ,
-                              padding: syv40/2,
+                              margin: syv10 + syh20 + syh20,
+                              padding: syv40 / 2,
                               child: const Icon(
                                 Icons.add,
                                 size: 80,
@@ -202,8 +209,7 @@ class _InputFormState extends State<InputForm> {
                               ),
                             ),
                           ],
-                        )
-                      )
+                        ))
                     : buildGridView(),
                 Container(
                   margin: syv10 + syh20,
@@ -245,10 +251,9 @@ class _InputFormState extends State<InputForm> {
     } catch (e) {
       Get.log(e.toString());
     }
-    if(_selectedImage.length > 4){
+    if (_selectedImage.length > 4) {
       ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-              content: Text("Maximum 4 Photos Allowed")));
+          const SnackBar(content: Text("Maximum 4 Photos Allowed")));
       setState(() {
         length = 0;
         _selectedImage.clear();
@@ -257,7 +262,7 @@ class _InputFormState extends State<InputForm> {
     setState(() {
       length = _selectedImage.length;
     });
-    Get.log(length);
+    // Get.log(length);
   }
 
   Widget buildGridView() {
@@ -293,20 +298,19 @@ class _InputFormState extends State<InputForm> {
 
     var date = DateTime.now().toString();
     var dateParse = DateTime.parse(date);
-    var formattedDate =
-        "${dateParse.day}-${dateParse.month}-${dateParse.year}";
+    var formattedDate = "${dateParse.day}-${dateParse.month}-${dateParse.year}";
     var finalDate = formattedDate.toString();
     Map<String, dynamic> data = {
       "Uid": uid,
       "Seller_Name": _name,
       "MobileNo": _mobile,
       "Category": widget.category,
-      "Details" : _details,
+      "Details": _details,
       "Item": _title,
       "Price": _price,
       "Address": _address,
       "City": _city,
-      "Taluko":_taluko,
+      "Taluko": _taluko,
       "State": _state,
       "Date": finalDate,
       "Urls": _imagesUrlsList,
@@ -343,7 +347,8 @@ class _InputFormState extends State<InputForm> {
         .doc()
         .set(data)
         .whenComplete(() => Get.offAll(() => const Home()))
-        .onError((error, stackTrace) => AlertShow("Error", Icons.error,error.toString()));
+        .onError((error, stackTrace) =>
+            AlertShow("Error", Icons.error, error.toString()));
     _imagesUrlsList.clear();
   }
 

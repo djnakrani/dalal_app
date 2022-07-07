@@ -62,7 +62,7 @@ class _UserDetailsState extends State<UserDetails> {
                     child: CustomText(
                       fontWeight: FontWeight.bold,
                       text: 'mydetails'.tr,
-                      size: 24.0,
+                      size: 18.0,
                     )),
               ),
               isloading

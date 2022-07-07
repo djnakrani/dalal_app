@@ -1,4 +1,5 @@
 import 'package:dalal_app/constants/imports.dart';
+import 'package:dalal_app/widget/custom_detailpopup.dart';
 
 class MyPost extends StatefulWidget {
   const MyPost({Key? key}) : super(key: key);
@@ -12,7 +13,6 @@ class _MyPostState extends State<MyPost> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     setState(() {
       uid = FirebaseAuth.instance.currentUser!.uid;
@@ -51,8 +51,8 @@ class _MyPostState extends State<MyPost> {
                     itemCount: snapshot.data?.size,
                     padding: ob50,
                     itemBuilder: (context, index) {
-                      DocumentSnapshot ds = snapshot.data!.docs[index];
-                      return myCard(ds, context);
+                      DocumentSnapshot dataSet = snapshot.data!.docs[index];
+                      return myCard(dataSet);
                     });
               }
             },
@@ -61,7 +61,7 @@ class _MyPostState extends State<MyPost> {
   }
 }
 
-Widget myCard(DocumentSnapshot ds, BuildContext context) {
+Widget myCard(DocumentSnapshot dataSet) {
   return Card(
       clipBehavior: Clip.antiAlias,
       elevation: 10,
@@ -69,11 +69,10 @@ Widget myCard(DocumentSnapshot ds, BuildContext context) {
         borderRadius: BorderRadius.circular(15.0),
       ),
       child: InkWell(
-          onTap: () async {
-            await showDialog(
-              builder: (BuildContext context) => DetailScreen(ds),
-              context: context,
-            );
+          onTap: () {
+            Get.dialog(CustomDetailsPopup(
+              dataSet: dataSet,
+            ));
           },
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -84,7 +83,7 @@ Widget myCard(DocumentSnapshot ds, BuildContext context) {
                 children: [
                   Ink.image(
                     height: 200,
-                    image: NetworkImage(ds["Urls"][0]),
+                    image: NetworkImage(dataSet["Urls"][0]),
                     width: 400,
                     fit: BoxFit.fitWidth,
                   ),
@@ -100,16 +99,13 @@ Widget myCard(DocumentSnapshot ds, BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            // customDetails('producttitle'.tr + ': ', ds["Item"]),
-                            // customDetails('seller'.tr + ' ' + 'name'.tr + ': ', ds["Seller_Name"]),
-                            // customDetails('price'.tr + ': ', ds["Price"]),
-                            // customDetails('date'.tr + ': ', ds["Date"]),
                             Row(
                               children: [
                                 CustomText(
                                     fontWeight: FontWeight.bold,
                                     text: 'seller'.tr + ' ' + 'name'.tr + ': '),
-                                CustomText(text: ds["Seller_Name"])
+                                CustomText(text: dataSet["Seller_Name"]),
+                                CustomText(text: dataSet["Uid"])
                               ],
                             ),
                             Row(
@@ -117,7 +113,7 @@ Widget myCard(DocumentSnapshot ds, BuildContext context) {
                                 CustomText(
                                     fontWeight: FontWeight.bold,
                                     text: 'name'.tr + ': '),
-                                CustomText(text: ds["Item"])
+                                CustomText(text: dataSet["Item"])
                               ],
                             ),
                             Row(
@@ -125,7 +121,7 @@ Widget myCard(DocumentSnapshot ds, BuildContext context) {
                                 CustomText(
                                     fontWeight: FontWeight.bold,
                                     text: "address".tr + ': '),
-                                CustomText(text: ds["Address"])
+                                CustomText(text: dataSet["Address"])
                               ],
                             ),
                           ],
@@ -140,7 +136,7 @@ Widget myCard(DocumentSnapshot ds, BuildContext context) {
                                   primary: myColors.colorPrimaryColor,
                                 ),
                                 onPressed: () {
-                                  removeData(ds.id);
+                                  removeData(dataSet.id);
                                 },
                                 child: const Icon(
                                   Icons.delete,
