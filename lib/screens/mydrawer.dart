@@ -57,7 +57,7 @@ class _DrawerState extends State<MyDrawer> {
           ),
           ListTile(
             leading: const Icon(Icons.home),
-            title: CustomText(text: 'home'.tr, fontWeight: FontWeight.bold),
+            title: CustomText(text: "home".tr, fontWeight: FontWeight.bold),
             onTap: () {
               Get.to(() => const Home());
             },
