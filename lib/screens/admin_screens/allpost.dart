@@ -13,7 +13,7 @@ class _AllPostState extends State<AllPost> {
     return Scaffold(
       appBar: AppBar(
         title: CustomText(
-            text: 'appTitle'.tr,
+            text: MyString.appName,
             color: Colors.white,
             fontWeight: FontWeight.bold,
             size: 18.0),
@@ -147,7 +147,7 @@ class _AllPostState extends State<AllPost> {
         .doc(docId)
         .delete()
         .then((value) => {
-              AlertShow('Success', Icons.check, 'Item Removed Successfully'),
+              alertShow('Success', Icons.check, 'Item Removed Successfully'),
               Get.off(() => const AllPost())
             });
   }

@@ -1,5 +1,4 @@
 import 'package:dalal_app/constants/imports.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class InputYTLink extends StatefulWidget {
   const InputYTLink({Key? key}) : super(key: key);
@@ -19,7 +18,7 @@ class _InputYTLinkState extends State<InputYTLink> {
     return Scaffold(
       appBar: AppBar(
         title: CustomText(
-            text: 'appTitle'.tr,
+            text: MyString.appName,
             color: Colors.white,
             fontWeight: FontWeight.bold,
             size: 18.0),
@@ -205,11 +204,11 @@ class _InputYTLinkState extends State<InputYTLink> {
         .doc()
         .set(data)
         .then((value) => () {
-              AlertShow('Success', Icons.check, 'Number Added..');
+              alertShow('Success', Icons.check, 'Number Added..');
               _youtubeForm.currentState!.reset();
             })
         .catchError((onError) {
-      AlertShow("Error", Icons.error, onError);
+      alertShow("Error", Icons.error, onError);
     });
   }
 
@@ -219,7 +218,7 @@ class _InputYTLinkState extends State<InputYTLink> {
         .doc(docId)
         .delete()
         .then((value) => {
-              AlertShow('Success', Icons.check, "Link Removed"),
+              alertShow('Success', Icons.check, "Link Removed"),
               Get.offAll(() => const InputYTLink())
             });
   }

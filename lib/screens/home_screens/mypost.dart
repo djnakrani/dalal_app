@@ -24,7 +24,7 @@ class _MyPostState extends State<MyPost> {
     return Scaffold(
       appBar: AppBar(
         title: CustomText(
-            text: 'appTitle'.tr,
+            text: MyString.appName,
             color: Colors.white,
             fontWeight: FontWeight.bold,
             size: 18.0),

@@ -18,7 +18,7 @@ class _HelpLinenoState extends State<HelpLineno> {
     return Scaffold(
       appBar: AppBar(
         title: CustomText(
-            text: 'appTitle'.tr,
+            text: MyString.appName,
             color: Colors.white,
             fontWeight: FontWeight.bold,
             size: 14.0),
@@ -184,11 +184,11 @@ class _HelpLinenoState extends State<HelpLineno> {
         .doc()
         .set(data)
         .then((value) => () {
-              AlertShow('Success', Icons.check, 'Number Added Successfully');
+              alertShow('Success', Icons.check, 'Number Added Successfully');
               Get.offAll(() => const HelpLineno());
             })
         .catchError((onError) {
-      AlertShow(Error, Icons.error, onError);
+      alertShow(Error, Icons.error, onError);
     });
   }
 
@@ -198,7 +198,7 @@ class _HelpLinenoState extends State<HelpLineno> {
         .doc(docId)
         .delete()
         .then((value) => {
-              AlertShow('Success', Icons.check, 'Number Removed Successfully'),
+              alertShow('Success', Icons.check, 'Number Removed Successfully'),
               Get.off(() => const HelpLineno())
             });
   }

@@ -1,6 +1,5 @@
 import 'package:dalal_app/constants/imports.dart';
 import 'package:dalal_app/screens/home_screens/favorite_screen.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 String uid = FirebaseAuth.instance.currentUser!.uid;
 Widget cardView(DocumentSnapshot ds, BuildContext context) {
@@ -40,7 +39,7 @@ Widget cardView(DocumentSnapshot ds, BuildContext context) {
                         onPressed: () {
                           remove(ds);
                           Get.to(() => const FavoriteScreen());
-                          AlertShow('Success', Icons.check, 'Removed');
+                          alertShow('Success', Icons.check, 'Removed');
                         },
                       )),
                 ],
@@ -101,8 +100,7 @@ Widget cardView(DocumentSnapshot ds, BuildContext context) {
                                         primary: myColors.colorPrimaryColor,
                                       ),
                                       onPressed: () {
-                                        String data =
-                                            "Download App For More Details:";
+                                        String data = 'share'.tr;
                                         launch(
                                             'https://wa.me/+91${ds["MobileNo"]}?text=$data');
                                       },
@@ -139,7 +137,7 @@ void remove(DocumentSnapshot<Object?> ds) {
     "Items": FieldValue.arrayRemove([ds.id.toString()])
   });
 
-  Future.delayed(Duration(seconds: 1), () {
-    Get.offAll(() => FavoriteScreen());
+  Future.delayed(const Duration(seconds: 1), () {
+    Get.offAll(() => const FavoriteScreen());
   });
 }

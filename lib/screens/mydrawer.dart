@@ -19,13 +19,13 @@ class MyDrawer extends StatefulWidget {
 
 class _DrawerState extends State<MyDrawer> {
   var uid = FirebaseAuth.instance.currentUser!.uid;
-  final user_name_email = GetStorage();
-  var name = "";
+  final userNameEmail = GetStorage();
+  var name = "dalal";
   var email = "";
   @override
   void initState() {
-    name = user_name_email.read('userName') ?? "";
-    email = user_name_email.read('userEmail') ?? "";
+    name = userNameEmail.read('userName') ?? "";
+    email = userNameEmail.read('userEmail') ?? "";
     super.initState();
   }
 
@@ -159,7 +159,7 @@ class _AdminDrawerState extends State<AdminDrawer> {
             title: const CustomText(
                 text: 'Dashboard', fontWeight: FontWeight.bold),
             onTap: () {
-              Get.to(() => AdminDashboard());
+              Get.to(() => const AdminDashboard());
             },
           ),
           ListTile(
@@ -167,7 +167,7 @@ class _AdminDrawerState extends State<AdminDrawer> {
             title:
                 const CustomText(text: 'All Post', fontWeight: FontWeight.bold),
             onTap: () {
-              Get.to(() => AllPost());
+              Get.to(() => const AllPost());
             },
           ),
           ListTile(

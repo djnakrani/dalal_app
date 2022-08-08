@@ -14,7 +14,7 @@ class _YoutubeViewState extends State<YoutubeView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(string.appName),
+        title:  Text(MyString.appName),
         backgroundColor: myColors.colorPrimaryColor,
       ),
       drawer: const MyDrawer(),

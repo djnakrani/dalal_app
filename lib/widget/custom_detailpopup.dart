@@ -67,8 +67,7 @@ class CustomDetailsPopup extends StatelessWidget {
                         primary: myColors.colorPrimaryColor,
                       ),
                       onPressed: () {
-                        String data = "Download App For More Details:";
-                        // ignore: deprecated_member_use
+                        String data = 'share'.tr;
                         launch(
                             'https://wa.me/+91${dataSet["MobileNo"]}?text=$data');
                       },
@@ -100,7 +99,12 @@ class CustomDetailsPopup extends StatelessWidget {
 }
 
 void share(DocumentSnapshot<Object?> ds) async {
-  String data = "Download App For More Details:";
+  String data = "Seller Name:" +ds["Seller_Name"]+
+      "\nMobile Number:" +ds["MobileNo"]+
+      "\nProduct:" +ds["Item"]+
+      "\nAddress:" +ds["Address"]+
+      "\nDetails:" +ds["Details"]+
+      "\nDownload App For More Details:https://play.google.com/store/apps/details?id=com.rudra.dalal_app";
   await Share.share(
     data,
     subject: 'producttitle'.tr + ds["Item"],

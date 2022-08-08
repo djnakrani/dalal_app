@@ -1,8 +1,5 @@
-import 'dart:ffi';
-
 import 'package:dalal_app/constants/Images.dart';
 import 'package:flutter/material.dart';
-import 'package:dalal_app/constants/myColors.dart';
 import 'package:dalal_app/constants/style.dart';
 
 

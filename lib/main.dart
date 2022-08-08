@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
           translations: LocateString(),
           locale: const Locale('en','US'),
           debugShowCheckedModeBanner: false,
-          title: 'appTitle'.tr,
+          title: MyString.appName,
           theme: ThemeData(
             primaryColor: myColors.colorPrimaryColor,
           ),

@@ -1,6 +1,6 @@
 import 'package:dalal_app/constants/imports.dart';
 
-AlertShow(msg, icon, desc) {
+alertShow(msg, icon, desc) {
   Get.defaultDialog(
       title: msg,
       content: Row(
@@ -9,7 +9,7 @@ AlertShow(msg, icon, desc) {
             icon,
             color: myColors.colorPrimaryColor,
           ),
-          SizedBox(
+          const SizedBox(
             width: 18,
           ),
           Expanded(child: Text(desc)),

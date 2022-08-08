@@ -26,7 +26,7 @@ class CustomButton extends StatelessWidget{
               Text(
                 btnTxt,
                 style:
-                TextStyle(color: myColors.btnTextColor),
+                const TextStyle(color: myColors.btnTextColor),
               ),
               Container(
                 padding: ah10,

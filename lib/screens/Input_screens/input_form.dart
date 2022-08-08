@@ -348,7 +348,7 @@ class _InputFormState extends State<InputForm> {
         .set(data)
         .whenComplete(() => Get.offAll(() => const Home()))
         .onError((error, stackTrace) =>
-            AlertShow("Error", Icons.error, error.toString()));
+            alertShow("Error", Icons.error, error.toString()));
     _imagesUrlsList.clear();
   }
 

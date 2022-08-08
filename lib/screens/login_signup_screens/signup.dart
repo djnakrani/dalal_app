@@ -181,10 +181,10 @@ class _SignupState extends State<Signup> {
         .doc(uid)
         .set(data)
         .then((value) => () {
-              AlertShow("Success", Icons.check, "");
+              alertShow("Success", Icons.check, "");
             })
         .catchError((onError) {
-      AlertShow("Error", Icons.error, onError.toString());
+      alertShow("Error", Icons.error, onError.toString());
     });
   }
 }

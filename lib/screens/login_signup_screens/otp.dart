@@ -15,8 +15,7 @@ class _OtpState extends State<Otp> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   String? uid;
   int i = 0;
-  final user_name_email = GetStorage();
-
+  final userNameEmail = GetStorage();
 
   final GlobalKey<FormState> _otpForm = GlobalKey<FormState>();
 
@@ -129,17 +128,17 @@ class _OtpState extends State<Otp> {
     //     Get.log(uid.toString());
     //   });
     // } else {
-    //   AlertShow("Error", Icons.error, "Retry");
+    //   alertShow("Error", Icons.error, "Retry");
     // }
   }
 
   void verificationFailed(FirebaseAuthException error) {
-    AlertShow("Error", Icons.error, error.message.toString());
+    alertShow("Error", Icons.error, error.message.toString());
   }
 
   void codeSent(String verificationId, [int? a]) async {
     setState(() {
-      print("Verify Data : $verificationId");
+      // print("Verify Data : $verificationId");
       _verificationCode = verificationId;
     });
   }
@@ -151,33 +150,32 @@ class _OtpState extends State<Otp> {
   }
 
   void _verifyOtp() async {
-    await Future.delayed(const Duration(seconds: 2),(){
-      Get.defaultDialog(title:"",content: CircularProgressIndicator());
+    await Future.delayed(const Duration(seconds: 2), () {
+      Get.defaultDialog(title: "", content: const CircularProgressIndicator());
     });
-    // Get.log(_code!);
     if (_verificationCode != null) {
       // i = 0;
       final AuthCredential credential = PhoneAuthProvider.credential(
         verificationId: _verificationCode!,
         smsCode: _code!,
       );
-      var userData = await _auth
+      await _auth
           .signInWithCredential(credential)
-         .then(
+          .then(
             (userData) => FirebaseFirestore.instance
                 .collection('User')
                 .doc(userData.user!.uid)
                 .get()
                 .then((value) {
               Get.log(value["IsAdmin"].toString());
-              user_name_email.write('userName',value["Name"].toString());
-              user_name_email.write('userEmail',value["Email"].toString());
+              userNameEmail.write('userName', value["Name"].toString());
+              userNameEmail.write('userEmail', value["Email"].toString());
               if (value["IsAdmin"] == "1") {
                 Get.offAll(() => const AdminDashboard());
               } else if (value["IsAdmin"] == "0") {
                 Get.offAll(() => const Home());
               } else {
-                print("Error");
+                // print("Error");
               }
             }).onError(
               (error, stackTrace) {
@@ -188,7 +186,7 @@ class _OtpState extends State<Otp> {
           )
           .onError(
         (error, stackTrace) {
-          AlertShow("Otp Not Match", Icons.error, "Please Enter Valid Otp");
+          alertShow("Otp Not Match", Icons.error, "Please Enter Valid Otp");
           Get.log("Not Match $error");
         },
       );
@@ -198,8 +196,6 @@ class _OtpState extends State<Otp> {
       if (i <= 1) {
         _verifyOtp();
       }
-      // AlertShow("Try Again", Icons.error, "Something Went Wrong");
     }
-
   }
 }

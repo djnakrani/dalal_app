@@ -1,7 +1,12 @@
 import 'package:dalal_app/constants/imports.dart';
 
-class string {
-  static const appName = "દલાલ";
+class MyString {
+  static String appName = "Dalal";
+  // static String appName = "Dalal";
+  // static String appName = "Dalal";
+  // static String appName = "Dalal";
+  // static String appName = "Dalal";
+
 }
 
 class LocateString extends Translations {
@@ -39,7 +44,8 @@ class LocateString extends Translations {
           'helpline': 'Helpline Number',
           'exit': 'Exit',
           'retry': 'Retry',
-          'logout': 'Logout'
+          'logout': 'Logout',
+          'share': 'I would like Your Post Post.',
         },
         'hi_IN': {
           'appTitle': 'दलाल',
@@ -72,7 +78,8 @@ class LocateString extends Translations {
           'helpline': 'हेल्पलाइन नंबर',
           'exit': 'बाहर',
           'retry': 'पुन: प्रयास करें',
-          'logout': 'लॉग आउट'
+          'logout': 'लॉग आउट',
+          'share': 'मुझे आपकी पोस्ट पसंद है, मैं इसे खरीदना चाहता हूं।',
         },
         'gu_IN': {
           'appTitle': 'દલાલ',
@@ -105,7 +112,8 @@ class LocateString extends Translations {
           'helpline': 'હેલ્પલાઇન નંબર',
           'exit': 'બહાર',
           'retry': 'ફરી પ્રયાસ કરો',
-          'logout': 'લોગ આઉટ'
+          'logout': 'લોગ આઉટ',
+          'share': ' મને આપની  પોસ્ટ પસંદ આવી છે, હું તે ખરીદવા માંગુ છું.',
         }
       };
 }

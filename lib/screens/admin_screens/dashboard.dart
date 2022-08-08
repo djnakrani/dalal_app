@@ -43,7 +43,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
     return Scaffold(
       appBar: AppBar(
         title: CustomText(
-            text: 'appTitle'.tr,
+            text: MyString.appName,
             color: Colors.white,
             fontWeight: FontWeight.bold,
             size: 18.0),
@@ -55,13 +55,13 @@ class _AdminDashboardState extends State<AdminDashboard> {
             padding: const EdgeInsets.all(10),
             child: Column(
               children: [
-                viewCard(Color.fromARGB(255, 32, 114, 0), "User",
+                viewCard(const Color.fromARGB(255, 32, 114, 0), "User",
                     Icons.supervised_user_circle, totalUser),
-                viewCard(Color.fromARGB(255, 41, 145, 0), "Items",
+                viewCard(const Color.fromARGB(255, 41, 145, 0), "Items",
                     Icons.view_list, totalItems),
-                viewCard(Color.fromARGB(255, 48, 170, 0), "Youtube Links",
+                viewCard(const Color.fromARGB(255, 48, 170, 0), "Youtube Links",
                     Icons.play_circle_fill, totalYouLink),
-                viewCard(Color.fromARGB(255, 62, 219, 0), "Helpline No",
+                viewCard(const Color.fromARGB(255, 62, 219, 0), "Helpline No",
                     Icons.view_list, totalHelpLineNo),
               ],
             )),
@@ -130,7 +130,7 @@ Widget viewCard(
         children: [
           Row(
             children: [
-              Spacer(),
+              const Spacer(),
               Column(children: [
                 CircleAvatar(
                   backgroundColor: Colors.white,
@@ -159,7 +159,7 @@ Widget viewCard(
                   fontWeight: FontWeight.bold,
                 ), //CircleAvatar
               ),
-              Spacer(),
+              const Spacer(),
             ],
           ),
         ],

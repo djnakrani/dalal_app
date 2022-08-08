@@ -18,7 +18,7 @@ class _SearchScreenState extends State<SearchScreen> {
     return Scaffold(
       appBar: AppBar(
         title: CustomText(
-            text: 'appTitle'.tr,
+            text: MyString.appName,
             color: Colors.white,
             fontWeight: FontWeight.bold,
             size: 18.0),
@@ -47,7 +47,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 child: getItems(),
               ),
               CustomTextfield(
-                  inputTxt: "Search In Your City",
+                  inputTxt: "Search In Near By & Mobile Number",
                   inputType: TextInputType.text,
                   myIcon: Icons.location_city,
                   voidReturn: (value) {
@@ -60,7 +60,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     btnTxt: 'next'.tr,
                     callback: () {
                       if (selectedItem == null) {
-                        AlertShow('Error', Icons.error, "Not Selected");
+                        alertShow('Error', Icons.error, "Not Selected");
                       } else {
                         Get.off(() => FilterScreen(
                               items: selectedItem,
@@ -101,7 +101,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       });
                     },
                     value: selectedItem,
-                    hint: CustomText(text: "Select Items"),
+                    hint: const CustomText(text: "Select Items"),
                     items: snapshot.data!.docs.map((document) {
                       return DropdownMenuItem(
                         value: document['Type'].toString(),
