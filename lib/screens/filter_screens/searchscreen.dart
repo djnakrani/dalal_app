@@ -40,9 +40,9 @@ class _SearchScreenState extends State<SearchScreen> {
                 margin: EdgeInsets.only(top: Get.size.height / 5) + ob50 / 2,
                 decoration: BoxDecoration(
                   border: Border.all(
-                    color: Colors.black,
+                    color: myColors.colorPrimaryColor,
                   ),
-                  borderRadius: br20,
+                  borderRadius: br20 / 2,
                 ),
                 child: getItems(),
               ),
@@ -104,7 +104,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     hint: CustomText(text: "Select Items"),
                     items: snapshot.data!.docs.map((document) {
                       return DropdownMenuItem(
-                        value: document['Type'].toString(),
+                        value: document.id,
                         child: CustomText(text: document['Type']),
                       );
                     }).toList(),

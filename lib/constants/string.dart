@@ -39,6 +39,7 @@ class LocateString extends Translations {
           'helpline': 'Helpline Number',
           'exit': 'Exit',
           'retry': 'Retry',
+          'privatepolicy':'Private Policy',
           'logout': 'Logout'
         },
         'hi_IN': {
@@ -72,6 +73,7 @@ class LocateString extends Translations {
           'helpline': 'हेल्पलाइन नंबर',
           'exit': 'बाहर',
           'retry': 'पुन: प्रयास करें',
+          'privatepolicy': 'निजी नीति',
           'logout': 'लॉग आउट'
         },
         'gu_IN': {
@@ -105,6 +107,7 @@ class LocateString extends Translations {
           'helpline': 'હેલ્પલાઇન નંબર',
           'exit': 'બહાર',
           'retry': 'ફરી પ્રયાસ કરો',
+          'privatepolicy': 'ખાનગી નીતિ',
           'logout': 'લોગ આઉટ'
         }
       };

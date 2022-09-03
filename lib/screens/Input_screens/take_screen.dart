@@ -83,7 +83,7 @@ class _TakeScreenState extends State<TakeScreen> {
                               child: ElevatedButton(
                                 onPressed: () {
                                   Get.to(() => InputForm(
-                                        category: category.docs[index]['Type'],
+                                        category: category.docs[index].id,
                                       ));
                                 },
                                 style: ElevatedButton.styleFrom(

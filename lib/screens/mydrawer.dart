@@ -106,6 +106,14 @@ class _DrawerState extends State<MyDrawer> {
             },
           ),
           ListTile(
+            leading: const Icon(Icons.favorite),
+            title: CustomText(text: 'privatepolicy'.tr, fontWeight: FontWeight.bold),
+            onTap: () {
+              launch(
+                  'https://dalalapp.blogspot.com/2022/09/dalal.html');
+            },
+          ),
+          ListTile(
             leading: const Icon(Icons.power_settings_new),
             title: CustomText(text: 'logout'.tr, fontWeight: FontWeight.bold),
             onTap: () {
